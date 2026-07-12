@@ -1,8 +1,11 @@
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
+import { useSEO } from '@/hooks/use-seo';
 
 export default function About() {
+  useSEO('About | Vian Garg', 'Vian Garg is an ECE student with a Robotics minor, focused on building and integrating systems across robotics, automation, controls, perception, and mechanical-electrical design.');
+
   return (
     <div className="flex flex-col gap-12 animate-in fade-in duration-700 max-w-3xl pb-16">
       
@@ -56,9 +59,9 @@ export default function About() {
               href="https://vian-g.itch.io/skyryder" 
               target="_blank" 
               rel="noopener noreferrer"
-              tabIndex={-1}
+              className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
             >
-              <PhysicalButton variant="rust" size="sm" className="whitespace-nowrap">
+              <PhysicalButton asDiv variant="rust" size="sm" className="whitespace-nowrap">
                 PLAY SKYRYDER ↗
               </PhysicalButton>
             </a>

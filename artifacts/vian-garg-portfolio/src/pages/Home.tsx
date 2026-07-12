@@ -1,42 +1,61 @@
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
+import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { Link } from 'wouter';
+import { useSEO } from '@/hooks/use-seo';
+import { RESUME_PDF_URL } from '@/config/resume';
 
 export default function Home() {
+  useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
+
   return (
     <div className="flex flex-col gap-16 md:gap-24 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
       
       {/* Hero Section */}
-      <section className="flex flex-col gap-6 md:gap-8 relative">
+      <section className="flex flex-col lg:flex-row gap-6 md:gap-8 relative justify-between">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8D8A821A_1px,transparent_1px),linear-gradient(to_bottom,#8D8A821A_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_left_top,black_20%,transparent_70%)]" />
         
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
-          <MetalDataPlate title="ID" className="w-fit" screwPositions="sides">
-            VIAN_GARG
-          </MetalDataPlate>
-          <div className="font-mono text-xs text-muted-foreground flex gap-4">
-            <span>STATUS: NOMINAL</span>
-            <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-[#B87D2A]/80 shadow-[0_0_4px_rgba(184,125,42,0.4)]" /> ACTIVE</span>
+        <div className="flex flex-col gap-6 md:gap-8 lg:w-2/3">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between lg:justify-start lg:gap-8">
+            <MetalDataPlate title="ID" className="w-fit" screwPositions="sides">
+              VIAN_GARG
+            </MetalDataPlate>
+            <div className="font-mono text-xs text-muted-foreground flex gap-4">
+              <span>STATUS: NOMINAL</span>
+              <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-[#B87D2A]/80 shadow-[0_0_4px_rgba(184,125,42,0.4)]" /> ACTIVE</span>
+            </div>
+          </div>
+          
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground leading-[1.05] tracking-tight max-w-4xl pt-4">
+            Precision robotics & <br />
+            <span className="text-muted-foreground italic">autonomous controls.</span>
+          </h1>
+          
+          <div className="max-w-2xl font-sans text-lg text-secondary-foreground leading-relaxed mt-4">
+            ECE student specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotics integration.
+          </div>
+          
+          <div className="flex flex-wrap gap-4 mt-4">
+            <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
+              <PhysicalButton asDiv variant="rust" size="lg">VIEW_PROJECT_LOGS</PhysicalButton>
+            </Link>
+            {RESUME_PDF_URL ? (
+              <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
+                 <PhysicalButton asDiv variant="graphite" size="lg">DOWNLOAD_SPEC (CV) ↗</PhysicalButton>
+              </a>
+            ) : (
+              <div className="cursor-not-allowed">
+                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed">DOWNLOAD_SPEC (CV) ↗</PhysicalButton>
+              </div>
+            )}
           </div>
         </div>
-        
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground leading-[1.05] tracking-tight max-w-4xl pt-4">
-          Precision robotics & <br />
-          <span className="text-muted-foreground italic">autonomous controls.</span>
-        </h1>
-        
-        <div className="max-w-2xl font-sans text-lg text-secondary-foreground leading-relaxed mt-4">
-          ECE student specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotics integration.
-        </div>
-        
-        <div className="flex flex-wrap gap-4 mt-4">
-          <Link href="/work" tabIndex={-1}>
-            <PhysicalButton variant="rust" size="lg">VIEW_PROJECT_LOGS</PhysicalButton>
-          </Link>
-          <a href="#" tabIndex={-1}>
-             <PhysicalButton variant="graphite" size="lg">DOWNLOAD_SPEC (CV)</PhysicalButton>
-          </a>
+
+        <div className="hidden lg:block lg:w-1/3 relative flex justify-end items-center">
+           <div className="w-full max-w-[320px] aspect-square opacity-60 pointer-events-none mt-8">
+              <SystemsRibbonSvg activeState="01" />
+           </div>
         </div>
       </section>
 
@@ -101,10 +120,10 @@ export default function Home() {
             <div className="w-full h-px bg-primary/30 flex-1 hidden md:block" />
           </h2>
           <p className="font-sans text-sm text-muted-foreground">
-            Autonomous navigation system for unstructured industrial inspection environments.
+            Mechanical and robotics contributions to a lunar excavation system.
           </p>
-          <Link href="/work/autonomous-rover-v2" className="mt-auto pt-4 outline-none" tabIndex={-1}>
-            <PhysicalButton variant="metal" className="w-full">ACCESS_FILE</PhysicalButton>
+          <Link href="/projects/moon-miners" className="mt-auto pt-4 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
+            <PhysicalButton asDiv variant="metal" className="w-full">ACCESS_FILE</PhysicalButton>
           </Link>
         </div>
         
@@ -124,7 +143,7 @@ export default function Home() {
                </div>
                
                {/* Radar sweep line */}
-               <div className="absolute top-1/2 left-1/2 w-1/2 h-[1px] bg-[#315E73]/60 origin-left animate-[spin_4s_linear_infinite]" />
+               <div className="absolute top-1/2 left-1/2 w-1/2 h-[1px] bg-[#315E73]/60 origin-left animate-[spin_4s_linear_infinite] motion-reduce:animate-none motion-reduce:hidden" />
                
                {/* Mock detected point */}
                <div className="absolute top-1/4 right-1/4 w-1.5 h-1.5 bg-[#B87D2A] rounded-full shadow-[0_0_4px_#B87D2A]" />

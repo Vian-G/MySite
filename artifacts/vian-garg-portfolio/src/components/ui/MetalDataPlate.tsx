@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 interface MetalDataPlateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   screwPositions?: 'none' | 'corners' | 'sides';
   title?: React.ReactNode;
+  isInteractive?: boolean;
 }
 
 export function MetalDataPlate({ 
@@ -11,6 +12,7 @@ export function MetalDataPlate({
   className, 
   screwPositions = 'corners',
   title,
+  isInteractive = false,
   ...props 
 }: MetalDataPlateProps) {
   const renderScrew = (pos: string) => (
@@ -31,6 +33,7 @@ export function MetalDataPlate({
         'relative bg-secondary text-secondary-foreground font-mono text-xs',
         'border border-foreground/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]',
         'px-3 py-1.5 flex flex-col gap-1',
+        isInteractive && 'hover:bg-[#C0BDA3]/50 transition-colors duration-150 cursor-pointer motion-reduce:transition-none',
         className
       )}
       {...props}

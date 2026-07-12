@@ -4,10 +4,11 @@ import { cn } from '@/lib/utils';
 interface PhysicalButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'metal' | 'graphite' | 'rust';
   size?: 'sm' | 'md' | 'lg';
+  asDiv?: boolean;
 }
 
-export const PhysicalButton = React.forwardRef<HTMLButtonElement, PhysicalButtonProps>(
-  ({ className, variant = 'graphite', size = 'md', children, ...props }, ref) => {
+export const PhysicalButton = React.forwardRef<any, PhysicalButtonProps>(
+  ({ className, variant = 'graphite', size = 'md', asDiv, children, ...props }, ref) => {
     
     const variants = {
       metal: 'bg-secondary text-secondary-foreground border-foreground/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_2px_4px_rgba(0,0,0,0.1),0_1px_1px_rgba(0,0,0,0.1)] hover:bg-[#C0BDA3]',
@@ -21,21 +22,25 @@ export const PhysicalButton = React.forwardRef<HTMLButtonElement, PhysicalButton
       lg: 'px-6 py-3 text-base',
     };
 
+    const Comp = asDiv ? 'div' : 'button';
+
     return (
-      <button
+      <Comp
         ref={ref}
         className={cn(
           'relative inline-flex items-center justify-center rounded-[2px] border font-sans font-medium',
-          'transition-all duration-75 ease-out outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background',
+          'transition-all duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+          'hover:-translate-y-[1px] hover:shadow-sm motion-reduce:transition-none motion-reduce:hover:translate-y-0',
           'active:translate-y-[1px] active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.15),0_0px_0px_rgba(0,0,0,0)]',
+          props.disabled && 'opacity-50 cursor-not-allowed hover:translate-y-0 hover:shadow-none hover:bg-inherit',
           variants[variant],
           sizes[size],
           className
         )}
-        {...props}
+        {...(props as any)}
       >
         {children}
-      </button>
+      </Comp>
     );
   }
 );

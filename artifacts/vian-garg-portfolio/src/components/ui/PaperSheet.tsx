@@ -3,9 +3,10 @@ import { cn } from '@/lib/utils';
 
 interface PaperSheetProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'clipped' | 'folded';
+  isInteractive?: boolean;
 }
 
-export function PaperSheet({ children, className, variant = 'default', ...props }: PaperSheetProps) {
+export function PaperSheet({ children, className, variant = 'default', isInteractive = false, ...props }: PaperSheetProps) {
   return (
     <div
       className={cn(
@@ -13,6 +14,7 @@ export function PaperSheet({ children, className, variant = 'default', ...props 
         'border border-border border-b-muted-foreground/40 border-r-muted-foreground/30',
         'shadow-sm',
         variant === 'clipped' && 'rounded-br-2xl',
+        isInteractive && 'hover:-translate-y-[2px] hover:shadow-md transition-all duration-300 cursor-pointer motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         className
       )}
       {...props}

@@ -143,14 +143,14 @@ export function ProjectLayout({
       </div>
 
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
-        <Link href={prevLink.href}>
-          <PhysicalButton variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
+        <Link href={prevLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+          <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
             <span className="text-muted-foreground/70">{'<-'} PREV</span>
             <span>{prevLink.label}</span>
           </PhysicalButton>
         </Link>
-        <Link href={nextLink.href}>
-          <PhysicalButton variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
+        <Link href={nextLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+          <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
             <span>{nextLink.label}</span>
             <span className="text-muted-foreground/70">NEXT {'->'}</span>
           </PhysicalButton>

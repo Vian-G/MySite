@@ -1,8 +1,12 @@
 import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PaperSheet } from '@/components/ui/PaperSheet';
+import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
+import { useSEO } from '@/hooks/use-seo';
 
 export default function Ur10eWelding() {
+  useSEO('UR10e Welding Automation | Vian Garg', 'Integrating collaborative robotics with industrial welding equipment.');
+
   const approachComposition = (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
       <PaperSheet variant="default" className="p-4 border-dashed border-border/60 bg-transparent flex flex-col gap-2 shadow-none">
@@ -46,22 +50,7 @@ export default function Ur10eWelding() {
       approach={approachComposition}
       primaryFigure={{
         label: "INTEGRATION SCHEMATIC / CONCEPTUAL",
-        svg: (
-          <svg viewBox="0 0 400 250" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-foreground/80">
-            <rect x="60" y="200" width="80" height="20" />
-            <path d="M 80 200 L 120 200 L 100 160 Z" />
-            <circle cx="100" cy="160" r="15" />
-            <path d="M 100 145 L 180 80" />
-            <circle cx="180" cy="80" r="15" />
-            <path d="M 195 80 L 260 120" />
-            <circle cx="260" cy="120" r="15" />
-            <path d="M 270 130 L 300 160" />
-            <path d="M 300 160 L 310 180" className="stroke-primary" strokeWidth="3" />
-            <path d="M 310 180 L 305 190" className="stroke-primary" />
-            <path d="M 310 200 Q 340 180 370 200" strokeDasharray="6 6" className="stroke-[hsl(var(--accent))]" strokeWidth="2" />
-            <path d="M 290 220 L 390 220" strokeWidth="4" />
-          </svg>
-        )
+        svg: <SystemsRibbonSvg activeState="02" />
       }}
       reinforced="This project focused attention on the interfaces that make industrial automation work: robot programming, equipment integration, and reliable communication."
       prevLink={{ href: "/projects/moon-miners", label: "01 / MOON MINERS" }}

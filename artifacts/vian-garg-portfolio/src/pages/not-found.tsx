@@ -1,23 +1,26 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { AlertCircle } from 'lucide-react';
+import { Link } from 'wouter';
+import { PaperSheet } from '@/components/ui/PaperSheet';
+import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
+import { PhysicalButton } from '@/components/ui/PhysicalButton';
+import { useSEO } from '@/hooks/use-seo';
 
 export default function NotFound() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              404 Page Not Found
-            </h1>
-          </div>
+  useSEO('404 | Vian Garg', 'Page not found.');
 
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+  return (
+    <div className="min-h-[60vh] w-full flex items-center justify-center animate-in fade-in duration-700">
+      <div className="flex flex-col gap-6 items-center">
+        <MetalDataPlate>SYS_ERR / 404</MetalDataPlate>
+        <PaperSheet className="p-8 md:p-12 max-w-md text-center flex flex-col items-center gap-6" variant="clipped">
+          <h1 className="font-serif text-3xl md:text-4xl text-foreground">File not found</h1>
+          <p className="font-sans text-muted-foreground text-sm leading-relaxed">
+            The requested technical document or project log could not be located in the current directory.
           </p>
-        </CardContent>
-      </Card>
+          <Link href="/" className="outline-none mt-2 focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+            <PhysicalButton asDiv variant="graphite">RETURN TO INDEX {'->'}</PhysicalButton>
+          </Link>
+        </PaperSheet>
+      </div>
     </div>
   );
 }
