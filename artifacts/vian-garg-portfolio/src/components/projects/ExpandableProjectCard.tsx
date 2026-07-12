@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
@@ -40,6 +40,21 @@ function isCoarsePointer() {
   return typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches;
 }
 
+/** Tracks Tailwind's `lg` breakpoint (1024px) — the expand-to-full-width breakout only makes
+ *  sense once the two-column grid layout (cards + sticky panel) is active. */
+function useIsLgUp() {
+  const [isLgUp, setIsLgUp] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const handler = (e: MediaQueryListEvent) => setIsLgUp(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  return isLgUp;
+}
+
 export function ExpandableProjectCard({
   project: prj,
   index: i,
@@ -65,6 +80,8 @@ export function ExpandableProjectCard({
     onNavigate();
   };
 
+  const isLgUp = useIsLgUp();
+
   return (
     <motion.div
       layout
@@ -72,9 +89,11 @@ export function ExpandableProjectCard({
       className="scroll-mt-32 relative"
       style={{ zIndex: isExpanded ? 30 : 1 }}
       animate={{
-        marginLeft: isExpanded ? 'calc(50% - 46vw)' : '0px',
-        marginRight: isExpanded ? 'calc(50% - 46vw)' : '0px',
-        width: isExpanded ? '92vw' : '100%',
+        // Grows rightward from its normal left edge to cover both grid columns (the card's own
+        // 8-of-12 column plus the 4-of-12 sticky-panel column and the gap-12 between them), rather
+        // than centering on the viewport — the card's container isn't itself centered on the page,
+        // so viewport-relative (vw) math pushed it off-screen to the left.
+        width: isExpanded && isLgUp ? 'calc(150% + 48px)' : '100%',
       }}
       transition={{ type: 'spring', stiffness: 260, damping: 30, mass: 0.9 }}
       onHoverStart={onHoverStart}
