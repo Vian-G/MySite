@@ -6,6 +6,9 @@ import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { RESUME_PDF_URL } from '@/config/resume';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
+import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
+import ur10ePhoto from '@/assets/projects/ur10e.jpg';
+import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
 
 export default function Home() {
   useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
@@ -18,7 +21,8 @@ export default function Home() {
       problem: 'Developing a high-payload autonomous lunar excavation rover for competition.',
       stack: ['SolidWorks', 'CAD', 'Simulation', 'Robotics'],
       result: 'Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 simulant.',
-      href: '/projects/moon-miners'
+      href: '/projects/moon-miners',
+      photo: moonMinersPhoto,
     },
     {
       id: '02',
@@ -27,7 +31,8 @@ export default function Home() {
       problem: 'Developing a virtual cobot welding system bridging human motion to execution.',
       stack: ['UR10e', 'URScript', 'EtherNet/IP'],
       result: 'Engineered remote validation infrastructure for uploading/testing scripts over VPN via SSH.',
-      href: '/projects/ur10e-welding'
+      href: '/projects/ur10e-welding',
+      photo: ur10ePhoto,
     },
     {
       id: '03',
@@ -36,7 +41,8 @@ export default function Home() {
       problem: 'Contributing mechanical hardware to a CMU / Astrobotic / NASA autonomous lunar rover launching in 2029.',
       stack: ['SolidWorks', 'CAD', 'Stereo Vision Hardware'],
       result: "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system.",
-      href: '/projects/moon-ranger'
+      href: '/projects/moon-ranger',
+      photo: moonRangerPhoto,
     }
   ];
 
@@ -105,8 +111,16 @@ export default function Home() {
             <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
               <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
                 
-                <div className="hidden md:flex w-24 h-24 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)]">
-                  <SystemsRibbonSvg activeState={prj.id as any} />
+                <div className="hidden md:flex relative w-24 h-24 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
+                  <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
+                    <SystemsRibbonSvg activeState={prj.id as any} />
+                  </div>
+                  <img
+                    src={prj.photo}
+                    alt={`Photo reference for ${prj.title}`}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-100"
+                  />
                 </div>
 
                 <div className="flex-1 flex flex-col gap-4">

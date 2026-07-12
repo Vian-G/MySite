@@ -3,9 +3,14 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { FolderTab } from '@/components/ui/FolderTab';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
+import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { useActiveSection } from '@/hooks/use-active-section';
+import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
+import ur10ePhoto from '@/assets/projects/ur10e.jpg';
+import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
+import skyryderPhoto from '@/assets/projects/skyryder.jpg';
 
 export default function ProjectsIndex() {
   useSEO('Engineering Work | Vian Garg', 'Projects spanning rover systems, industrial automation, perception workflows, and interactive development.');
@@ -18,6 +23,7 @@ export default function ProjectsIndex() {
       summary: "Developing a high-payload autonomous lunar excavation rover. Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant.",
       tools: "SolidWorks, CAD, Mechanical Design, Simulation, Robotics, Autonomous Systems",
       href: "/projects/moon-miners",
+      photo: moonMinersPhoto,
     },
     {
       id: "02",
@@ -26,6 +32,7 @@ export default function ProjectsIndex() {
       summary: "Developing a virtual cobot welding system that bridges human motion input to UR10e execution via URScript. Engineered remote validation infrastructure for script testing.",
       tools: "UR10e, URScript, Python, Industrial Robotics, SSH, Automation",
       href: "/projects/ur10e-welding",
+      photo: ur10ePhoto,
     },
     {
       id: "03",
@@ -34,6 +41,7 @@ export default function ProjectsIndex() {
       summary: "A CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing its stereo-vision navigation system.",
       tools: "SolidWorks, CAD, Mechanical Design, Stereo Vision Hardware Integration",
       href: "/projects/moon-ranger",
+      photo: moonRangerPhoto,
     },
     {
       id: "04",
@@ -41,6 +49,7 @@ export default function ProjectsIndex() {
       type: "Interactive Work / Playable Project",
       summary: "Skyryder is an original playable game project, published independently on itch.io.",
       href: "/skyryder",
+      photo: skyryderPhoto,
     }
   ];
 
@@ -76,11 +85,20 @@ export default function ProjectsIndex() {
                     )}
                   </div>
                   
-                  <div>
-                    <h2 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors mb-2">{prj.title}</h2>
-                    <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-                      {prj.summary}
-                    </p>
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
+                    <div className="flex-1">
+                      <h2 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors mb-2">{prj.title}</h2>
+                      <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                        {prj.summary}
+                      </p>
+                    </div>
+                    <TornPhotoWindow
+                      src={prj.photo}
+                      alt={`Photo reference for ${prj.title}`}
+                      variant={(i % 3) as 0 | 1 | 2}
+                      rotate={i % 2 === 0 ? -4 : 3}
+                      className="hidden sm:block shrink-0 w-28 h-28 md:w-32 md:h-32"
+                    />
                   </div>
 
                   <div className="w-full h-48 border border-border/50 bg-[#E8E6D9] overflow-hidden flex items-center justify-center p-4 lg:hidden shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)]">
