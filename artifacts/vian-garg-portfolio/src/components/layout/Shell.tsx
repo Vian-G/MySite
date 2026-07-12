@@ -15,7 +15,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-[100dvh] flex flex-col relative w-full overflow-x-hidden selection:bg-primary/20 selection:text-foreground">
+    <div className="min-h-[100dvh] flex flex-col relative w-full overflow-x-clip selection:bg-primary/20 selection:text-foreground">
       {/* Top drafting rule / technical header */}
       <header className="w-full border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 md:px-8 h-12 flex items-center justify-between font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider">
