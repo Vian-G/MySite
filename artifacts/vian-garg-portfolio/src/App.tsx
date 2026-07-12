@@ -4,6 +4,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { Shell } from '@/components/layout/Shell';
+import { PageTransitionProvider } from '@/components/layout/PageTransitionOverlay';
 
 import Home from '@/pages/Home';
 import ProjectsIndex from '@/pages/ProjectsIndex';
@@ -37,9 +38,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-          <Shell>
-            <Router />
-          </Shell>
+          <PageTransitionProvider>
+            <Shell>
+              <Router />
+            </Shell>
+          </PageTransitionProvider>
         </WouterRouter>
         <Toaster />
       </TooltipProvider>

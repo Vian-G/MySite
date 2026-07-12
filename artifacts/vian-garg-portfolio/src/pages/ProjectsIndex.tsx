@@ -7,6 +7,7 @@ import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { useActiveSection } from '@/hooks/use-active-section';
+import { usePageTransition } from '@/components/layout/PageTransitionOverlay';
 import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
 import ur10ePhoto from '@/assets/projects/ur10e.jpg';
 import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
@@ -55,6 +56,7 @@ export default function ProjectsIndex() {
 
   const projectIds = projects.map(p => `project-${p.id}`);
   const activeProjectId = useActiveSection(projectIds, 0.4);
+  const { navigateWithFlash } = usePageTransition();
 
   return (
     <div className="flex flex-col gap-10 animate-in fade-in duration-700 pb-16">
@@ -74,8 +76,15 @@ export default function ProjectsIndex() {
         <div className="lg:col-span-8 flex flex-col gap-12">
           {projects.map((prj, i) => (
             <div id={`project-${prj.id}`} key={prj.id} className="scroll-mt-32">
-              <Link href={prj.href} className="outline-none block group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-                <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col gap-6 group-hover:border-primary/40 transition-colors h-full" variant={i % 2 === 0 ? "clipped" : "default"}>
+              <Link
+                href={prj.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateWithFlash(prj.href);
+                }}
+                className="outline-none block group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
+              >
+                <PaperSheet isInteractive growOnHover className="p-6 md:p-8 flex flex-col gap-6 group-hover:border-primary/40 transition-colors h-full" variant={i % 2 === 0 ? "clipped" : "default"}>
                   <div className="flex justify-between items-start">
                     <MetalDataPlate title="ENTRY">{prj.id}</MetalDataPlate>
                     {prj.type && (
