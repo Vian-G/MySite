@@ -18,8 +18,10 @@ interface ProjectLayoutProps {
     STATUS?: string;
   };
   brief: string;
+  objective?: string;
   workedOn?: string[];
   approach: string[] | React.ReactNode;
+  challenges?: string[] | React.ReactNode;
   primaryFigure: {
     svg: React.ReactNode;
     label: string;
@@ -37,8 +39,10 @@ export function ProjectLayout({
   subtitle,
   metadata,
   brief,
+  objective,
   workedOn,
   approach,
+  challenges,
   primaryFigure,
   reinforced,
   prevLink,
@@ -85,16 +89,26 @@ export function ProjectLayout({
         <section>
           <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            The brief
+            Overview
           </h2>
           <p className="font-sans text-foreground leading-relaxed">{brief}</p>
         </section>
+
+        {objective && (
+          <section>
+            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+              Objective
+            </h2>
+            <p className="font-sans text-foreground leading-relaxed">{objective}</p>
+          </section>
+        )}
 
         {workedOn && workedOn.length > 0 && (
           <section>
             <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-              What I worked on
+              What I built
             </h2>
             <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
               {workedOn.map((item, idx) => (
@@ -107,7 +121,7 @@ export function ProjectLayout({
         <section>
           <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            Approach
+            Tools & Stack
           </h2>
           {Array.isArray(approach) ? (
             <div className="flex flex-wrap gap-2">
@@ -121,6 +135,24 @@ export function ProjectLayout({
             approach
           )}
         </section>
+
+        {challenges && (
+          <section>
+            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+              Key Challenges
+            </h2>
+            {Array.isArray(challenges) ? (
+              <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
+                {challenges.map((item, idx) => (
+                  <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <div className="font-sans text-foreground leading-relaxed">{challenges}</div>
+            )}
+          </section>
+        )}
 
         <section>
           <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
@@ -136,7 +168,7 @@ export function ProjectLayout({
         <section>
           <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            What it reinforced
+            Results & lessons learned
           </h2>
           <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
         </section>
@@ -145,14 +177,14 @@ export function ProjectLayout({
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
         <Link href={prevLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
-            <span className="text-muted-foreground/70">{'<-'} PREV</span>
+            <span className="text-muted-foreground/70">{'<-'} Previous</span>
             <span>{prevLink.label}</span>
           </PhysicalButton>
         </Link>
         <Link href={nextLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
             <span>{nextLink.label}</span>
-            <span className="text-muted-foreground/70">NEXT {'->'}</span>
+            <span className="text-muted-foreground/70">Next {'->'}</span>
           </PhysicalButton>
         </Link>
       </div>

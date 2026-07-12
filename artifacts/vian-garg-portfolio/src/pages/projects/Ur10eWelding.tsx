@@ -11,7 +11,7 @@ export default function Ur10eWelding() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
       <PaperSheet variant="default" className="p-4 border-dashed border-border/60 bg-transparent flex flex-col gap-2 shadow-none">
         <span className="font-mono text-[10px] text-muted-foreground uppercase">System 01</span>
-        <span className="font-mono text-sm text-foreground">Robot</span>
+        <span className="font-mono text-sm text-foreground">UR10e Cobot</span>
         <span className="font-mono text-sm text-foreground">URScript control</span>
       </PaperSheet>
       
@@ -23,8 +23,8 @@ export default function Ur10eWelding() {
       <div className="md:col-span-2 mt-2">
         <PaperSheet variant="default" className="p-4 border border-primary/30 bg-primary/5 flex flex-col gap-2">
           <span className="font-mono text-[10px] text-primary uppercase">Interface</span>
-          <span className="font-mono text-sm text-foreground">Industrial communication</span>
-          <span className="font-mono text-sm text-foreground">EtherNet/IP / fieldbus investigation</span>
+          <span className="font-mono text-sm text-foreground">Remote SSH / VPN</span>
+          <span className="font-mono text-sm text-foreground">Human motion input</span>
         </PaperSheet>
       </div>
     </div>
@@ -33,26 +33,31 @@ export default function Ur10eWelding() {
   return (
     <ProjectLayout
       plateText="PROJECT 02 / INDUSTRIAL AUTOMATION"
-      title="UR10e Welding Automation"
+      title="UR10e Cobot Welding"
       subtitle="Integrating collaborative robotics with industrial welding equipment."
       metadata={{
-        ROLE: "Robotics Integration Engineer",
-        CONTEXT: "UR10e Welding Automation",
-        TOOLS: "UR10e, ESAB, URScript, Python, EtherNet/IP, Fieldbus, Industrial Robotics, Automation"
+        ROLE: "Robotics Researcher",
+        CONTEXT: "Engineering Materials for Transformative Technologies Lab, CMU",
+        TOOLS: "UR10e, URScript, Python, SSH, Automation",
+        TIMEFRAME: "May 2026 – Present",
+        STATUS: "Active"
       }}
-      brief="Worked on integrating a UR10e collaborative robot with an ESAB welding system, with a focus on robot programming and industrial communication."
+      brief="The robot-execution layer of a research project bridging human motion input to collaborative robot welding."
+      objective="Develop a virtual cobot welding system that safely and accurately bridges human motion input to UR10e execution via URScript."
       workedOn={[
-        "Integrated a UR10e collaborative robot with an ESAB welding system",
-        "Worked with URScript programming",
-        "Investigated EtherNet/IP and fieldbus integration",
-        "Contributed to industrial robotics and automation workflows"
+        "Developed a virtual cobot welding system bridging human motion to UR10e execution via URScript",
+        "Engineered remote validation infrastructure for uploading and testing scripts over the CMU VPN via SSH"
       ]}
       approach={approachComposition}
+      challenges={[
+        "Ensuring safe and reliable execution of human-guided motion inputs on industrial cobot hardware.",
+        "Testing and validating URScript execution remotely without requiring in-person lab access."
+      ]}
       primaryFigure={{
         label: "INTEGRATION SCHEMATIC / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="02" />
       }}
-      reinforced="This project focused attention on the interfaces that make industrial automation work: robot programming, equipment integration, and reliable communication."
+      reinforced="Engineered remote validation infrastructure for uploading and testing scripts over the CMU VPN via SSH, allowing the system to be tested and iterated upon rapidly without in-person lab access."
       prevLink={{ href: "/projects/moon-miners", label: "01 / MOON MINERS" }}
       nextLink={{ href: "/projects/computer-vision", label: "03 / VISION" }}
       slots={

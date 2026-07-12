@@ -5,9 +5,40 @@ import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { RESUME_PDF_URL } from '@/config/resume';
+import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 
 export default function Home() {
   useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
+
+  const featuredProjects = [
+    {
+      id: '01',
+      title: 'CMU Moon Miners — NASA Lunabotics',
+      role: 'Mechanical / Robotics Engineer',
+      problem: 'Developing a high-payload autonomous lunar excavation rover for competition.',
+      stack: ['SolidWorks', 'CAD', 'Simulation', 'Robotics'],
+      result: 'Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 simulant.',
+      href: '/projects/moon-miners'
+    },
+    {
+      id: '02',
+      title: 'UR10e Cobot Welding',
+      role: 'Robotics Researcher',
+      problem: 'Developing a virtual cobot welding system bridging human motion to execution.',
+      stack: ['UR10e', 'URScript', 'EtherNet/IP'],
+      result: 'Engineered remote validation infrastructure for uploading/testing scripts over VPN via SSH.',
+      href: '/projects/ur10e-welding'
+    },
+    {
+      id: '03',
+      title: 'Computer Vision / Weld-Waypoint Detection',
+      role: 'Robotics Researcher',
+      problem: 'Building the software/sensing layer to support human-guided cobot welding.',
+      stack: ['Python', 'Computer Vision', 'Sensors'],
+      result: 'Built a Python pipeline converting CV-detected waypoints into cobot-executable URScript.',
+      href: '/projects/computer-vision'
+    }
+  ];
 
   return (
     <div className="flex flex-col gap-16 md:gap-24 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
@@ -22,33 +53,35 @@ export default function Home() {
               VIAN_GARG
             </MetalDataPlate>
             <div className="font-mono text-xs text-muted-foreground flex gap-4">
-              <span>STATUS: NOMINAL</span>
-              <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-[#B87D2A]/80 shadow-[0_0_4px_rgba(184,125,42,0.4)]" /> ACTIVE</span>
+              <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-[#B87D2A]/80 shadow-[0_0_4px_rgba(184,125,42,0.4)]" /> ONLINE</span>
             </div>
           </div>
           
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground leading-[1.05] tracking-tight max-w-4xl pt-4">
-            Precision robotics & <br />
-            <span className="text-muted-foreground italic">autonomous controls.</span>
+            Vian Garg <br className="hidden sm:block" />
+            <span className="text-muted-foreground italic text-4xl md:text-6xl lg:text-7xl block mt-2">ECE + Robotics</span>
           </h1>
           
           <div className="max-w-2xl font-sans text-lg text-secondary-foreground leading-relaxed mt-4">
-            ECE student specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotics integration.
+            Sophomore at Carnegie Mellon University specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotics integration.
           </div>
           
           <div className="flex flex-wrap gap-4 mt-4">
             <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-              <PhysicalButton asDiv variant="rust" size="lg">VIEW_PROJECT_LOGS</PhysicalButton>
+              <PhysicalButton asDiv variant="rust" size="lg">View Projects</PhysicalButton>
             </Link>
             {RESUME_PDF_URL ? (
               <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-                 <PhysicalButton asDiv variant="graphite" size="lg">DOWNLOAD_SPEC (CV) ↗</PhysicalButton>
+                 <PhysicalButton asDiv variant="graphite" size="lg">Download Resume ↗</PhysicalButton>
               </a>
             ) : (
               <div className="cursor-not-allowed">
-                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed">DOWNLOAD_SPEC (CV) ↗</PhysicalButton>
+                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed">Download Resume ↗</PhysicalButton>
               </div>
             )}
+            <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
+               <PhysicalButton asDiv variant="metal" size="lg">Contact Me</PhysicalButton>
+            </a>
           </div>
         </div>
 
@@ -59,12 +92,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technical Spec Sheet (Skills / Focus) */}
+      {/* Featured Projects */}
+      <section className="flex flex-col gap-8">
+        <div className="flex flex-col md:flex-row gap-4 justify-between items-baseline border-b border-border pb-4">
+          <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2">
+            01_FEATURED_PROJECTS
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8">
+          {featuredProjects.map((prj, i) => (
+            <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
+              <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
+                
+                <div className="hidden md:flex w-24 h-24 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)]">
+                  <SystemsRibbonSvg activeState={prj.id as any} />
+                </div>
+
+                <div className="flex-1 flex flex-col gap-4">
+                  <div>
+                    <h3 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">{prj.title}</h3>
+                    <p className="font-sans text-muted-foreground mt-1">{prj.problem}</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Role</span>
+                      <span className="font-sans text-sm">{prj.role}</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Result</span>
+                      <span className="font-sans text-sm font-medium">{prj.result}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {prj.stack.map(tech => (
+                      <span key={tech} className="font-mono text-[10px] bg-secondary/50 text-secondary-foreground px-2 py-1 border border-border/50 uppercase tracking-wider">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="md:self-center mt-4 md:mt-0">
+                  <PhysicalButton asDiv variant="graphite" size="sm" className="w-full md:w-auto whitespace-nowrap">
+                    View case study {'->'}
+                  </PhysicalButton>
+                </div>
+              </PaperSheet>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Skills */}
       <section className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="col-span-1 md:col-span-4 flex flex-col gap-4">
           <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2">
+            02_CAPABILITIES
             <div className="w-full h-px bg-primary/30 flex-1 hidden md:block" />
-            01_SYS_CAPABILITIES
           </h2>
           <p className="font-sans text-sm text-muted-foreground">
             Core competencies across the hardware-software boundary. Tested in lab and competitive robotics environments.
@@ -73,88 +160,52 @@ export default function Home() {
         
         <div className="col-span-1 md:col-span-8">
           <PaperSheet className="p-6 md:p-8 flex flex-col gap-8" variant="clipped">
-            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="flex flex-col gap-3 border-l-2 border-border pl-4 relative">
-                <div className="absolute -left-1.5 top-0 w-2.5 h-px bg-border" />
-                <div className="absolute -left-1.5 bottom-0 w-2.5 h-px bg-border" />
-                <div className="font-mono text-xs text-muted-foreground">HARDWARE / EMBEDDED</div>
+              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
+                <div className="font-mono text-xs text-muted-foreground uppercase">Hardware / Embedded</div>
                 <div className="font-sans font-medium text-foreground">Microcontrollers, PCB Design, Sensors</div>
-                <div className="font-sans text-sm text-secondary-foreground">STM32, ESP32, Altium Designer, I2C/SPI/UART, Motor Drivers, Power Electronics.</div>
+                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">STM32, ESP32, Altium Designer, I2C/SPI/UART, Motor Drivers, Power Electronics.</div>
               </div>
               
-              <div className="flex flex-col gap-3 border-l-2 border-border pl-4 relative">
-                <div className="absolute -left-1.5 top-0 w-2.5 h-px bg-border" />
-                <div className="absolute -left-1.5 bottom-0 w-2.5 h-px bg-border" />
-                <div className="font-mono text-xs text-muted-foreground">SOFTWARE / CONTROLS</div>
+              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
+                <div className="font-mono text-xs text-muted-foreground uppercase">Software / Controls</div>
                 <div className="font-sans font-medium text-foreground">RTOS, Kinematics, Control Theory</div>
-                <div className="font-sans text-sm text-secondary-foreground">C/C++, Python, ROS2, PID, State Estimation, Trajectory Generation.</div>
+                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">C/C++, Python, ROS2, PID, State Estimation, Trajectory Generation.</div>
               </div>
 
-              <div className="flex flex-col gap-3 border-l-2 border-border pl-4 relative">
-                <div className="absolute -left-1.5 top-0 w-2.5 h-px bg-border" />
-                <div className="absolute -left-1.5 bottom-0 w-2.5 h-px bg-border" />
-                <div className="font-mono text-xs text-muted-foreground">PERCEPTION</div>
+              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
+                <div className="font-mono text-xs text-muted-foreground uppercase">Perception</div>
                 <div className="font-sans font-medium text-foreground">Computer Vision, Sensor Fusion</div>
-                <div className="font-sans text-sm text-secondary-foreground">OpenCV, LiDAR integration, Kalman Filters, SLAM fundamentals.</div>
+                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">OpenCV, LiDAR integration, Kalman Filters, SLAM fundamentals.</div>
               </div>
 
-              <div className="flex flex-col gap-3 border-l-2 border-border pl-4 relative">
-                <div className="absolute -left-1.5 top-0 w-2.5 h-px bg-border" />
-                <div className="absolute -left-1.5 bottom-0 w-2.5 h-px bg-border" />
-                <div className="font-mono text-xs text-muted-foreground">MECHANICAL</div>
+              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
+                <div className="font-mono text-xs text-muted-foreground uppercase">Mechanical</div>
                 <div className="font-sans font-medium text-foreground">CAD, Rapid Prototyping</div>
-                <div className="font-sans text-sm text-secondary-foreground">SolidWorks, 3D Printing, Machining fundamentals, Actuator sizing.</div>
+                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">SolidWorks, 3D Printing, Machining fundamentals, Actuator sizing.</div>
               </div>
             </div>
-            
           </PaperSheet>
         </div>
       </section>
 
-      {/* Featured Project Teaser */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <div className="col-span-1 md:col-span-4 md:order-last flex flex-col gap-4">
-          <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2">
-            02_LATEST_DEPLOYMENT
-            <div className="w-full h-px bg-primary/30 flex-1 hidden md:block" />
-          </h2>
-          <p className="font-sans text-sm text-muted-foreground">
-            Mechanical and robotics contributions to a lunar excavation system.
+      {/* About Snapshot */}
+      <section className="flex flex-col gap-6 items-start">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
+          03_PROFILE_SNAPSHOT
+          <div className="w-full h-px bg-primary/30 flex-1" />
+        </h2>
+        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
+          <div className="font-mono text-xs text-muted-foreground mb-4">{LOCATION_STATUS}</div>
+          <p className="font-sans text-lg text-foreground leading-relaxed">
+            I am a sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I am most interested in the intersection of disciplines: where mechanical systems meet electronics, where sensors inform software, and where theory turns into physical action. I am currently looking for internship opportunities in robotics, embedded systems, and controls.
           </p>
-          <Link href="/projects/moon-miners" className="mt-auto pt-4 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
-            <PhysicalButton asDiv variant="metal" className="w-full">ACCESS_FILE</PhysicalButton>
-          </Link>
-        </div>
-        
-        <div className="col-span-1 md:col-span-8 md:order-first">
-          <PaperSheet className="relative overflow-hidden group aspect-[4/3] md:aspect-[16/9] bg-[#315E73]/5 flex items-center justify-center p-8 border-[#315E73]/20">
-            {/* Blueprint graphic visualization mock */}
-            <div className="absolute inset-0 border border-[#315E73]/10 m-4" />
-            <div className="absolute inset-0 border border-[#315E73]/10 m-8 opacity-50" />
-            
-            <div className="w-32 h-32 md:w-48 md:h-48 border border-[#315E73]/30 rounded-full relative flex items-center justify-center bg-[#315E73]/5">
-               <div className="w-[1px] h-full bg-[#315E73]/20 absolute" />
-               <div className="h-[1px] w-full bg-[#315E73]/20 absolute" />
-               
-               {/* Center Target */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border border-primary/60 rounded-sm flex items-center justify-center">
-                 <div className="w-1 h-1 bg-primary/80" />
-               </div>
-               
-               {/* Radar sweep line */}
-               <div className="absolute top-1/2 left-1/2 w-1/2 h-[1px] bg-[#315E73]/60 origin-left animate-[spin_4s_linear_infinite] motion-reduce:animate-none motion-reduce:hidden" />
-               
-               {/* Mock detected point */}
-               <div className="absolute top-1/4 right-1/4 w-1.5 h-1.5 bg-[#B87D2A] rounded-full shadow-[0_0_4px_#B87D2A]" />
-            </div>
-            
-            <div className="absolute bottom-6 left-6 font-mono text-[10px] text-[#315E73]">
-              FIG_01: SENSOR_FIELD_OF_VIEW<br/>
-              SCAN_RATE: 10Hz // LIDAR_ARRAY
-            </div>
-          </PaperSheet>
-        </div>
+          <div className="mt-6">
+            <Link href="/about" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] inline-block">
+              <PhysicalButton asDiv variant="graphite" size="sm">Read more {'->'}</PhysicalButton>
+            </Link>
+          </div>
+        </PaperSheet>
       </section>
 
     </div>

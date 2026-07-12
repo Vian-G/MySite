@@ -4,30 +4,42 @@ import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
 
 export default function ComputerVision() {
-  useSEO('Computer Vision Robotics | Vian Garg', 'Software workflows for sensing, vision, and robotic automation.');
+  useSEO('Computer Vision / Weld-Waypoint Detection | Vian Garg', 'Software workflows for sensing, vision, and robotic automation.');
 
   return (
     <ProjectLayout
       plateText="PROJECT 03 / PERCEPTION SYSTEMS"
-      title="Computer Vision Robotics Work"
+      title="Computer Vision / Weld-Waypoint Detection"
       subtitle="Software workflows for sensing, vision, and robotic automation."
       metadata={{
-        CONTEXT: "Computer Vision Robotics Work",
-        TOOLS: "Python, Computer Vision, Sensors, Embedded Systems, Robotic Automation"
+        ROLE: "Robotics Researcher",
+        CONTEXT: "Engineering Materials for Transformative Technologies Lab, CMU",
+        TOOLS: "Python, Computer Vision, Sensors, URScript",
+        TIMEFRAME: "May 2026 – Present",
+        STATUS: "Active"
       }}
-      brief="Developed software workflows combining computer vision, sensors, and robotic automation."
+      brief="The perception layer of the cobot welding research project, focusing on identifying weld waypoints from sensor data."
+      objective="Convert computer-vision-detected weld waypoints into structured, executable instructions for a UR10e collaborative robot."
+      workedOn={[
+        "Built a Python pipeline that detects weld waypoints using computer vision",
+        "Converted visual waypoint data into cobot-executable URScript instructions"
+      ]}
       approach={[
         "Python",
-        "Computer vision",
+        "Computer Vision",
         "Sensors",
-        "Embedded systems",
-        "Robotic automation"
+        "Data Transformation",
+        "URScript"
+      ]}
+      challenges={[
+        "Accurately detecting waypoints in visually noisy industrial environments.",
+        "Translating 2D/3D visual coordinates into the robot's physical execution space."
       ]}
       primaryFigure={{
         label: "PERCEPTION WORKFLOW / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="03" />
       }}
-      reinforced="Building perception-oriented workflows requires thinking across sensing, software, and the robotic system that uses the resulting information."
+      reinforced="Successfully built a Python pipeline that converts computer-vision-detected weld waypoints into cobot-executable URScript instructions, enabling the perception half of the cobot welding system."
       prevLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
       nextLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
       slots={

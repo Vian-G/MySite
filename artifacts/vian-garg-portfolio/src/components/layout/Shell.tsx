@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
 import { cn } from '@/lib/utils';
+import { EMAIL, LINKEDIN_URL, GITHUB_URL, LOCATION_STATUS } from '@/config/contact';
+import { RESUME_PDF_URL } from '@/config/resume';
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   const navItems = [
-    { label: 'IDX_OVERVIEW', path: '/' },
-    { label: 'LOG_PROJECTS', path: '/projects' },
-    { label: 'PROFILE', path: '/about' },
-    { label: 'DOCS', path: '/resume' }
+    { label: 'Home', path: '/' },
+    { label: 'Projects', path: '/projects' },
+    { label: 'About', path: '/about' },
+    { label: 'Resume', path: '/resume' }
   ];
 
   return (
@@ -27,15 +29,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <nav className="flex items-center h-full">
             {navItems.map((item) => {
               const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume');
-              // Special case for skyryder to fall under projects visually if we wanted, but the prompt says:
-              // Update Shell.tsx's nav: keep "IDX_OVERVIEW" -> "/", change "LOG_PROJECTS" -> "/projects", add nav items for "/about" and "/resume".
-              // Note: skyryder isn't in nav, but if we are on /skyryder maybe LOG_PROJECTS could be active. We will let it be simple.
               const isProjects = item.path === '/projects' && (location.startsWith('/projects') || location === '/skyryder');
               const finalActive = active || isProjects;
               
               return (
                 <Link key={item.path} href={item.path} className={cn(
-                  "relative h-full flex items-center px-2 sm:px-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:bg-foreground/5",
+                  "relative h-full flex items-center px-2 sm:px-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:bg-foreground/5 capitalize",
                   finalActive ? "text-primary font-medium" : ""
                 )}>
                   {finalActive && (
@@ -45,6 +44,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 </Link>
               );
             })}
+            <a href={`mailto:${EMAIL}`} className="ml-2 flex items-center justify-center bg-primary/10 text-primary hover:bg-primary/20 transition-colors px-3 py-1 rounded-[2px] capitalize">
+              Contact
+            </a>
           </nav>
         </div>
       </header>
@@ -56,11 +58,20 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
       {/* Footer */}
       <footer className="w-full border-t border-border mt-auto">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 flex flex-col sm:flex-row items-center justify-between font-mono text-[10px] sm:text-xs text-muted-foreground gap-4">
-          <div>REV_01 // END_OF_FILE</div>
-          <div className="flex gap-4">
-            <span>SYS_LOC: GLOBAL</span>
-            <span>DATA: {new Date().getFullYear()}</span>
+        <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-secondary-foreground font-sans">
+          <div className="flex flex-col gap-1">
+            <span className="font-medium text-foreground">Vian Garg</span>
+            <span className="text-muted-foreground text-xs">{LOCATION_STATUS}</span>
+          </div>
+          <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-xs uppercase tracking-wider">
+            <a href={`mailto:${EMAIL}`} className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">Email</a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">LinkedIn ↗</a>
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">GitHub ↗</a>
+            {RESUME_PDF_URL ? (
+              <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">Résumé ↗</a>
+            ) : (
+              <span className="text-muted-foreground/50 cursor-not-allowed">Résumé (Pending)</span>
+            )}
           </div>
         </div>
       </footer>

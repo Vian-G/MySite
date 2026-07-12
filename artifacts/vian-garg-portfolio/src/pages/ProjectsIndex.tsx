@@ -15,23 +15,24 @@ export default function ProjectsIndex() {
       id: "01",
       title: "CMU Moon Miners — NASA Lunabotics",
       role: "Mechanical / Robotics Engineer",
-      summary: "Mechanical and robotics contributions to a lunar excavation rover.",
+      summary: "Developing a high-payload autonomous lunar excavation rover. Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant.",
       tools: "SolidWorks, CAD, Mechanical Design, Simulation, Robotics, Autonomous Systems",
       href: "/projects/moon-miners",
     },
     {
       id: "02",
-      title: "UR10e Welding Automation",
-      role: "Robotics Integration Engineer",
-      summary: "Integrating collaborative robotics with industrial welding equipment.",
-      tools: "UR10e, ESAB, URScript, Python, EtherNet/IP, Fieldbus, Industrial Robotics, Automation",
+      title: "UR10e Cobot Welding",
+      role: "Robotics Researcher",
+      summary: "Developing a virtual cobot welding system that bridges human motion input to UR10e execution via URScript. Engineered remote validation infrastructure for script testing.",
+      tools: "UR10e, URScript, Python, Industrial Robotics, SSH, Automation",
       href: "/projects/ur10e-welding",
     },
     {
       id: "03",
-      title: "Computer Vision Robotics Work",
-      summary: "Software workflows for sensing, vision, and robotic automation.",
-      tools: "Python, Computer Vision, Sensors, Embedded Systems, Robotic Automation",
+      title: "Computer Vision / Weld-Waypoint Detection",
+      role: "Robotics Researcher",
+      summary: "The perception layer of the cobot welding project. Built a Python pipeline that converts computer-vision-detected weld waypoints into cobot-executable URScript instructions.",
+      tools: "Python, Computer Vision, Sensors, URScript",
       href: "/projects/computer-vision",
     },
     {
@@ -64,7 +65,7 @@ export default function ProjectsIndex() {
         <div className="lg:col-span-8 flex flex-col gap-12">
           {projects.map((prj, i) => (
             <div id={`project-${prj.id}`} key={prj.id} className="scroll-mt-32">
-              <Link href={prj.href} className="outline-none block group focus-visible:ring-2 focus-visible:ring-primary rounded-2xl">
+              <Link href={prj.href} className="outline-none block group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
                 <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col gap-6 group-hover:border-primary/40 transition-colors h-full" variant={i % 2 === 0 ? "clipped" : "default"}>
                   <div className="flex justify-between items-start">
                     <MetalDataPlate title="ENTRY">{prj.id}</MetalDataPlate>
@@ -105,7 +106,7 @@ export default function ProjectsIndex() {
 
                   <div className="mt-4">
                     <PhysicalButton asDiv variant="graphite" size="sm" className="w-full">
-                      OPEN DOSSIER {'->'}
+                      View case study {'->'}
                     </PhysicalButton>
                   </div>
                 </PaperSheet>

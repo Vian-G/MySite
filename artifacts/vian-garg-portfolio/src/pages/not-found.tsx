@@ -17,7 +17,7 @@ export default function NotFound() {
             The requested technical document or project log could not be located in the current directory.
           </p>
           <Link href="/" className="outline-none mt-2 focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-            <PhysicalButton asDiv variant="graphite">RETURN TO INDEX {'->'}</PhysicalButton>
+            <PhysicalButton asDiv variant="graphite">Return to index {'->'}</PhysicalButton>
           </Link>
         </PaperSheet>
       </div>

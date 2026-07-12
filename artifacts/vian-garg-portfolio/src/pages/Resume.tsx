@@ -31,7 +31,7 @@ export default function Resume() {
                   className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
                 >
                   <PhysicalButton asDiv variant="graphite" size="md" className="w-full">
-                    VIEW RÉSUMÉ PDF ↗
+                    View Résumé PDF ↗
                   </PhysicalButton>
                 </a>
                 <a 
@@ -40,7 +40,7 @@ export default function Resume() {
                   className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
                 >
                   <PhysicalButton asDiv variant="metal" size="md" className="w-full">
-                    DOWNLOAD RÉSUMÉ PDF ↓
+                    Download PDF ↓
                   </PhysicalButton>
                 </a>
               </>
@@ -48,19 +48,26 @@ export default function Resume() {
               <>
                 <div className="flex flex-col gap-1 w-full sm:w-auto">
                   <PhysicalButton asDiv variant="graphite" size="md" className="w-full opacity-50 cursor-not-allowed" disabled>
-                    VIEW RÉSUMÉ PDF ↗
+                    View Résumé PDF ↗
                   </PhysicalButton>
                   <span className="font-mono text-[10px] text-muted-foreground text-center">PDF pending upload</span>
                 </div>
                 <div className="flex flex-col gap-1 w-full sm:w-auto">
                   <PhysicalButton asDiv variant="metal" size="md" className="w-full opacity-50 cursor-not-allowed" disabled>
-                    DOWNLOAD RÉSUMÉ PDF ↓
+                    Download PDF ↓
                   </PhysicalButton>
                   <span className="font-mono text-[10px] text-muted-foreground text-center hidden sm:block">&nbsp;</span>
                 </div>
               </>
             )}
           </div>
+          
+          {!isAvailable && (
+            <div className="mt-8 p-6 border border-dashed border-border/60 bg-secondary/10 flex flex-col items-center justify-center gap-2">
+               <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Preview window</span>
+               <span className="font-sans text-sm text-muted-foreground">Inline preview will appear here once the PDF is uploaded.</span>
+            </div>
+          )}
         </PaperSheet>
       </div>
 

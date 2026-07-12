@@ -29,7 +29,7 @@ export default function Skyryder() {
             className="inline-block outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
           >
             <PhysicalButton asDiv variant="rust" size="lg" className="w-full sm:w-auto">
-              PLAY SKYRYDER ON ITCH.IO ↗
+              Play Skyryder on itch.io ↗
             </PhysicalButton>
           </a>
         </PaperSheet>
@@ -54,7 +54,7 @@ export default function Skyryder() {
           className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
         >
           <PhysicalButton asDiv variant="metal" size="md">
-            PLAY THE FULL GAME ↗
+            Play the full game ↗
           </PhysicalButton>
         </a>
       </div>
@@ -62,14 +62,14 @@ export default function Skyryder() {
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
         <Link href="/projects/computer-vision" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
-            <span className="text-muted-foreground/70">{'<-'} PREV</span>
+            <span className="text-muted-foreground/70">{'<-'} Previous</span>
             <span>03 / VISION</span>
           </PhysicalButton>
         </Link>
         <Link href="/projects/moon-miners" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
             <span>01 / MOON MINERS</span>
-            <span className="text-muted-foreground/70">NEXT {'->'}</span>
+            <span className="text-muted-foreground/70">Next {'->'}</span>
           </PhysicalButton>
         </Link>
       </div>
