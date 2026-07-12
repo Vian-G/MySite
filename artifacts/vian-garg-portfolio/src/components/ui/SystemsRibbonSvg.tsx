@@ -69,12 +69,19 @@ function ArmJoint({
   );
 }
 
+/** A wire-mesh moon-rover wheel: an outer rim with fine radial spokes, matching MoonRanger's real running gear. */
 function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean; dur: string }) {
   return (
     <g transform={`translate(${cx}, 36)`}>
       <g>
-        <circle r="10" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M -10,0 L 10,0 M 0,-10 L 0,10 M -7,-7 L 7,7 M -7,7 L 7,-7" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+        <circle r="11" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        <circle r="3.5" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path
+          d="M -11,0 L 11,0 M -9.5,-5.5 L 9.5,5.5 M -5.5,-9.5 L 5.5,9.5 M 0,-11 L 0,11 M 5.5,-9.5 L -5.5,9.5 M 9.5,-5.5 L -9.5,5.5"
+          stroke="currentColor"
+          strokeWidth="0.75"
+          opacity="0.55"
+        />
         {motionAllowed && (
           <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur={dur} repeatCount="indefinite" />
         )}
@@ -196,17 +203,29 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <path d="M 20,340 L 380,340" fill="none" stroke="#8D8A82" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="10 10" />
 
         <g transform="translate(120, 230)">
-          {/* Solar panel */}
-          <rect x="-10" y="-46" width="150" height="26" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M 27.5,-46 L 27.5,-20 M 65,-46 L 65,-20 M 102.5,-46 L 102.5,-20" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1" />
-          {/* Mast connecting panel to chassis */}
-          <path d="M 65,-20 L 65,-6" stroke="currentColor" strokeWidth="1.5" />
-          {/* Chassis body */}
-          <rect x="0" y="-6" width="130" height="30" rx="3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          {/* Stereo-vision camera shroud */}
-          <rect x="108" y="-2" width="16" height="12" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+          {/* Low, flat foil-wrapped chassis */}
+          <rect x="0" y="-4" width="130" height="22" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
 
-          {/* 4 wheels, each independently spinning */}
+          {/* Front stereo-vision camera module, mounted forward on the chassis deck */}
+          <rect x="2" y="-17" width="28" height="14" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+          <circle cx="10" cy="-10" r="2.5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+          <circle cx="22" cy="-10" r="2.5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+
+          {/* Large tilted solar panel, hinged at the rear of the chassis */}
+          <g transform="translate(98, -4) rotate(-16)">
+            <rect x="-10" y="-116" width="70" height="116" fill="none" stroke="currentColor" strokeWidth="1.5" />
+            {/* Solar cell grid */}
+            <path
+              d="M -10,-96 L 60,-96 M -10,-76 L 60,-76 M -10,-56 L 60,-56 M -10,-36 L 60,-36 M -10,-16 L 60,-16 M 13,-116 L 13,0 M 37,-116 L 37,0"
+              stroke="currentColor"
+              strokeOpacity="0.3"
+              strokeWidth="0.75"
+            />
+            {/* Aperture / nadir camera cutout mid-panel, as on the real hardware */}
+            <circle cx="25" cy="-62" r="6" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.2" />
+          </g>
+
+          {/* 4 wire-mesh wheels, each independently spinning */}
           {wheelPositions.map((cx, i) => (
             <Wheel key={cx} cx={cx} motionAllowed={motionAllowed} dur={`${2.4 + i * 0.2}s`} />
           ))}
