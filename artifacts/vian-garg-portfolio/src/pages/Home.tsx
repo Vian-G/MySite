@@ -111,7 +111,7 @@ export default function Home() {
             <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
               <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
                 
-                <div className="hidden md:flex relative w-24 h-24 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
+                <div className="hidden md:flex relative w-32 h-32 lg:w-40 lg:h-40 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
                     <SystemsRibbonSvg activeState={prj.id as any} />
                   </div>
