@@ -4,11 +4,9 @@ import { cn } from '@/lib/utils';
 interface PaperSheetProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'clipped' | 'folded';
   isInteractive?: boolean;
-  /** When combined with isInteractive, the sheet also scales up slightly on hover instead of just lifting. */
-  growOnHover?: boolean;
 }
 
-export function PaperSheet({ children, className, variant = 'default', isInteractive = false, growOnHover = false, ...props }: PaperSheetProps) {
+export function PaperSheet({ children, className, variant = 'default', isInteractive = false, ...props }: PaperSheetProps) {
   return (
     <div
       className={cn(
@@ -16,10 +14,7 @@ export function PaperSheet({ children, className, variant = 'default', isInterac
         'border border-border border-b-muted-foreground/40 border-r-muted-foreground/30',
         'shadow-sm',
         variant === 'clipped' && 'rounded-br-2xl',
-        isInteractive && !growOnHover && 'hover:-translate-y-[2px] hover:shadow-md transition-all duration-300 cursor-pointer motion-reduce:transition-none motion-reduce:hover:translate-y-0',
-        // Combined into a single arbitrary transform (rather than separate translate/scale utilities) so both
-        // effects reliably compose without one utility clobbering the other.
-        isInteractive && growOnHover && 'transform-gpu hover:[transform:translateY(-2px)_scale(1.025)] hover:shadow-md transition-all duration-300 cursor-pointer motion-reduce:transition-none motion-reduce:hover:transform-none',
+        isInteractive && 'hover:-translate-y-[2px] hover:shadow-md transition-all duration-300 cursor-pointer motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         className
       )}
       {...props}
