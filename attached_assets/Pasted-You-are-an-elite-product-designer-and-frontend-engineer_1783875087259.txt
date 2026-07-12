@@ -1,0 +1,174 @@
+You are an elite product designer and frontend engineer. Build the FIRST FOUNDATION of a portfolio website for Vian Garg.
+
+Do not build individual project pages yet. In this prompt, build:
+1. The full global site structure and routing shell
+2. The complete visual design system
+3. The header, footer, reusable components, and navigation
+4. The full home / landing page
+5. Placeholder routes for later project pages
+
+This is a portfolio for:
+
+Vian Garg
+ECE student with a Robotics minor
+
+Core areas:
+- Robotics
+- Automation
+- Controls
+- Autonomous systems
+- Computer vision
+- Embedded systems
+- Industrial robotics
+- Mechanical-electrical systems integration
+
+The site must immediately feel like a real, unusually well-designed engineering portfolio: tactile, technical, calm, confident, and personal.
+
+==================================================
+NON-NEGOTIABLE DESIGN DIRECTION
+==================================================
+
+The visual concept is called:
+
+“THE ROBOTICS FIELD CASE”
+
+The website should feel like a physical engineering field notebook and precision instrument case opened on a workbench.
+
+It should combine:
+- Archival engineering paper
+- Technical documentation sheets
+- Brushed/aluminum data plates
+- Binder or file-folder tabs
+- Drafting-film overlays
+- Instrument-panel controls
+- Fine technical annotations
+- Subtle physical depth
+- Precision machinery and laboratory aesthetics
+
+Use MODERN, RESTRAINED SKEUOMORPHISM.
+
+The design should feel like:
+- An excellent aerospace or robotics project dossier
+- A refined technical field journal
+- A physical lab archive
+- A precision instrument panel
+- A well-designed independent publication
+
+It must NOT feel like:
+- Purple AI slop
+- Generic AI developer portfolio
+- Neon cyberpunk
+- Glassmorphism
+- Generic SaaS startup site
+- Off-white minimalism with random thin lines
+- Excessive 3D depth
+- A fake desktop operating system
+- An old iOS leather interface
+- A retro arcade dashboard
+- A template
+
+Do not use:
+- Purple, pink, or blue gradients
+- Floating blobs
+- Particle fields
+- Background star fields
+- Generic robot illustrations
+- Lucide/Heroicons as the main visual identity
+- Glass cards
+- Large rounded rectangles
+- Excessive pill tags
+- Skill bars or percentage scores
+- Typewriter text
+- Cursor trails
+- Parallax
+- Auto-playing sound
+- “Passionate innovator”
+- “Building the future”
+- “Leveraging cutting-edge technology”
+- “At the intersection of”
+- “My journey”
+- “Powered by AI”
+
+==================================================
+COLOR AND MATERIAL SYSTEM
+==================================================
+
+Primary page background:
+Warm archival paper, approximately #F1EDE4.
+
+Use a nearly invisible, lightweight paper-grain texture through CSS or a tiny SVG noise layer. It must never reduce legibility or make the page feel dirty.
+
+Colors:
+- Paper base: #F1EDE4
+- Secondary paper: #E8E2D6
+- Ink / primary text: #1B1C1A
+- Secondary text: #5D5B55
+- Graphite rules: #8D8A82
+- Metal surface: #C7C4BA
+- Deep graphite panel: #2B2D2A
+- Engineering rust-red accent: #B8422D
+- Muted oxidized blue, used only for sensing visuals: #315E73
+- Optional amber status marker: #B87D2A
+
+Use color sparingly:
+- The site should primarily be paper, graphite, and ink
+- Rust red marks active state, key trajectory, selected navigation tab, and primary action
+- Blue is limited to perception/sensor drawings
+- Amber is limited to tiny indicator lights or status marks
+- Never use broad blocks of red, blue, or amber
+- Never use purple
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Use only three type styles:
+
+1. Display serif for hero/project titles:
+Instrument Serif, Source Serif 4, or IBM Plex Serif
+
+2. Body/UI sans:
+Inter, IBM Plex Sans, or Manrope
+
+3. Technical mono:
+IBM Plex Mono or JetBrains Mono
+
+Rules:
+- Use serif only for large headings and rare editorial emphasis
+- Use sans for all body text and UI
+- Use mono only for labels, metadata, tags, figure labels, routes, controls, and annotations
+- Do not use mono for paragraphs
+- No more than three font families
+- Strong hierarchy, comfortable reading width, no giant marketing text
+
+==================================================
+SKEUOMORPHIC COMPONENTS
+==================================================
+
+Create reusable UI components that use physical cues with restraint.
+
+1. PaperSheet
+Use for significant content areas:
+- Slight paper-color variation
+- 1px graphite rule
+- 2–5px subtle low-opacity shadow
+- Very slight darker lower/right edge
+- Optional clipped corner OR folded-document corner, never both at once
+- Not every paragraph needs a card
+
+2. MetalDataPlate
+Use for project labels and compact metadata:
+- Brushed warm gray metal appearance
+- Fine dark outline
+- Very subtle top inset highlight
+- Engraved mono text
+- At most one or two tiny screw heads per larger plate
+- No fake excessive chrome
+- Use for project IDs, labels, tools, roles, and section index
+
+3. PhysicalButton
+Use for real calls to action:
+- Matte graphite or muted-metal surface
+- 2–4px corner radius maximum
+- Fine border
+- Slight top highlight and bottom 

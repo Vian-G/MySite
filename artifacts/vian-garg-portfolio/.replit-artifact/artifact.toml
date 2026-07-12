@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Vian Garg — Portfolio"
+version = "1.0.0"
+id = "artifacts/vian-garg-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20279
+
+[services.development]
+run = "pnpm --filter @workspace/vian-garg-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vian-garg-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/vian-garg-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20279"
+BASE_PATH = "/"
