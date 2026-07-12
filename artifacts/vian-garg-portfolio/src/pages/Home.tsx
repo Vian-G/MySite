@@ -31,12 +31,12 @@ export default function Home() {
     },
     {
       id: '03',
-      title: 'Computer Vision / Weld-Waypoint Detection',
-      role: 'Robotics Researcher',
-      problem: 'Building the software/sensing layer to support human-guided cobot welding.',
-      stack: ['Python', 'Computer Vision', 'Sensors'],
-      result: 'Built a Python pipeline converting CV-detected waypoints into cobot-executable URScript.',
-      href: '/projects/computer-vision'
+      title: 'MoonRanger — NASA Lunar Rover Mission',
+      role: 'Mechanical Engineer',
+      problem: 'Contributing mechanical hardware to a CMU / Astrobotic / NASA autonomous lunar rover launching in 2029.',
+      stack: ['SolidWorks', 'CAD', 'Stereo Vision Hardware'],
+      result: "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system.",
+      href: '/projects/moon-ranger'
     }
   ];
 

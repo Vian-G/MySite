@@ -9,7 +9,7 @@ import Home from '@/pages/Home';
 import ProjectsIndex from '@/pages/ProjectsIndex';
 import MoonMiners from '@/pages/projects/MoonMiners';
 import Ur10eWelding from '@/pages/projects/Ur10eWelding';
-import ComputerVision from '@/pages/projects/ComputerVision';
+import MoonRanger from '@/pages/projects/MoonRanger';
 import Skyryder from '@/pages/Skyryder';
 import About from '@/pages/About';
 import Resume from '@/pages/Resume';
@@ -23,7 +23,7 @@ function Router() {
       <Route path="/projects" component={ProjectsIndex} />
       <Route path="/projects/moon-miners" component={MoonMiners} />
       <Route path="/projects/ur10e-welding" component={Ur10eWelding} />
-      <Route path="/projects/computer-vision" component={ComputerVision} />
+      <Route path="/projects/moon-ranger" component={MoonRanger} />
       <Route path="/skyryder" component={Skyryder} />
       <Route path="/about" component={About} />
       <Route path="/resume" component={Resume} />

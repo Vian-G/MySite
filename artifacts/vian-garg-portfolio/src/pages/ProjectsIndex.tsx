@@ -29,11 +29,11 @@ export default function ProjectsIndex() {
     },
     {
       id: "03",
-      title: "Computer Vision / Weld-Waypoint Detection",
-      role: "Robotics Researcher",
-      summary: "The perception layer of the cobot welding project. Built a Python pipeline that converts computer-vision-detected weld waypoints into cobot-executable URScript instructions.",
-      tools: "Python, Computer Vision, Sensors, URScript",
-      href: "/projects/computer-vision",
+      title: "MoonRanger — NASA Lunar Rover Mission",
+      role: "Mechanical Engineer",
+      summary: "A CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing its stereo-vision navigation system.",
+      tools: "SolidWorks, CAD, Mechanical Design, Stereo Vision Hardware Integration",
+      href: "/projects/moon-ranger",
     },
     {
       id: "04",

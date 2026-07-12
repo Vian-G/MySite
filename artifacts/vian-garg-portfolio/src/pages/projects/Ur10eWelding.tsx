@@ -59,7 +59,7 @@ export default function Ur10eWelding() {
       }}
       reinforced="Engineered remote validation infrastructure for uploading and testing scripts over the CMU VPN via SSH, allowing the system to be tested and iterated upon rapidly without in-person lab access."
       prevLink={{ href: "/projects/moon-miners", label: "01 / MOON MINERS" }}
-      nextLink={{ href: "/projects/computer-vision", label: "03 / VISION" }}
+      nextLink={{ href: "/projects/moon-ranger", label: "03 / MOONRANGER" }}
       slots={
         <>
           <TechnicalFigure caption="Integration photo" altText="" isSlot />
