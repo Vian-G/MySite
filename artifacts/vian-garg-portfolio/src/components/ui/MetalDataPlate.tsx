@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface MetalDataPlateProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MetalDataPlateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   screwPositions?: 'none' | 'corners' | 'sides';
   title?: React.ReactNode;
 }

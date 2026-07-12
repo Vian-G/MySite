@@ -6,8 +6,13 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { Shell } from '@/components/layout/Shell';
 
 import Home from '@/pages/Home';
-import WorkIndex from '@/pages/WorkIndex';
-import WorkDetail from '@/pages/WorkDetail';
+import ProjectsIndex from '@/pages/ProjectsIndex';
+import MoonMiners from '@/pages/projects/MoonMiners';
+import Ur10eWelding from '@/pages/projects/Ur10eWelding';
+import ComputerVision from '@/pages/projects/ComputerVision';
+import Skyryder from '@/pages/Skyryder';
+import About from '@/pages/About';
+import Resume from '@/pages/Resume';
 
 const queryClient = new QueryClient();
 
@@ -15,8 +20,13 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/work" component={WorkIndex} />
-      <Route path="/work/:slug" component={WorkDetail} />
+      <Route path="/projects" component={ProjectsIndex} />
+      <Route path="/projects/moon-miners" component={MoonMiners} />
+      <Route path="/projects/ur10e-welding" component={Ur10eWelding} />
+      <Route path="/projects/computer-vision" component={ComputerVision} />
+      <Route path="/skyryder" component={Skyryder} />
+      <Route path="/about" component={About} />
+      <Route path="/resume" component={Resume} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -7,7 +7,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { label: 'IDX_OVERVIEW', path: '/' },
-    { label: 'LOG_PROJECTS', path: '/work' }
+    { label: 'LOG_PROJECTS', path: '/projects' },
+    { label: 'PROFILE', path: '/about' },
+    { label: 'DOCS', path: '/resume' }
   ];
 
   return (
@@ -24,13 +26,19 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
           <nav className="flex items-center h-full">
             {navItems.map((item) => {
-              const active = location === item.path || (item.path !== '/' && location.startsWith(item.path));
+              const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume');
+              // Special case for skyryder to fall under projects visually if we wanted, but the prompt says:
+              // Update Shell.tsx's nav: keep "IDX_OVERVIEW" -> "/", change "LOG_PROJECTS" -> "/projects", add nav items for "/about" and "/resume".
+              // Note: skyryder isn't in nav, but if we are on /skyryder maybe LOG_PROJECTS could be active. We will let it be simple.
+              const isProjects = item.path === '/projects' && (location.startsWith('/projects') || location === '/skyryder');
+              const finalActive = active || isProjects;
+              
               return (
                 <Link key={item.path} href={item.path} className={cn(
-                  "relative h-full flex items-center px-3 sm:px-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:bg-foreground/5",
-                  active ? "text-primary font-medium" : ""
+                  "relative h-full flex items-center px-2 sm:px-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:bg-foreground/5",
+                  finalActive ? "text-primary font-medium" : ""
                 )}>
-                  {active && (
+                  {finalActive && (
                     <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" />
                   )}
                   {item.label}

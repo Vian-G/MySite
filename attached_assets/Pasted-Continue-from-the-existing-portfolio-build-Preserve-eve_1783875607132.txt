@@ -1,0 +1,439 @@
+Continue from the existing portfolio build. Preserve every global style, component, color, typography, spacing, interaction, and restrained skeuomorphic rule already established.
+
+Now build:
+1. The full Projects index
+2. All three engineering case-study pages
+3. The Skyryder page
+4. The About page
+5. The Résumé page
+6. Project tab navigation and cross-project progression
+
+Do not redesign the landing page or replace the established “Robotics Field Case” visual system.
+
+==================================================
+CONTENT ACCURACY: STRICT RULE
+==================================================
+
+Never invent:
+- Metrics
+- Awards
+- Competition placements
+- Dates
+- Team names
+- Employers
+- Results
+- Technical specifications
+- Hardware details
+- Certifications
+- Game genre
+- Game engine
+- Game mechanics
+- Code stack
+- Links
+- Images
+- Project outcomes
+
+Use only the following confirmed content.
+
+MOON MINERS
+
+Title:
+“CMU Moon Miners — NASA Lunabotics”
+
+Role:
+“Mechanical / Robotics Engineer”
+
+Summary:
+“Mechanical and robotics contributions to a lunar excavation rover.”
+
+Verified work:
+- Designed and analyzed components for a lunar excavation rover
+- Worked on CAD, mechanical design, simulation, and system integration
+- Contributed to autonomous rover development, including navigation and path-planning discussions
+
+Tools/domains:
+SolidWorks / CAD / Mechanical Design / Simulation / Robotics / Autonomous Systems
+
+UR10E WELDING
+
+Title:
+“UR10e Welding Automation”
+
+Role:
+“Robotics Integration Engineer”
+
+Summary:
+“Integrating collaborative robotics with industrial welding equipment.”
+
+Verified work:
+- Integrated a UR10e collaborative robot with an ESAB welding system
+- Worked with URScript programming and industrial communication
+- Investigated EtherNet/IP and fieldbus integration
+
+Tools/domains:
+UR10e / ESAB / URScript / Python / EtherNet-IP / Fieldbus / Industrial Robotics / Automation
+
+COMPUTER VISION
+
+Title:
+“Computer Vision Robotics Work”
+
+Summary:
+“Software workflows for sensing, vision, and robotic automation.”
+
+Verified work:
+- Developed software workflows involving computer vision, sensors, and robotic automation
+
+Tools/domains:
+Python / Computer Vision / Sensors / Embedded Systems / Robotic Automation
+
+SKYRYDER
+
+Title:
+“Skyryder”
+
+Type:
+“Interactive Work / Playable Project”
+
+Verified copy:
+“Skyryder is an original playable game project, published independently on itch.io.”
+
+External URL:
+https://vian-g.itch.io/skyryder
+
+Do not invent any other Skyryder detail. Build optional modules that automatically hide when their source content is empty.
+
+==================================================
+PROJECT INDEX
+==================================================
+
+Build /projects as a physical archive or project drawer.
+
+Page header:
+MetalDataPlate:
+“PROJECT ARCHIVE / 04 ENTRIES”
+
+H1:
+“Engineering work”
+
+Intro:
+“Projects spanning rover systems, industrial automation, perception workflows, and interactive development.”
+
+Use FolderTab navigation:
+- 01 / MOON MINERS
+- 02 / UR10E
+- 03 / VISION
+- 04 / SKYRYDER
+
+Below, use large dossier cards with:
+- Project index plate
+- Title
+- Short factual summary
+- Tool/domain list
+- Static SVG signature visual
+- Open dossier button
+- Clear next-project sequencing
+
+Do not create an equal generic card grid. It should feel like a curated archive with a strong visual rhythm: alternating large and compact project entries is acceptable.
+
+==================================================
+CASE-STUDY TEMPLATE
+==================================================
+
+Build a reusable case-study layout that looks like an opened physical project dossier.
+
+Every engineering project page uses:
+
+1. Project index tab
+2. MetalDataPlate
+3. Large project title on PaperSheet
+4. One-line summary
+5. Primary engineering-drawing window
+6. Compact project metadata
+7. “The brief”
+8. “What I worked on”
+9. “Approach”
+10. “Process and evidence”
+11. “What it reinforced”
+12. Previous/next project navigation
+
+Use PaperSheet for meaningful sections, MetalDataPlate for factual metadata, and TechnicalFigure for real images or diagrams.
+
+Metadata fields:
+ROLE
+CONTEXT
+TOOLS
+TIMEFRAME / STATUS
+
+If a value is unavailable, do not render that row publicly.
+
+No text should claim ownership of work that was team-level. Use “contributed,” “worked on,” or “participated” where appropriate.
+
+==================================================
+MOON MINERS PAGE
+==================================================
+
+Route:
+/projects/moon-miners
+
+Project tab:
+“01 / MOON MINERS”
+
+MetalDataPlate:
+“PROJECT 01 / ROVER SYSTEMS”
+
+H1:
+“CMU Moon Miners — NASA Lunabotics”
+
+Subtitle:
+“Mechanical and robotics contributions to a lunar excavation rover.”
+
+The brief:
+“Contributed to the design and analysis of rover components for a lunar excavation system, with work spanning CAD, mechanical design, simulation, and system integration.”
+
+What I worked on:
+- Designed and analyzed rover components
+- Supported CAD and mechanical design workflows
+- Contributed to simulation and broader system integration
+- Participated in autonomous rover development discussions, including navigation and path planning
+
+Approach:
+Use only the documented domains:
+- CAD
+- Mechanical design
+- Simulation
+- System integration
+- Rover systems
+- Navigation and path-planning discussion
+
+Process and evidence:
+- Create a polished TechnicalFigure placeholder system for CAD images, rover photographs, build photos, diagrams, and integration images
+- Do not generate fake images
+- If no actual visual is supplied, use the existing custom rover/mobility SVG in a drafting window, labelled clearly as “SYSTEM SCHEMATIC / CONCEPTUAL”
+- Add developer-only slots for future media with caption, alt text, and figure number
+
+What it reinforced:
+“Work on the rover connected mechanical component design with the broader demands of robotics integration and autonomous-system development.”
+
+Do not add performance figures, rover dimensions, materials, subsystem ownership, competition results, or test outcomes.
+
+==================================================
+UR10E WELDING PAGE
+==================================================
+
+Route:
+/projects/ur10e-welding
+
+Project tab:
+“02 / UR10E”
+
+MetalDataPlate:
+“PROJECT 02 / INDUSTRIAL AUTOMATION”
+
+H1:
+“UR10e Welding Automation”
+
+Subtitle:
+“Integrating collaborative robotics with industrial welding equipment.”
+
+The brief:
+“Worked on integrating a UR10e collaborative robot with an ESAB welding system, with a focus on robot programming and industrial communication.”
+
+What I worked on:
+- Integrated a UR10e collaborative robot with an ESAB welding system
+- Worked with URScript programming
+- Investigated EtherNet/IP and fieldbus integration
+- Contributed to industrial robotics and automation workflows
+
+Approach:
+Use a system-style technical composition that visually separates:
+- Robot
+- Welding equipment
+- URScript control
+- Industrial communication
+- EtherNet/IP / fieldbus investigation
+
+Only label relationships at a high level. Do not invent a precise network architecture or specific operational behavior.
+
+Process and evidence:
+- Placeholder figure components for photos, diagrams, code snippets, wiring/integration visuals, and commissioning/test evidence
+- Do not invent real UR10e/ESAB imagery
+- In the absence of real media, use the custom robot-arm + toolpath SVG schematic, labeled “INTEGRATION SCHEMATIC / CONCEPTUAL”
+
+What it reinforced:
+“This project focused attention on the interfaces that make industrial automation work: robot programming, equipment integration, and reliable communication.”
+
+Do not claim production deployment, certification, throughput, commercial use, welding quality, or full autonomy.
+
+==================================================
+COMPUTER VISION PAGE
+==================================================
+
+Route:
+/projects/computer-vision
+
+Project tab:
+“03 / VISION”
+
+MetalDataPlate:
+“PROJECT 03 / PERCEPTION SYSTEMS”
+
+H1:
+“Computer Vision Robotics Work”
+
+Subtitle:
+“Software workflows for sensing, vision, and robotic automation.”
+
+The brief:
+“Developed software workflows combining computer vision, sensors, and robotic automation.”
+
+Approach:
+Use only:
+- Python
+- Computer vision
+- Sensors
+- Embedded systems
+- Robotic automation
+
+This page should be concise, visually refined, and honest. It should not pretend to be a fully documented research project.
+
+Process and evidence:
+- Add empty figure slots that disappear in production until media is provided
+- Use the custom camera frame, sensing nodes, and field-of-view SVG as the default visual schematic
+- Label it “PERCEPTION WORKFLOW / CONCEPTUAL”
+
+What it reinforced:
+“Building perception-oriented workflows requires thinking across sensing, software, and the robotic system that uses the resulting information.”
+
+Do not claim models, datasets, accuracy, inference speeds, hardware platforms, or deployments.
+
+==================================================
+SKYRYDER PAGE
+==================================================
+
+Route:
+/skyryder
+
+Keep Skyryder inside the same physical field-case universe. It is interactive work, not an unrelated neon game page.
+
+Project tab:
+“04 / SKYRYDER”
+
+MetalDataPlate:
+“PROJECT 04 / INTERACTIVE WORK”
+
+H1:
+“Skyryder”
+
+Intro:
+“Skyryder is an original playable game project, published independently on itch.io.”
+
+Primary physical rust-red button:
+“PLAY SKYRYDER ON ITCH.IO ↗”
+
+URL:
+https://vian-g.itch.io/skyryder
+
+Implementation:
+- Open in a new tab
+- target="_blank"
+- rel="noopener noreferrer"
+- Make it work without JavaScript
+
+Hero visual:
+- Use supplied official game media if it becomes available
+- Otherwise, use the project’s custom wing/flight-trajectory SVG
+- Treat the SVG as a drafting-film visual, consistent with other projects
+- Do not use neon, arcade cabinets, gamepad icons, or generic fantasy visuals
+
+Optional sections:
+- Overview
+- Development notes
+- Gallery
+- Play the full game
+
+Hide any section that has no verified content. Do not display placeholder brackets publicly.
+
+==================================================
+ABOUT PAGE
+==================================================
+
+Route:
+/about
+
+Make this a short personnel/profile sheet, not a long biography.
+
+MetalDataPlate:
+“PROFILE / ECE + ROBOTICS”
+
+H1:
+“About”
+
+Intro:
+“Vian Garg is an ECE student with a Robotics minor, focused on building and integrating systems across robotics, automation, controls, perception, and mechanical-electrical design.”
+
+Section:
+“CURRENT FOCUS”
+
+List:
+- Robotics integration
+- Automation and controls
+- Autonomous systems
+- Embedded systems
+- Computer vision
+- Industrial robotics
+
+Section:
+“HOW I WORK”
+
+Copy:
+“I am most interested in projects where interfaces matter: between mechanical systems and electronics, sensors and software, or robotic hardware and industrial equipment.”
+
+Section:
+“INTERACTIVE WORK”
+
+Copy:
+“I also build interactive projects, including Skyryder.”
+
+Button:
+[ PLAY SKYRYDER ↗ ]
+
+==================================================
+RÉSUMÉ PAGE
+==================================================
+
+Route:
+/resume
+
+MetalDataPlate:
+“DOCUMENT / RÉSUMÉ”
+
+H1:
+“Résumé”
+
+Copy:
+“Download the current résumé for a concise overview of education, technical experience, and projects.”
+
+Buttons:
+[ VIEW RÉSUMÉ PDF ↗ ]
+[ DOWNLOAD RÉSUMÉ PDF ↓ ]
+
+Create a defined resume-file configuration path, but do not invent the filename, content, dates, contact details, university wording, transfer details, or links.
+
+Use the final supplied résumé PDF as the sole source of truth when its information is connected to the site.
+
+==================================================
+IMPLEMENTATION REQUIREMENTS
+==================================================
+
+- Keep all global header, footer, PaperSheet, MetalDataPlate, PhysicalButton, FolderTab, and TechnicalFigure patterns consistent
+- Reuse the custom SVG visual language across pages
+- Use semantic HTML, one h1 per route, logical heading structure, visible focus states, and AA contrast
+- Never allow missing content to leave ugly empty blocks
+- Use graceful empty states only in development; hide incomplete optional content in production
+- Add previous / next navigation at the bottom of every project page
+- Keep all external links clearly marked
+- Do not add generic technology-logo rows or fake image placeholders
+- Preserve mobile usability
+
+Finish with all routes functional and all project text accurate, structured, and visually cohesive.
