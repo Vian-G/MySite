@@ -10,7 +10,7 @@ const STATE_DESCRIPTIONS: Record<string, string> = {
   '01': 'Animated schematic of a tracked lunar rover with continuously rotating tank treads.',
   '02': 'Animated schematic of a six-axis robotic arm with each joint in continuous idle motion.',
   '03': 'Animated schematic of a four-wheeled lunar rover with a solar panel and spinning wheels.',
-  '04': 'Schematic of a flight trajectory for an interactive flight project.',
+  '04': 'Animated schematic of a plane shown from a third-person chase view, swaying gently as the background scrolls past to convey forward flight.',
 };
 
 /** Tracks the user's reduced-motion preference so decorative SVG animations can be skipped. */
@@ -84,6 +84,40 @@ function buildTerrainPath(base: number, xStart: number, xEnd: number, amp1: numb
   return d;
 }
 
+/**
+ * Builds keyframes for a rotation `animateTransform` that makes a rover visually respond to terrain
+ * slope as it drives along a matching `animateMotion` path, without ever exceeding `maxDeg` in either
+ * direction. Sampled at uniform x-steps (a close approximation of the near-constant-speed motion along
+ * a shallow terrain path) and rotated about a fixed local pivot near the vehicle's ground-contact point,
+ * so the tilt reads as gentle pitching rather than exaggerated or unnatural rotation.
+ */
+function buildTiltKeyframes(
+  xStart: number,
+  xEnd: number,
+  amp1: number,
+  per1: number,
+  amp2: number,
+  per2: number,
+  pivotX: number,
+  pivotY: number,
+  maxDeg = 9,
+  steps = 60,
+) {
+  const values: string[] = [];
+  const keyTimes: string[] = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const x = xStart + t * (xEnd - xStart);
+    const slope =
+      amp1 * ((2 * Math.PI) / per1) * Math.cos((2 * Math.PI * x) / per1) +
+      amp2 * ((2 * Math.PI) / per2) * Math.cos((2 * Math.PI * x) / per2 + 1.3);
+    const angle = Math.max(-maxDeg, Math.min(maxDeg, Math.atan(slope) * (180 / Math.PI)));
+    values.push(`${angle.toFixed(2)} ${pivotX} ${pivotY}`);
+    keyTimes.push(t.toFixed(4));
+  }
+  return { values: values.join(';'), keyTimes: keyTimes.join(';') };
+}
+
 /** A six-spoke moon-rover wheel with rim-mounted grousers, matching MoonRanger's real running gear. */
 function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean; dur: string }) {
   const rimR = 11;
@@ -134,25 +168,31 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   const wheelPositions = [14, 116];
 
   // Moon Miners: dune/crater terrain the tracked rover drives over, looping off the right edge and back in from the left.
-  // Amplitudes are kept small relative to their periods so the chassis pitches gently rather than lurching.
+  // Amplitudes give clearly visible dunes; rover tilt is separately clamped so it never reads as exaggerated.
   const minersTerrainBase = 300;
-  const minersAmp1 = 8, minersPer1 = 170, minersAmp2 = 3, minersPer2 = 75;
+  const minersAmp1 = 12, minersPer1 = 190, minersAmp2 = 4, minersPer2 = 85;
   const minersGroundPath = buildTerrainPath(minersTerrainBase, 0, 400, minersAmp1, minersPer1, minersAmp2, minersPer2, 4);
   const minersRideHeight = 52; // local y of the track's bottom edge within the chassis group
   const minersMotionBase = minersTerrainBase - minersRideHeight;
-  const minersMotionPath = buildTerrainPath(minersMotionBase, -70, 470, minersAmp1, minersPer1, minersAmp2, minersPer2, 4);
+  const minersMotionXStart = -70, minersMotionXEnd = 470;
+  const minersMotionPath = buildTerrainPath(minersMotionBase, minersMotionXStart, minersMotionXEnd, minersAmp1, minersPer1, minersAmp2, minersPer2, 4);
   const minersStaticX = 170;
   const minersStaticY = terrainYAt(minersStaticX, minersMotionBase, minersAmp1, minersPer1, minersAmp2, minersPer2);
+  const minersDur = '24s';
+  const minersTilt = buildTiltKeyframes(minersMotionXStart, minersMotionXEnd, minersAmp1, minersPer1, minersAmp2, minersPer2, 45, minersRideHeight, 9);
 
   // MoonRanger: dune/crater terrain the 4-wheel rover drives over, looping off the right edge and back in from the left.
   const rangerTerrainBase = 344;
-  const rangerAmp1 = 7, rangerPer1 = 190, rangerAmp2 = 2.5, rangerPer2 = 82;
+  const rangerAmp1 = 10, rangerPer1 = 210, rangerAmp2 = 3.5, rangerPer2 = 92;
   const rangerGroundPath = buildTerrainPath(rangerTerrainBase, 0, 400, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 4);
   const rangerRideHeight = 47; // local y of the wheel-bottom contact point within the chassis group
   const rangerMotionBase = rangerTerrainBase - rangerRideHeight;
-  const rangerMotionPath = buildTerrainPath(rangerMotionBase, -80, 480, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 4);
+  const rangerMotionXStart = -80, rangerMotionXEnd = 480;
+  const rangerMotionPath = buildTerrainPath(rangerMotionBase, rangerMotionXStart, rangerMotionXEnd, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 4);
   const rangerStaticX = 190;
   const rangerStaticY = terrainYAt(rangerStaticX, rangerMotionBase, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2);
+  const rangerDur = '30s';
+  const rangerTilt = buildTiltKeyframes(rangerMotionXStart, rangerMotionXEnd, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 65, rangerRideHeight, 9);
 
   return (
     <svg
@@ -190,7 +230,7 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">PATH / PLANNING</text>
 
         {/* Dune / crater terrain the rover drives over */}
-        <path d={minersGroundPath} fill="none" stroke="#8D8A82" strokeOpacity="0.5" strokeDasharray="4 4" strokeWidth="1.5" />
+        <path d={minersGroundPath} fill="none" stroke="#5B5850" strokeOpacity="0.75" strokeDasharray="6 3" strokeWidth="2" />
 
         <g transform={motionAllowed ? undefined : `translate(${minersStaticX}, ${minersStaticY})`}>
           {/* Chassis */}
@@ -214,7 +254,19 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
           </rect>
           {/* Drives left-to-right over the dune/crater terrain, looping off the right edge and re-entering from the left */}
           {motionAllowed && (
-            <animateMotion path={minersMotionPath} dur="13s" repeatCount="indefinite" />
+            <>
+              <animateMotion path={minersMotionPath} dur={minersDur} repeatCount="indefinite" />
+              {/* Tilts to follow terrain slope, clamped to +/-9deg so it never reads as exaggerated */}
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values={minersTilt.values}
+                keyTimes={minersTilt.keyTimes}
+                dur={minersDur}
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </>
           )}
         </g>
 
@@ -258,7 +310,7 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">SOLAR / AUTONOMY</text>
 
         {/* Dune / crater terrain the rover drives over */}
-        <path d={rangerGroundPath} fill="none" stroke="#8D8A82" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="10 10" />
+        <path d={rangerGroundPath} fill="none" stroke="#5B5850" strokeOpacity="0.6" strokeWidth="2" strokeDasharray="8 6" />
 
         <g transform={motionAllowed ? undefined : `translate(${rangerStaticX}, ${rangerStaticY})`}>
           {/* Low, flat foil-wrapped chassis */}
@@ -290,29 +342,105 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
 
           {/* Drives left-to-right over the dune/crater terrain, looping off the right edge and re-entering from the left */}
           {motionAllowed && (
-            <animateMotion path={rangerMotionPath} dur="16s" repeatCount="indefinite" />
+            <>
+              <animateMotion path={rangerMotionPath} dur={rangerDur} repeatCount="indefinite" />
+              {/* Tilts to follow terrain slope, clamped to +/-9deg so it never reads as exaggerated */}
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values={rangerTilt.values}
+                keyTimes={rangerTilt.keyTimes}
+                dur={rangerDur}
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </>
           )}
         </g>
 
         <circle cx="340" cy="200" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
       </g>
 
-      {/* STATE 04: Skyryder */}
+      {/* STATE 04: Skyryder — 3rd-person chase view, plane swaying over a scrolling ground grid */}
       <g className={cn("transition-opacity duration-1000", activeState === '04' ? "opacity-100" : "opacity-0")}>
         <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">04 / FLIGHT</text>
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">INTERACTIVE / WORK</text>
 
-        <path d="M 20,340 L 380,340" fill="none" stroke="#8D8A82" strokeOpacity="0.4" strokeWidth="1.5" strokeDasharray="12 12" />
+        {/* Horizon */}
+        <path d="M 40,150 L 360,150" fill="none" stroke="#8D8A82" strokeOpacity="0.5" strokeWidth="1.5" strokeDasharray="8 6" />
+        {/* Perspective guide rails converging on the vanishing point, framing the chase view */}
+        <path d="M 200,150 L 40,360" fill="none" stroke="#8D8A82" strokeOpacity="0.25" strokeWidth="1" />
+        <path d="M 200,150 L 360,360" fill="none" stroke="#8D8A82" strokeOpacity="0.25" strokeWidth="1" />
 
-        <path d="M 60,260 Q 200,100 340,200" fill="none" stroke="#8D8A82" strokeOpacity="0.6" strokeWidth="1.5" strokeDasharray="5 8" />
+        {/* Scrolling ground grid: rungs travel from the horizon toward the viewer, widening as they approach, to read as forward motion */}
+        {motionAllowed
+          ? [0, 1, 2, 3].map((i) => {
+              const dur = 3.2;
+              const begin = `${-(i * dur) / 4}s`;
+              return (
+                <line key={i} x1="190" y1="150" x2="210" y2="150" stroke="currentColor" strokeWidth="1.5" opacity="0">
+                  <animate attributeName="y1" values="150;360" dur={`${dur}s`} begin={begin} repeatCount="indefinite" />
+                  <animate attributeName="y2" values="150;360" dur={`${dur}s`} begin={begin} repeatCount="indefinite" />
+                  <animate attributeName="x1" values="190;40" dur={`${dur}s`} begin={begin} repeatCount="indefinite" />
+                  <animate attributeName="x2" values="210;360" dur={`${dur}s`} begin={begin} repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.55;0.55;0" keyTimes="0;0.15;0.85;1" dur={`${dur}s`} begin={begin} repeatCount="indefinite" />
+                </line>
+              );
+            })
+          : (
+            // Static frame: two fixed ground rungs at rest positions along the perspective rails
+            <>
+              <line x1="150" y1="215" x2="250" y2="215" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" />
+              <line x1="110" y1="285" x2="290" y2="285" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" />
+            </>
+          )}
 
-        <g transform="translate(260, 150) rotate(25)">
-          <path d="M -25,-8 Q 0,-15 25,0 Q 0,8 -25,-8 Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M -15,0 L -35,-15" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+        {/* Plane, viewed from behind/above (3rd-person chase cam) */}
+        <g transform="translate(200, 222)">
+          <g>
+            {motionAllowed && (
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values="-7 0;7 0;-7 0"
+                keyTimes="0;0.5;1"
+                dur="5.2s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keySplines="0.45 0 0.55 1;0.45 0 0.55 1"
+              />
+            )}
+            <g>
+              {motionAllowed && (
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  values="-5 0 30;5 0 30;-5 0 30"
+                  keyTimes="0;0.5;1"
+                  dur="4.1s"
+                  repeatCount="indefinite"
+                  calcMode="spline"
+                  keySplines="0.45 0 0.55 1;0.45 0 0.55 1"
+                />
+              )}
+              {/* Tail fin, closest to the viewer */}
+              <path d="M 0,42 L 10,58 L 0,52 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              {/* Horizontal stabilizers */}
+              <path d="M 0,48 L -22,58 L -8,52 L 0,48 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M 0,48 L 22,58 L 8,52 L 0,48 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              {/* Fuselage, tapering away toward the nose near the horizon */}
+              <path d="M 0,-52 L 6,10 L 4,52 L -4,52 L -6,10 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              {/* Main wings, swept back */}
+              <path d="M 0,-13 L -78,22 L -50,30 L 0,2 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M 0,-13 L 78,22 L 50,30 L 0,2 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              {/* Canopy, near the nose */}
+              <ellipse cx="0" cy="-30" rx="4.5" ry="9" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.25" />
+            </g>
+          </g>
         </g>
 
-        <circle cx="130" cy="180" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="340" cy="200" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="70" cy="110" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="330" cy="110" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
       </g>
     </svg>
   );
