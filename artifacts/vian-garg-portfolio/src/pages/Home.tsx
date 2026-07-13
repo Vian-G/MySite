@@ -99,18 +99,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Snapshot */}
+      <section className="flex flex-col gap-6 items-start">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
+          01_PROFILE_SNAPSHOT
+          <div className="w-full h-px bg-primary/30 flex-1" />
+        </h2>
+        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
+          <div className="font-mono text-xs text-muted-foreground mb-4">{LOCATION_STATUS}</div>
+          <p className="font-sans text-lg text-foreground leading-relaxed">
+            I am a sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I am most interested in the intersection of disciplines: where mechanical systems meet electronics, where sensors inform software, and where theory turns into physical action. I am currently looking for internship opportunities in robotics, embedded systems, and controls.
+          </p>
+          <div className="mt-6">
+            <Link href="/about" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] inline-block">
+              <PhysicalButton asDiv variant="graphite" size="sm" className="gap-2">Read more <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
+            </Link>
+          </div>
+        </PaperSheet>
+      </section>
+
       {/* Featured Projects */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-baseline border-b border-border pb-4">
           <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2">
-            01_FEATURED_PROJECTS
+            02_FEATURED_PROJECTS
           </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-8">
           {featuredProjects.map((prj, i) => (
             <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
-              <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
+              <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-center group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
                 
                 <div className="hidden md:flex relative w-32 h-32 lg:w-40 lg:h-40 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
@@ -124,36 +143,16 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="flex-1 flex flex-col gap-4">
-                  <div>
-                    <h3 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">{prj.title}</h3>
-                    <p className="font-sans text-muted-foreground mt-1">{prj.problem}</p>
-                  </div>
+                <div className="flex-1 flex flex-col gap-4 justify-center">
+                  <h3 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">{prj.title}</h3>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1">
-                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Role</span>
-                      <span className="font-sans text-sm">{prj.role}</span>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Result</span>
-                      <span className="font-sans text-sm font-medium">{prj.result}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2">
                     {prj.stack.map(tech => (
                       <span key={tech} className="font-mono text-[10px] bg-secondary/50 text-secondary-foreground px-2 py-1 border border-border/50 uppercase tracking-wider">
                         {tech}
                       </span>
                     ))}
                   </div>
-                </div>
-
-                <div className="md:self-center mt-4 md:mt-0">
-                  <PhysicalButton asDiv variant="graphite" size="sm" className="w-full md:w-auto whitespace-nowrap gap-2">
-                    View case study <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                  </PhysicalButton>
                 </div>
               </PaperSheet>
             </Link>
@@ -165,7 +164,7 @@ export default function Home() {
       <section className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="col-span-1 md:col-span-4 flex flex-col gap-4">
           <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2">
-            02_CAPABILITIES
+            03_CAPABILITIES
             <div className="w-full h-px bg-primary/30 flex-1 hidden md:block" />
           </h2>
           <p className="font-sans text-sm text-muted-foreground">
@@ -202,25 +201,6 @@ export default function Home() {
             </div>
           </PaperSheet>
         </div>
-      </section>
-
-      {/* About Snapshot */}
-      <section className="flex flex-col gap-6 items-start">
-        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
-          03_PROFILE_SNAPSHOT
-          <div className="w-full h-px bg-primary/30 flex-1" />
-        </h2>
-        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
-          <div className="font-mono text-xs text-muted-foreground mb-4">{LOCATION_STATUS}</div>
-          <p className="font-sans text-lg text-foreground leading-relaxed">
-            I am a sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I am most interested in the intersection of disciplines: where mechanical systems meet electronics, where sensors inform software, and where theory turns into physical action. I am currently looking for internship opportunities in robotics, embedded systems, and controls.
-          </p>
-          <div className="mt-6">
-            <Link href="/about" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] inline-block">
-              <PhysicalButton asDiv variant="graphite" size="sm" className="gap-2">Read more <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
-            </Link>
-          </div>
-        </PaperSheet>
       </section>
 
     </div>
