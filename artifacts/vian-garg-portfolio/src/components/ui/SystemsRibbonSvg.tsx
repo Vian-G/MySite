@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SystemsRibbonSvgProps {
-  activeState?: '01' | '02' | '03' | '04';
+  activeState?: '01' | '02' | '03' | '04' | '05' | '06';
   className?: string;
 }
 
@@ -11,6 +11,8 @@ const STATE_DESCRIPTIONS: Record<string, string> = {
   '02': 'Animated schematic of a six-axis robotic arm with each joint in continuous idle motion.',
   '03': 'Animated schematic of a four-wheeled lunar rover with a solar panel and spinning wheels.',
   '04': 'Animated schematic of a plane shown from a third-person chase view, swaying gently as the background scrolls past to convey forward flight.',
+  '05': 'Animated schematic of a low aerodynamic composite racing buggy with spinning wheels, driving along a flat track.',
+  '06': 'Animated schematic of a competition robot with a telescoping cascade lift extending and retracting above an omni-wheel drivetrain.',
 };
 
 /** Tracks the user's reduced-motion preference so decorative SVG animations can be skipped. */
@@ -193,6 +195,17 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   const rangerStaticY = terrainYAt(rangerStaticX, rangerMotionBase, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2);
   const rangerDur = '30s';
   const rangerTilt = buildTiltKeyframes(rangerMotionXStart, rangerMotionXEnd, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 65, rangerRideHeight, 9);
+
+  // SPIRIT Buggy: low, flat composite racing buggy driving along a flat track (no terrain undulation).
+  const buggyTrackY = 330;
+  const buggyMotionXStart = -60, buggyMotionXEnd = 460;
+  const buggyStaticX = 180;
+  const buggyDur = '10s';
+
+  // FIRST Global: telescoping cascade lift, extending and retracting above an omni-wheel chassis.
+  const liftBaseY = 330;
+  const liftExtendedTopY = 210;
+  const liftRetractedTopY = 285;
 
   return (
     <svg
@@ -441,6 +454,104 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
 
         <circle cx="70" cy="110" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
         <circle cx="330" cy="110" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+      </g>
+
+      {/* STATE 05: SPIRIT Buggy — low aerodynamic composite racing buggy, spinning wheels, flat track */}
+      <g className={cn("transition-opacity duration-1000", activeState === '05' ? "opacity-100" : "opacity-0")}>
+        <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">05 / VEHICLE FAB</text>
+        <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">COMPOSITE STRUCTURE</text>
+
+        {/* Flat track */}
+        <path d={`M 0,${buggyTrackY} L 400,${buggyTrackY}`} fill="none" stroke="#5B5850" strokeOpacity="0.6" strokeWidth="2" strokeDasharray="10 6" />
+
+        <g transform={motionAllowed ? undefined : `translate(${buggyStaticX}, ${buggyTrackY - 34})`}>
+          {/* Aerodynamic composite monocoque shell */}
+          <path d="M -32,0 C -20,-26 30,-30 74,-16 C 92,-10 96,2 88,10 L -20,10 C -32,10 -38,4 -32,0 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          {/* Roll hoop */}
+          <path d="M 6,-14 C 6,-32 30,-32 30,-14" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          {/* Driver canopy cutout */}
+          <ellipse cx="18" cy="-14" rx="11" ry="6" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.2" />
+
+          {/* Rear wheel (larger) */}
+          <g transform="translate(-14, 26)">
+            <circle r="16" fill="none" stroke="currentColor" strokeWidth="2" />
+            <circle r="4" fill="none" stroke="currentColor" strokeWidth="1.25" />
+            <path d="M -16,0 L 16,0 M -8,-13.9 L 8,13.9 M 8,-13.9 L -8,13.9" stroke="currentColor" strokeWidth="1.25" />
+            {motionAllowed && (
+              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="1.4s" repeatCount="indefinite" additive="sum" />
+            )}
+          </g>
+          {/* Front wheel (smaller, steering tie-rod visible) */}
+          <g transform="translate(64, 30)">
+            <circle r="11" fill="none" stroke="currentColor" strokeWidth="2" />
+            <circle r="3" fill="none" stroke="currentColor" strokeWidth="1.25" />
+            <path d="M -11,0 L 11,0 M -5.5,-9.5 L 5.5,9.5 M 5.5,-9.5 L -5.5,9.5" stroke="currentColor" strokeWidth="1.25" />
+            {motionAllowed && (
+              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="1s" repeatCount="indefinite" additive="sum" />
+            )}
+          </g>
+          {/* Steering tie-rod linking front wheel to chassis */}
+          <path d="M 40,16 L 62,24" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" />
+
+          {motionAllowed && (
+            <animateMotion
+              path={`M ${buggyMotionXStart - buggyStaticX},0 L ${buggyMotionXEnd - buggyStaticX},0`}
+              dur={buggyDur}
+              repeatCount="indefinite"
+            />
+          )}
+        </g>
+
+        <circle cx="340" cy="200" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+      </g>
+
+      {/* STATE 06: FIRST Global Team UAE — telescoping cascade lift over an omni-wheel drivetrain */}
+      <g className={cn("transition-opacity duration-1000", activeState === '06' ? "opacity-100" : "opacity-0")}>
+        <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">06 / LIFT MECHANISM</text>
+        <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">COMPETITION ROBOT</text>
+
+        <g transform="translate(180, 0)">
+          {/* Chassis base */}
+          <rect x="-40" y={liftBaseY} width="80" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" />
+
+          {/* Omni wheels at the four chassis corners (diamond rollers denote omni-directional wheels) */}
+          {[-34, 34].map((dx) => (
+            <g key={dx} transform={`translate(${dx}, ${liftBaseY + 8})`}>
+              <circle r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M 0,-9 L 6,0 L 0,9 L -6,0 Z" fill="none" stroke="currentColor" strokeWidth="1" />
+              {motionAllowed && (
+                <animateTransform attributeName="transform" type="rotate" values={`0 0 0;360 0 0`} dur="2.4s" repeatCount="indefinite" additive="sum" />
+              )}
+            </g>
+          ))}
+
+          {/* Telescoping cascade lift: outer rail fixed, inner carriage + platform extend and retract */}
+          <line x1="-4" y1={liftBaseY} x2="-4" y2={liftRetractedTopY} stroke="currentColor" strokeWidth="1.5" />
+          <line x1="4" y1={liftBaseY} x2="4" y2={liftRetractedTopY} stroke="currentColor" strokeWidth="1.5" />
+
+          <g>
+            {/* Inner moving stage */}
+            <line x1="-4" y1={liftBaseY - 6} x2="-4" y2={liftExtendedTopY} stroke="hsl(var(--primary))" strokeWidth="2" />
+            <line x1="4" y1={liftBaseY - 6} x2="4" y2={liftExtendedTopY} stroke="hsl(var(--primary))" strokeWidth="2" />
+            {/* End-effector / carriage platform */}
+            <rect x="-16" y={liftExtendedTopY - 6} width="32" height="8" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+
+            {motionAllowed && (
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values={`0 0;0 ${liftRetractedTopY - liftExtendedTopY};0 0`}
+                keyTimes="0;0.5;1"
+                dur="6s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keySplines="0.45 0 0.55 1;0.45 0 0.55 1"
+              />
+            )}
+          </g>
+        </g>
+
+        <circle cx="340" cy="220" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
       </g>
     </svg>
   );

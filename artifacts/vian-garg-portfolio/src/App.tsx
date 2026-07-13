@@ -12,6 +12,8 @@ import MoonMiners from '@/pages/projects/MoonMiners';
 import Ur10eWelding from '@/pages/projects/Ur10eWelding';
 import MoonRanger from '@/pages/projects/MoonRanger';
 import Skyryder from '@/pages/Skyryder';
+import SpiritBuggy from '@/pages/projects/SpiritBuggy';
+import FirstGlobalUae from '@/pages/projects/FirstGlobalUae';
 import About from '@/pages/About';
 import Resume from '@/pages/Resume';
 
@@ -26,6 +28,8 @@ function Router() {
       <Route path="/projects/ur10e-welding" component={Ur10eWelding} />
       <Route path="/projects/moon-ranger" component={MoonRanger} />
       <Route path="/skyryder" component={Skyryder} />
+      <Route path="/projects/spirit-buggy" component={SpiritBuggy} />
+      <Route path="/projects/first-global-uae" component={FirstGlobalUae} />
       <Route path="/about" component={About} />
       <Route path="/resume" component={Resume} />
       <Route component={NotFound} />

@@ -19,6 +19,12 @@ import moonRangerPhoto3 from '@/assets/projects/moon-ranger-3.jpg';
 import skyryderPhoto from '@/assets/projects/skyryder.jpg';
 import skyryderPhoto2 from '@/assets/projects/skyryder-2.jpg';
 import skyryderPhoto3 from '@/assets/projects/skyryder-3.jpg';
+import spiritBuggyPhoto from '@/assets/projects/spirit-buggy.jpg';
+import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg';
+import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg';
+import firstGlobalUaePhoto from '@/assets/projects/first-global-uae.jpg';
+import firstGlobalUaePhoto2 from '@/assets/projects/first-global-uae-2.jpg';
+import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg';
 
 export default function ProjectsIndex() {
   useSEO('Engineering Work | Vian Garg', 'Projects spanning rover systems, industrial automation, perception workflows, and interactive development.');
@@ -81,6 +87,36 @@ export default function ProjectsIndex() {
         "Original playable game project, designed and built independently",
         "Published and playable free on itch.io",
       ],
+    },
+    {
+      id: "05",
+      title: "SPIRIT Buggy — CMU Buggy",
+      role: "Assistant Build Lead",
+      summary: "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years. Introduced a male-mold construction method new to the team and designed a steering assembly validated in ANSYS before it raced.",
+      tools: "SolidWorks, ANSYS, Carbon Fiber Layup, Composite Fabrication",
+      href: "/projects/spirit-buggy",
+      photo: spiritBuggyPhoto,
+      galleryPhotos: [spiritBuggyPhoto2, spiritBuggyPhoto3],
+      facts: [
+        "First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years",
+        "First male-mold construction method used in CMU Buggy's fabrication history",
+        "Nomex honeycomb core sandwiched between carbon-fiber weave layups",
+      ],
+    },
+    {
+      id: "06",
+      title: "FIRST Global Team UAE 2025",
+      role: "National Robotics Vice President",
+      summary: "Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece, building a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain.",
+      tools: "Mechanical Design, Team Leadership, Cascade Lift Mechanisms, Omni-Wheel Drivetrains",
+      href: "/projects/first-global-uae",
+      photo: firstGlobalUaePhoto,
+      galleryPhotos: [firstGlobalUaePhoto2, firstGlobalUaePhoto3],
+      facts: [
+        "Led a 22-member national team as Robotics Vice President",
+        "Robot featured a 6-foot telescoping cascade lift and omni-wheel drivetrain",
+        "2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece",
+      ],
     }
   ];
 
@@ -94,7 +130,7 @@ export default function ProjectsIndex() {
       <FolderTab />
       
       <div className="flex flex-col gap-6 items-start -mt-4">
-        <MetalDataPlate>PROJECT ARCHIVE / 04 ENTRIES</MetalDataPlate>
+        <MetalDataPlate>PROJECT ARCHIVE / 06 ENTRIES</MetalDataPlate>
         <div className="flex flex-col gap-4 max-w-2xl">
           <h1 className="font-serif text-4xl md:text-5xl text-foreground">Engineering work</h1>
           <p className="font-sans text-lg text-muted-foreground">

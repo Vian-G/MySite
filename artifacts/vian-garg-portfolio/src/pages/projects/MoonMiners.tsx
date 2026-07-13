@@ -41,7 +41,7 @@ export default function MoonMiners() {
         svg: <SystemsRibbonSvg activeState="01" />
       }}
       reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar 'First Steps' Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
-      prevLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
+      prevLink={{ href: "/projects/first-global-uae", label: "06 / FIRST GLOBAL UAE" }}
       nextLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
       slots={
         <>
