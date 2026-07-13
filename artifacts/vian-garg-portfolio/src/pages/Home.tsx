@@ -95,11 +95,12 @@ export default function Home() {
         </div>
 
         <div className="hidden lg:block lg:w-1/3 relative flex justify-end items-center">
-           <div className="w-full max-w-[320px] aspect-square pointer-events-none mt-8">
+           <div className="w-full max-w-[380px] aspect-[4/5] pointer-events-none mt-8">
               <TornPhotoWindow
                 src={portraitImg}
                 alt="Technical portrait illustration of Vian Garg"
                 className="w-full h-full"
+                imgClassName="object-[50%_38%]"
                 variant={1}
                 rotate={-3}
               />

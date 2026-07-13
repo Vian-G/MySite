@@ -5,6 +5,8 @@ interface TornPhotoWindowProps {
   src: string;
   alt: string;
   className?: string;
+  /** Extra classes applied to the underlying <img>, e.g. to adjust object-position. */
+  imgClassName?: string;
   /** Which torn-edge silhouette variant to use, for visual variety across cards. */
   variant?: 0 | 1 | 2;
   /** Slight rotation in degrees to make the cutout feel hand-torn and physical. */
@@ -22,7 +24,7 @@ const TORN_HOLE_PATHS = [
 ] as const;
 
 /** A photo peeking through an irregular torn-paper hole, matching the site's physical-archive aesthetic. */
-export function TornPhotoWindow({ src, alt, className, variant = 0, rotate = -3 }: TornPhotoWindowProps) {
+export function TornPhotoWindow({ src, alt, className, imgClassName, variant = 0, rotate = -3 }: TornPhotoWindowProps) {
   const clipId = useId();
 
   return (
@@ -42,7 +44,7 @@ export function TornPhotoWindow({ src, alt, className, variant = 0, rotate = -3 
         className="relative w-full h-full drop-shadow-[0_4px_8px_rgba(27,28,26,0.35)]"
         style={{ clipPath: `url(#${clipId})` }}
       >
-        <img src={src} alt={alt} loading="lazy" className="w-full h-full object-cover" />
+        <img src={src} alt={alt} loading="lazy" className={cn('w-full h-full object-cover', imgClassName)} />
         {/* Fake depth into the torn hole with an inset shadow around the edge */}
         <div className="absolute inset-0 shadow-[inset_0_0_16px_8px_rgba(20,18,14,0.5)] pointer-events-none" />
       </div>
