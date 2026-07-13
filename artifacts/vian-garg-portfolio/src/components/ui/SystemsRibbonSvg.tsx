@@ -80,24 +80,23 @@ function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean;
     const y1 = Math.sin(angle) * rimR;
     const x2 = Math.cos(angle) * grouserOuterR;
     const y2 = Math.sin(angle) * grouserOuterR;
-    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1" />;
+    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1.75" />;
   });
 
   return (
     <g transform={`translate(${cx}, 36)`}>
       <g>
-        {/* Rim */}
-        <circle r={rimR} fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        {/* Rim (outline only, no fill, so the wheel reads as a wire wheel rather than a solid disc) */}
+        <circle r={rimR} fill="none" stroke="currentColor" strokeWidth="2" />
         {/* Grousers: short traction lugs studding the rim */}
         {grousers}
         {/* Hub */}
-        <circle r="3.5" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle r="3.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
         {/* 6 spokes, evenly spaced */}
         <path
           d="M -11,0 L 11,0 M -5.5,-9.53 L 5.5,9.53 M 5.5,-9.53 L -5.5,9.53"
           stroke="currentColor"
-          strokeWidth="0.75"
-          opacity="0.55"
+          strokeWidth="1.5"
         />
         {motionAllowed && (
           <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur={dur} repeatCount="indefinite" />
