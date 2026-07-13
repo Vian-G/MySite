@@ -3,6 +3,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { useSEO } from '@/hooks/use-seo';
+import { ArrowRight } from 'lucide-react';
 
 export default function NotFound() {
   useSEO('404 | Vian Garg', 'Page not found.');
@@ -17,7 +18,7 @@ export default function NotFound() {
             The requested technical document or project log could not be located in the current directory.
           </p>
           <Link href="/" className="outline-none mt-2 focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-            <PhysicalButton asDiv variant="graphite">Return to index {'->'}</PhysicalButton>
+            <PhysicalButton asDiv variant="graphite" className="gap-2">Return to index <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
           </Link>
         </PaperSheet>
       </div>

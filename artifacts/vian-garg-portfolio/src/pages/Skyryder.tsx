@@ -4,6 +4,7 @@ import { FolderTab } from '@/components/ui/FolderTab';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
+import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 
@@ -28,8 +29,8 @@ export default function Skyryder() {
             rel="noopener noreferrer" 
             className="inline-block outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
           >
-            <PhysicalButton asDiv variant="rust" size="lg" className="w-full sm:w-auto">
-              Play Skyryder on itch.io ↗
+            <PhysicalButton asDiv variant="rust" size="lg" className="w-full sm:w-auto gap-2">
+              Play Skyryder on itch.io <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
             </PhysicalButton>
           </a>
         </PaperSheet>
@@ -53,8 +54,8 @@ export default function Skyryder() {
           rel="noopener noreferrer"
           className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
         >
-          <PhysicalButton asDiv variant="metal" size="md">
-            Play the full game ↗
+          <PhysicalButton asDiv variant="metal" size="md" className="gap-2">
+            Play the full game <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
           </PhysicalButton>
         </a>
       </div>
@@ -62,14 +63,14 @@ export default function Skyryder() {
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
         <Link href="/projects/moon-ranger" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
-            <span className="text-muted-foreground/70">{'<-'} Previous</span>
+            <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>
             <span>03 / MOONRANGER</span>
           </PhysicalButton>
         </Link>
         <Link href="/projects/moon-miners" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
             <span>01 / MOON MINERS</span>
-            <span className="text-muted-foreground/70">Next {'->'}</span>
+            <span className="text-muted-foreground/70 inline-flex items-center gap-1">Next <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /></span>
           </PhysicalButton>
         </Link>
       </div>

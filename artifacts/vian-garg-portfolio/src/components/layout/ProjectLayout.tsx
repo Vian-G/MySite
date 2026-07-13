@@ -4,6 +4,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { FolderTab } from '@/components/ui/FolderTab';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 
 interface ProjectLayoutProps {
@@ -177,14 +178,14 @@ export function ProjectLayout({
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
         <Link href={prevLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
-            <span className="text-muted-foreground/70">{'<-'} Previous</span>
+            <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>
             <span>{prevLink.label}</span>
           </PhysicalButton>
         </Link>
         <Link href={nextLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
             <span>{nextLink.label}</span>
-            <span className="text-muted-foreground/70">Next {'->'}</span>
+            <span className="text-muted-foreground/70 inline-flex items-center gap-1">Next <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /></span>
           </PhysicalButton>
         </Link>
       </div>

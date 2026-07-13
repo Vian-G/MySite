@@ -6,6 +6,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
+import { ArrowRight } from 'lucide-react';
 
 export interface ProjectCardData {
   id: string;
@@ -209,8 +210,8 @@ export function ExpandableProjectCard({
           )}
 
           <div className="mt-4">
-            <PhysicalButton asDiv variant="graphite" size="sm" className="w-full" onClick={handleButtonClick}>
-              View case study {'->'}
+            <PhysicalButton asDiv variant="graphite" size="sm" className="w-full gap-2" onClick={handleButtonClick}>
+              View case study <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
             </PhysicalButton>
           </div>
         </PaperSheet>

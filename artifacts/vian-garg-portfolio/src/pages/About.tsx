@@ -3,6 +3,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { useSEO } from '@/hooks/use-seo';
 import { LOCATION_STATUS } from '@/config/contact';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function About() {
   useSEO('About | Vian Garg', 'Vian Garg is an ECE student with a Robotics minor, focused on building and integrating systems across robotics, automation, controls, perception, and mechanical-electrical design.');
@@ -80,8 +81,8 @@ export default function About() {
               rel="noopener noreferrer"
               className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
             >
-              <PhysicalButton asDiv variant="rust" size="sm" className="whitespace-nowrap">
-                Play Skyryder ↗
+              <PhysicalButton asDiv variant="rust" size="sm" className="whitespace-nowrap gap-1.5">
+                Play Skyryder <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
               </PhysicalButton>
             </a>
           </div>

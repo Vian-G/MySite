@@ -2,6 +2,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { RESUME_PDF_URL } from '@/config/resume';
@@ -78,11 +79,11 @@ export default function Home() {
             </Link>
             {RESUME_PDF_URL ? (
               <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-                 <PhysicalButton asDiv variant="graphite" size="lg">Download Resume ↗</PhysicalButton>
+                 <PhysicalButton asDiv variant="graphite" size="lg" className="gap-2">Download Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
               </a>
             ) : (
               <div className="cursor-not-allowed">
-                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed">Download Resume ↗</PhysicalButton>
+                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed gap-2">Download Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
               </div>
             )}
             <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
@@ -150,8 +151,8 @@ export default function Home() {
                 </div>
 
                 <div className="md:self-center mt-4 md:mt-0">
-                  <PhysicalButton asDiv variant="graphite" size="sm" className="w-full md:w-auto whitespace-nowrap">
-                    View case study {'->'}
+                  <PhysicalButton asDiv variant="graphite" size="sm" className="w-full md:w-auto whitespace-nowrap gap-2">
+                    View case study <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
                   </PhysicalButton>
                 </div>
               </PaperSheet>
@@ -216,7 +217,7 @@ export default function Home() {
           </p>
           <div className="mt-6">
             <Link href="/about" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] inline-block">
-              <PhysicalButton asDiv variant="graphite" size="sm">Read more {'->'}</PhysicalButton>
+              <PhysicalButton asDiv variant="graphite" size="sm" className="gap-2">Read more <ArrowRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
             </Link>
           </div>
         </PaperSheet>
