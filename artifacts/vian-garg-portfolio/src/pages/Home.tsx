@@ -3,6 +3,7 @@ import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import portraitImg from '@/assets/portrait.svg';
+import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
@@ -95,7 +96,13 @@ export default function Home() {
 
         <div className="hidden lg:block lg:w-1/3 relative flex justify-end items-center">
            <div className="w-full max-w-[320px] aspect-square pointer-events-none mt-8">
-              <img src={portraitImg} alt="Technical portrait illustration of Vian Garg" className="w-full h-full object-contain" />
+              <TornPhotoWindow
+                src={portraitImg}
+                alt="Technical portrait illustration of Vian Garg"
+                className="w-full h-full"
+                variant={1}
+                rotate={-3}
+              />
            </div>
         </div>
       </section>
