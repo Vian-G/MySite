@@ -2,7 +2,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
-import { PoseAwarePortraitWireframe } from '@/components/ui/PoseAwarePortraitWireframe';
+import { PortraitSchematic } from '@/components/ui/PortraitSchematic';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
@@ -95,7 +95,7 @@ export default function Home() {
 
         <div className="hidden lg:block lg:w-1/3 relative flex justify-end items-center">
            <div className="w-full max-w-[320px] aspect-square pointer-events-none mt-8">
-              <PoseAwarePortraitWireframe className="w-full h-full" />
+              <PortraitSchematic className="w-full h-full" />
            </div>
         </div>
       </section>

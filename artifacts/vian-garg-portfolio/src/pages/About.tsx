@@ -4,7 +4,7 @@ import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { useSEO } from '@/hooks/use-seo';
 import { LOCATION_STATUS } from '@/config/contact';
 import { ArrowUpRight } from 'lucide-react';
-import { PoseAwarePortraitWireframe } from '@/components/ui/PoseAwarePortraitWireframe';
+import { PortraitSchematic } from '@/components/ui/PortraitSchematic';
 
 export default function About() {
   useSEO('About | Vian Garg', 'Vian Garg is an ECE student with a Robotics minor, focused on building and integrating systems across robotics, automation, controls, perception, and mechanical-electrical design.');
@@ -18,7 +18,7 @@ export default function About() {
         <PaperSheet className="p-8 md:p-12 w-full flex flex-col sm:flex-row gap-8" variant="clipped">
           <div className="w-32 h-40 shrink-0 border border-border/50 bg-[#E8E6D9] shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] relative flex items-center justify-center overflow-hidden">
             <div className="absolute top-2 left-2 font-mono text-[8px] text-muted-foreground uppercase tracking-wider z-10">FIG_00: PORTRAIT</div>
-            <PoseAwarePortraitWireframe className="w-full h-full scale-125" />
+            <PortraitSchematic className="w-full h-full scale-125" />
           </div>
           
           <div>
