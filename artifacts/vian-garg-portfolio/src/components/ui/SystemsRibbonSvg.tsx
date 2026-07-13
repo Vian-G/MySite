@@ -69,6 +69,21 @@ function ArmJoint({
   );
 }
 
+/** Height (y) of a rolling dune/crater terrain at a given x, as the sum of two sine waves for a natural, irregular look. */
+function terrainYAt(x: number, base: number, amp1: number, per1: number, amp2: number, per2: number) {
+  return base + amp1 * Math.sin((2 * Math.PI * x) / per1) + amp2 * Math.sin((2 * Math.PI * x) / per2 + 1.3);
+}
+
+/** Builds an SVG line-path tracing the dune/crater terrain from xStart to xEnd at the given baseline. */
+function buildTerrainPath(base: number, xStart: number, xEnd: number, amp1: number, per1: number, amp2: number, per2: number, step = 8) {
+  let d = `M ${xStart},${terrainYAt(xStart, base, amp1, per1, amp2, per2).toFixed(2)}`;
+  for (let x = xStart + step; x < xEnd; x += step) {
+    d += ` L ${x},${terrainYAt(x, base, amp1, per1, amp2, per2).toFixed(2)}`;
+  }
+  d += ` L ${xEnd},${terrainYAt(xEnd, base, amp1, per1, amp2, per2).toFixed(2)}`;
+  return d;
+}
+
 /** A six-spoke moon-rover wheel with rim-mounted grousers, matching MoonRanger's real running gear. */
 function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean; dur: string }) {
   const rimR = 11;
@@ -118,6 +133,27 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   const sharedPath = "M 40,80 C 150,80 150,320 360,320";
   const wheelPositions = [14, 116];
 
+  // Moon Miners: dune/crater terrain the tracked rover drives over, looping off the right edge and back in from the left.
+  // Amplitudes are kept small relative to their periods so the chassis pitches gently rather than lurching.
+  const minersTerrainBase = 300;
+  const minersAmp1 = 8, minersPer1 = 170, minersAmp2 = 3, minersPer2 = 75;
+  const minersGroundPath = buildTerrainPath(minersTerrainBase, 0, 400, minersAmp1, minersPer1, minersAmp2, minersPer2, 4);
+  const minersRideHeight = 52; // local y of the track's bottom edge within the chassis group
+  const minersMotionBase = minersTerrainBase - minersRideHeight;
+  const minersMotionPath = buildTerrainPath(minersMotionBase, -70, 470, minersAmp1, minersPer1, minersAmp2, minersPer2, 4);
+  const minersStaticX = 170;
+  const minersStaticY = terrainYAt(minersStaticX, minersMotionBase, minersAmp1, minersPer1, minersAmp2, minersPer2);
+
+  // MoonRanger: dune/crater terrain the 4-wheel rover drives over, looping off the right edge and back in from the left.
+  const rangerTerrainBase = 344;
+  const rangerAmp1 = 7, rangerPer1 = 190, rangerAmp2 = 2.5, rangerPer2 = 82;
+  const rangerGroundPath = buildTerrainPath(rangerTerrainBase, 0, 400, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 4);
+  const rangerRideHeight = 47; // local y of the wheel-bottom contact point within the chassis group
+  const rangerMotionBase = rangerTerrainBase - rangerRideHeight;
+  const rangerMotionPath = buildTerrainPath(rangerMotionBase, -80, 480, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 4);
+  const rangerStaticX = 190;
+  const rangerStaticY = terrainYAt(rangerStaticX, rangerMotionBase, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2);
+
   return (
     <svg
       viewBox="0 0 400 400"
@@ -153,9 +189,10 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">01 / MOBILITY</text>
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">PATH / PLANNING</text>
 
-        <path d="M 0,280 Q 100,290 200,260 T 400,290" fill="none" stroke="#8D8A82" strokeOpacity="0.5" strokeDasharray="4 4" strokeWidth="1.5" />
+        {/* Dune / crater terrain the rover drives over */}
+        <path d={minersGroundPath} fill="none" stroke="#8D8A82" strokeOpacity="0.5" strokeDasharray="4 4" strokeWidth="1.5" />
 
-        <g transform="translate(50, 195)">
+        <g transform={motionAllowed ? undefined : `translate(${minersStaticX}, ${minersStaticY})`}>
           {/* Chassis */}
           <path d="M 0,0 L 90,0 L 110,32 L -20,32 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
           {/* Continuous track loop */}
@@ -175,6 +212,10 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
               <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.6s" repeatCount="indefinite" />
             )}
           </rect>
+          {/* Drives left-to-right over the dune/crater terrain, looping off the right edge and re-entering from the left */}
+          {motionAllowed && (
+            <animateMotion path={minersMotionPath} dur="13s" repeatCount="indefinite" />
+          )}
         </g>
 
         <circle cx="340" cy="305" r="5" fill="none" stroke="#B87D2A" strokeWidth="1.5" />
@@ -216,9 +257,10 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">03 / SURFACE MOBILITY</text>
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">SOLAR / AUTONOMY</text>
 
-        <path d="M 20,340 L 380,340" fill="none" stroke="#8D8A82" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="10 10" />
+        {/* Dune / crater terrain the rover drives over */}
+        <path d={rangerGroundPath} fill="none" stroke="#8D8A82" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="10 10" />
 
-        <g transform="translate(120, 230)">
+        <g transform={motionAllowed ? undefined : `translate(${rangerStaticX}, ${rangerStaticY})`}>
           {/* Low, flat foil-wrapped chassis */}
           <rect x="0" y="-4" width="130" height="22" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
 
@@ -245,6 +287,11 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
           {wheelPositions.map((cx, i) => (
             <Wheel key={cx} cx={cx} motionAllowed={motionAllowed} dur={`${2.4 + i * 0.2}s`} />
           ))}
+
+          {/* Drives left-to-right over the dune/crater terrain, looping off the right edge and re-entering from the left */}
+          {motionAllowed && (
+            <animateMotion path={rangerMotionPath} dur="16s" repeatCount="indefinite" />
+          )}
         </g>
 
         <circle cx="340" cy="200" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
