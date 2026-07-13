@@ -3,6 +3,10 @@ function readPackage(pkg) {
     pkg.pnpm = pkg.pnpm || {};
     pkg.pnpm.allowBuild = true;
   }
+  if (pkg.name === 'thread-stream') {
+    pkg.pnpm = pkg.pnpm || {};
+    pkg.pnpm.allowBuild = true;
+  }
   return pkg;
 }
 
