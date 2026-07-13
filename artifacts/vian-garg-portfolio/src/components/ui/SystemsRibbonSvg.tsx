@@ -69,15 +69,32 @@ function ArmJoint({
   );
 }
 
-/** A wire-mesh moon-rover wheel: an outer rim with fine radial spokes, matching MoonRanger's real running gear. */
+/** A six-spoke moon-rover wheel with rim-mounted grousers, matching MoonRanger's real running gear. */
 function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean; dur: string }) {
+  const rimR = 11;
+  const grouserOuterR = rimR + 2;
+  const grouserCount = 10;
+  const grousers = Array.from({ length: grouserCount }, (_, i) => {
+    const angle = (i / grouserCount) * 2 * Math.PI;
+    const x1 = Math.cos(angle) * rimR;
+    const y1 = Math.sin(angle) * rimR;
+    const x2 = Math.cos(angle) * grouserOuterR;
+    const y2 = Math.sin(angle) * grouserOuterR;
+    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1" />;
+  });
+
   return (
     <g transform={`translate(${cx}, 36)`}>
       <g>
-        <circle r="11" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        {/* Rim */}
+        <circle r={rimR} fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+        {/* Grousers: short traction lugs studding the rim */}
+        {grousers}
+        {/* Hub */}
         <circle r="3.5" fill="none" stroke="currentColor" strokeWidth="1" />
+        {/* 6 spokes, evenly spaced */}
         <path
-          d="M -11,0 L 11,0 M -9.5,-5.5 L 9.5,5.5 M -5.5,-9.5 L 5.5,9.5 M 0,-11 L 0,11 M 5.5,-9.5 L -5.5,9.5 M 9.5,-5.5 L -9.5,5.5"
+          d="M -11,0 L 11,0 M -5.5,-9.53 L 5.5,9.53 M 5.5,-9.53 L -5.5,9.53"
           stroke="currentColor"
           strokeWidth="0.75"
           opacity="0.55"
@@ -100,7 +117,7 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   }, []);
 
   const sharedPath = "M 40,80 C 150,80 150,320 360,320";
-  const wheelPositions = [14, 45, 85, 116];
+  const wheelPositions = [14, 116];
 
   return (
     <svg
@@ -225,7 +242,7 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
             <circle cx="25" cy="-62" r="6" fill="var(--background)" stroke="hsl(var(--primary))" strokeWidth="1.2" />
           </g>
 
-          {/* 4 wire-mesh wheels, each independently spinning */}
+          {/* 2 visible wheels (near-side profile view), each independently spinning */}
           {wheelPositions.map((cx, i) => (
             <Wheel key={cx} cx={cx} motionAllowed={motionAllowed} dur={`${2.4 + i * 0.2}s`} />
           ))}
