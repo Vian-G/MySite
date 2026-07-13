@@ -12,6 +12,7 @@ import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
 import ur10ePhoto from '@/assets/projects/ur10e.jpg';
 import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
+import skyryderPhoto from '@/assets/projects/skyryder.jpg';
 
 export default function Home() {
   useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
@@ -46,6 +47,16 @@ export default function Home() {
       result: "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system.",
       href: '/projects/moon-ranger',
       photo: moonRangerPhoto,
+    },
+    {
+      id: '04',
+      title: 'Skyryder',
+      role: 'Independent Developer',
+      problem: 'Designing and building an original playable game project independently, outside of coursework.',
+      stack: ['Game Design', 'Level Design', 'Itch.io'],
+      result: 'Published and playable free on itch.io.',
+      href: '/skyryder',
+      photo: skyryderPhoto,
     }
   ];
 
