@@ -127,12 +127,12 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {featuredProjects.map((prj, i) => (
             <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
-              <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-center group-hover:border-primary/40 transition-colors" variant={i % 2 === 0 ? "clipped" : "default"}>
-                
-                <div className="hidden md:flex relative w-32 h-32 lg:w-40 lg:h-40 shrink-0 border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
+              <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col gap-6 md:gap-8 group-hover:border-primary/40 transition-colors h-full" variant={i % 2 === 0 ? "clipped" : "default"}>
+
+                <div className="relative w-full aspect-[16/10] md:aspect-[2/1] border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
                     <SystemsRibbonSvg activeState={prj.id as any} />
                   </div>
@@ -144,7 +144,7 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="flex-1 flex flex-col gap-4 justify-center">
+                <div className="flex flex-col gap-4 justify-center">
                   <h3 className="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">{prj.title}</h3>
 
                   <div className="flex flex-wrap gap-2">
