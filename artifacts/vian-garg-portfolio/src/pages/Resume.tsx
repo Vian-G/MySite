@@ -1,14 +1,12 @@
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
-import { RESUME_PDF_URL } from '@/config/resume';
+import { ResumeAction } from '@/components/ui/ResumeAction';
 import { useSEO } from '@/hooks/use-seo';
 import { ArrowUpRight, Download } from 'lucide-react';
 
 export default function Resume() {
   useSEO('Résumé | Vian Garg', 'Download the current résumé for a concise overview of education, technical experience, and projects.');
-  
-  const isAvailable = Boolean(RESUME_PDF_URL);
 
   return (
     <div className="flex flex-col gap-12 animate-in fade-in duration-700 max-w-2xl pb-16">
@@ -23,52 +21,25 @@ export default function Resume() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 border-t border-border pt-8">
-            {isAvailable ? (
-              <>
-                <a 
-                  href={RESUME_PDF_URL as string} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-                >
-                  <PhysicalButton asDiv variant="graphite" size="md" className="w-full gap-2">
-                    View Résumé PDF <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                  </PhysicalButton>
-                </a>
-                <a 
-                  href={RESUME_PDF_URL as string} 
-                  download 
-                  className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-                >
-                  <PhysicalButton asDiv variant="metal" size="md" className="w-full gap-2">
-                    Download PDF <Download className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                  </PhysicalButton>
-                </a>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col gap-1 w-full sm:w-auto">
-                  <PhysicalButton asDiv variant="graphite" size="md" className="w-full gap-2 opacity-50 cursor-not-allowed" disabled>
-                    View Résumé PDF <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                  </PhysicalButton>
-                  <span className="font-mono text-[10px] text-muted-foreground text-center">PDF pending upload</span>
-                </div>
-                <div className="flex flex-col gap-1 w-full sm:w-auto">
-                  <PhysicalButton asDiv variant="metal" size="md" className="w-full gap-2 opacity-50 cursor-not-allowed" disabled>
-                    Download PDF <Download className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                  </PhysicalButton>
-                  <span className="font-mono text-[10px] text-muted-foreground text-center hidden sm:block">&nbsp;</span>
-                </div>
-              </>
-            )}
+            <ResumeAction mode="view">
+              {(onClick) => (
+                <PhysicalButton onClick={onClick} variant="graphite" size="md" className="w-full gap-2">
+                  View Résumé PDF <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                </PhysicalButton>
+              )}
+            </ResumeAction>
+            <ResumeAction mode="download">
+              {(onClick) => (
+                <PhysicalButton onClick={onClick} variant="metal" size="md" className="w-full gap-2">
+                  Download PDF <Download className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                </PhysicalButton>
+              )}
+            </ResumeAction>
           </div>
-          
-          {!isAvailable && (
-            <div className="mt-8 p-6 border border-dashed border-border/60 bg-secondary/10 flex flex-col items-center justify-center gap-2">
-               <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">Preview window</span>
-               <span className="font-sans text-sm text-muted-foreground">Inline preview will appear here once the PDF is uploaded.</span>
-            </div>
-          )}
+
+          <p className="mt-6 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
+            A quick human check runs before the file opens — it takes about a second.
+          </p>
         </PaperSheet>
       </div>
 

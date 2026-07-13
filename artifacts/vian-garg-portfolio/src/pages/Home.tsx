@@ -7,7 +7,7 @@ import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
-import { RESUME_PDF_URL } from '@/config/resume';
+import { ResumeAction } from '@/components/ui/ResumeAction';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
 import ur10ePhoto from '@/assets/projects/ur10e.jpg';
@@ -79,15 +79,13 @@ export default function Home() {
             <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
               <PhysicalButton asDiv variant="rust" size="lg">View Projects</PhysicalButton>
             </Link>
-            {RESUME_PDF_URL ? (
-              <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-                 <PhysicalButton asDiv variant="graphite" size="lg" className="gap-2">Download Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
-              </a>
-            ) : (
-              <div className="cursor-not-allowed">
-                <PhysicalButton asDiv variant="graphite" size="lg" disabled className="opacity-50 cursor-not-allowed gap-2">Download Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" /></PhysicalButton>
-              </div>
-            )}
+            <ResumeAction mode="view">
+              {(onClick) => (
+                <PhysicalButton onClick={onClick} variant="graphite" size="lg" className="gap-2">
+                  Download Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                </PhysicalButton>
+              )}
+            </ResumeAction>
             <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
                <PhysicalButton asDiv variant="metal" size="lg">Contact Me</PhysicalButton>
             </a>

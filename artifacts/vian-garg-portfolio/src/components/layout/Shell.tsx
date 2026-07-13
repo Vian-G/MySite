@@ -3,7 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { EMAIL, LINKEDIN_URL, GITHUB_URL, LOCATION_STATUS } from '@/config/contact';
-import { RESUME_PDF_URL } from '@/config/resume';
+import { ResumeAction } from '@/components/ui/ResumeAction';
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -68,11 +68,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <a href={`mailto:${EMAIL}`} className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">Email</a>
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">LinkedIn <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" /></a>
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">GitHub <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" /></a>
-            {RESUME_PDF_URL ? (
-              <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">Résumé <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" /></a>
-            ) : (
-              <span className="text-muted-foreground/50 cursor-not-allowed">Résumé (Pending)</span>
-            )}
+            <ResumeAction mode="view">
+              {(onClick) => (
+                <button type="button" onClick={onClick} className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">
+                  Résumé <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" />
+                </button>
+              )}
+            </ResumeAction>
           </div>
         </div>
       </footer>
