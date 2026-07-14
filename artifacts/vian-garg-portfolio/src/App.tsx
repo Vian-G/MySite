@@ -28,7 +28,7 @@ function Router() {
       <Route path="/projects/moon-miners" component={MoonMiners} />
       <Route path="/projects/ur10e-welding" component={Ur10eWelding} />
       <Route path="/projects/moon-ranger" component={MoonRanger} />
-      <Route path="/skyryder" component={Skyryder} />
+      <Route path="/projects/skyryder" component={Skyryder} />
       <Route path="/projects/spirit-buggy" component={SpiritBuggy} />
       <Route path="/projects/first-global-uae" component={FirstGlobalUae} />
       <Route path="/about" component={About} />
