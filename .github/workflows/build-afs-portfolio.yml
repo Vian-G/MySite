@@ -1,0 +1,77 @@
+name: Build AFS Portfolio
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - "artifacts/vian-garg-portfolio/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/build-afs-portfolio.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build static AFS bundle
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    env:
+      BASE_PATH: "./"
+      PORT: "5000"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm 11.12.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: "11.12.0"
+          run_install: false
+
+      - name: Install Node.js 24.16.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.16.0"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Confirm exact tool versions
+        run: |
+          node --version
+          pnpm --version
+
+      - name: Allow required native build scripts
+        run: pnpm approve-builds esbuild
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build portfolio
+        run: |
+          node artifacts/vian-garg-portfolio/node_modules/vite/bin/vite.js build \
+            --config artifacts/vian-garg-portfolio/vite.config.ts
+
+      - name: Verify deploy files
+        run: |
+          test -f artifacts/vian-garg-portfolio/dist/public/index.html
+          test -d artifacts/vian-garg-portfolio/dist/public/assets
+          grep -q 'src="./assets/' artifacts/vian-garg-portfolio/dist/public/index.html
+          ! grep -q 'src="/assets/' artifacts/vian-garg-portfolio/dist/public/index.html
+          ! grep -q 'src="/src/main.tsx' artifacts/vian-garg-portfolio/dist/public/index.html
+
+      - name: Save AFS-ready site
+        uses: actions/upload-artifact@v4
+        with:
+          name: afs-portfolio
+          path: artifacts/vian-garg-portfolio/dist/public
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
