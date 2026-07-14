@@ -41,7 +41,7 @@ export default function ProjectsIndex() {
       galleryPhotos: [moonMinersPhoto2, moonMinersPhoto3],
       facts: [
         "Drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant",
-        "Won the Caterpillar "First Steps" Award for best first-year team",
+        'Won the Caterpillar "First Steps" Award for best first-year team',
         "First first-year team to score autonomous-navigation points at NASA Lunabotics",
       ],
     },
