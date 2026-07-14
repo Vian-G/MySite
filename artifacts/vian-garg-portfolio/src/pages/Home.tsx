@@ -55,7 +55,7 @@ export default function Home() {
       problem: 'Designing and building an original playable game project independently, outside of coursework.',
       stack: ['Game Design', 'Level Design', 'Itch.io'],
       result: 'Published and playable free on itch.io.',
-      href: '/projects/skyryder',
+      href: '/skyryder',
       photo: skyryderPhoto,
     }
   ];
@@ -65,7 +65,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="flex flex-col lg:flex-row gap-6 md:gap-8 relative justify-between">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8D8A821A_1px,transparent_1px),linear-gradient(to_bottom,#8D8A821A_1px,transparent_1px)] bg-[size:24px_24px] [mask-image[...]
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8D8A821A_1px,transparent_1px),linear-gradient(to_bottom,#8D8A821A_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_left_top,black_20%,transparent_70%)]" />
         
         <div className="flex flex-col gap-6 md:gap-8 lg:w-2/3">
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between lg:justify-start lg:gap-8">
@@ -83,7 +83,7 @@ export default function Home() {
           </h1>
           
           <div className="max-w-2xl font-sans text-lg text-secondary-foreground leading-relaxed mt-4">
-            Sophomore at Carnegie Mellon University specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotic[...]
+            Sophomore at Carnegie Mellon University specializing in the mechanical-electrical synthesis of autonomous systems. Focused on embedded hardware, computer vision, and industrial robotics integration.
           </div>
           
           <div className="flex flex-wrap gap-4 mt-4">
@@ -126,7 +126,7 @@ export default function Home() {
         <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
           <div className="font-mono text-xs text-muted-foreground mb-4">{LOCATION_STATUS}</div>
           <p className="font-sans text-lg text-foreground leading-relaxed">
-            I am a sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I am most interested in the intersection of disciplines: where me[...]
+            I am a sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I am most interested in the intersection of disciplines: where mechanical systems meet electronics, where sensors inform software, and where theory turns into physical action. I am currently looking for internship opportunities in robotics, embedded systems, and controls.
           </p>
           <div className="mt-6">
             <Link href="/about" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] inline-block">
@@ -149,7 +149,7 @@ export default function Home() {
             <Link key={prj.id} href={prj.href} className="outline-none group focus-visible:ring-2 focus-visible:ring-primary rounded-[2px] block">
               <PaperSheet isInteractive className="p-6 md:p-8 flex flex-col gap-6 md:gap-8 group-hover:border-primary/40 transition-colors h-full" variant={i % 2 === 0 ? "clipped" : "default"}>
 
-                <div className="relative w-full aspect-[16/10] md:aspect-[2/1] border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overf[...]
+                <div className="relative w-full aspect-[16/10] md:aspect-[2/1] border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
                     <SystemsRibbonSvg activeState={prj.id as any} />
                   </div>

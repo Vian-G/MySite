@@ -4,7 +4,7 @@ import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
 
 export default function SpiritBuggy() {
-  useSEO('SPIRIT Buggy | Vian Garg', 'Assistant Build Lead on CMU Buggy's first new carbon-fiber buggy design in over fifteen years.');
+  useSEO('SPIRIT Buggy | Vian Garg', 'Assistant Build Lead on CMU Buggy\u2019s first new carbon-fiber buggy design in over fifteen years.');
 
   return (
     <ProjectLayout
@@ -18,8 +18,8 @@ export default function SpiritBuggy() {
         TIMEFRAME: "2025 – 2026",
         STATUS: "Complete"
       }}
-      brief="SPIRIT is CMU Buggy's first entirely new carbon-fiber buggy design in more than fifteen years — a lightweight, aerodynamic vehicle built to compete in Carnegie Mellon's Sweepstakes [...]
-      objective="Design and fabricate a new carbon-fiber buggy monocoque and steering system from the ground up, introducing a male-mold construction method never before used by CMU Buggy, while v[...]
+      brief="SPIRIT is CMU Buggy's first entirely new carbon-fiber buggy design in more than fifteen years — a lightweight, aerodynamic vehicle built to compete in Carnegie Mellon's Sweepstakes race. As Assistant Build Lead, I helped take the vehicle from CAD to a raced, structurally validated composite shell."
+      objective="Design and fabricate a new carbon-fiber buggy monocoque and steering system from the ground up, introducing a male-mold construction method never before used by CMU Buggy, while validating the steering assembly under real racing loads."
       workedOn={[
         "Assistant Build Lead on SPIRIT, the first new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years",
         "Introduced the first male-mold construction method used in CMU Buggy's fabrication history",
@@ -42,8 +42,8 @@ export default function SpiritBuggy() {
         label: "VEHICLE SCHEMATIC / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="05" />
       }}
-      reinforced="Helped design and build CMU Buggy's first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering [...]
-      prevLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
+      reinforced="Helped design and build CMU Buggy's first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering assembly's design through SolidWorks modeling and ANSYS simulation before it raced."
+      prevLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
       nextLink={{ href: "/projects/first-global-uae", label: "06 / FIRST GLOBAL UAE" }}
       slots={
         <>

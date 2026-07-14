@@ -18,8 +18,8 @@ export default function MoonRanger() {
         TIMEFRAME: "Mission launch: 2029",
         STATUS: "Pre-launch / in development"
       }}
-      brief="MoonRanger is a suitcase-sized autonomous rover developed by Carnegie Mellon University with Astrobotic and NASA's Ames Research Center. It carries a neutron spectrometer to investiga[...]
-      objective="Contribute to the mechanical design of MoonRanger's camera shroud — the housing that protects and positions the rover's stereo-vision navigation system, the same sensor suite th[...]
+      brief="MoonRanger is a suitcase-sized autonomous rover developed by Carnegie Mellon University with Astrobotic and NASA's Ames Research Center. It carries a neutron spectrometer to investigate hydrogen-bearing volatiles in lunar regolith while demonstrating autonomous capabilities for polar exploration — designed to operate for a full lunar day (about fourteen Earth days) using stereo vision and onboard compute to navigate between waypoints without teleoperation from Earth. The rover is slated to fly on a 2029 mission aboard Firefly Aerospace's Blue Ghost lander, landing near the lunar south pole to search for evidence of water ice — one of the most consequential open questions for sustained human presence on the Moon."
+      objective="Contribute to the mechanical design of MoonRanger's camera shroud — the housing that protects and positions the rover's stereo-vision navigation system, the same sensor suite the rover depends on for fully autonomous navigation across unmapped lunar terrain."
       workedOn={[
         "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system",
         "Contributed to mechanical hardware as part of the rover's mechanical engineering team"
@@ -38,9 +38,9 @@ export default function MoonRanger() {
         label: "SURFACE MOBILITY SCHEMATIC / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="03" />
       }}
-      reinforced="Mechanical engineer on MoonRanger, a CMU/Astrobotic/NASA autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud h[...]
+      reinforced="Mechanical engineer on MoonRanger, a CMU/Astrobotic/NASA autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing the rover's stereo-vision navigation system."
       prevLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
-      nextLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
+      nextLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
       slots={
         <>
           <TechnicalFigure caption="Camera shroud CAD render" altText="" isSlot />

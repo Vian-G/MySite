@@ -41,7 +41,7 @@ export default function ProjectsIndex() {
       galleryPhotos: [moonMinersPhoto2, moonMinersPhoto3],
       facts: [
         "Drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant",
-        'Won the Caterpillar "First Steps" Award for best first-year team',
+        "Won the Caterpillar \u201cFirst Steps\u201d Award for best first-year team",
         "First first-year team to score autonomous-navigation points at NASA Lunabotics",
       ],
     },
@@ -56,7 +56,7 @@ export default function ProjectsIndex() {
       galleryPhotos: [ur10ePhoto2, ur10ePhoto3],
       facts: [
         "Bridges human motion input to UR10e execution via URScript",
-        "Remote script validation over the CMU VPN via SSH — no in-person lab access required",
+        "Remote script validation over the CMU VPN via SSH \u2014 no in-person lab access required",
         "Active research at CMU's Engineering Materials for Transformative Technologies Lab",
       ],
     },
@@ -64,7 +64,7 @@ export default function ProjectsIndex() {
       id: "03",
       title: "MoonRanger — NASA Lunar Rover Mission",
       role: "Mechanical Engineer",
-      summary: "A CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing its stereo-vision nav[...]
+      summary: "A CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing its stereo-vision navigation system.",
       tools: "SolidWorks, CAD, Mechanical Design, Stereo Vision Hardware Integration",
       href: "/projects/moon-ranger",
       photo: moonRangerPhoto,
@@ -80,7 +80,7 @@ export default function ProjectsIndex() {
       title: "Skyryder",
       type: "Interactive Work / Playable Project",
       summary: "Skyryder is an original playable game project, published independently on itch.io.",
-      href: "/projects/skyryder",
+      href: "/skyryder",
       photo: skyryderPhoto,
       galleryPhotos: [skyryderPhoto2, skyryderPhoto3],
       facts: [
@@ -92,7 +92,7 @@ export default function ProjectsIndex() {
       id: "05",
       title: "SPIRIT Buggy — CMU Buggy",
       role: "Assistant Build Lead",
-      summary: "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years. Introduced a male-mold construction method new to the team and designed a steering assembly validated in AN[...]
+      summary: "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years. Introduced a male-mold construction method new to the team and designed a steering assembly validated in ANSYS before it raced.",
       tools: "SolidWorks, ANSYS, Carbon Fiber Layup, Composite Fabrication",
       href: "/projects/spirit-buggy",
       photo: spiritBuggyPhoto,
@@ -107,7 +107,7 @@ export default function ProjectsIndex() {
       id: "06",
       title: "FIRST Global Team UAE 2025",
       role: "National Robotics Vice President",
-      summary: "Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece, building a robot with a 6-foot telescoping cascade lift and an omni-[...]
+      summary: "Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece, building a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain.",
       tools: "Mechanical Design, Team Leadership, Cascade Lift Mechanisms, Omni-Wheel Drivetrains",
       href: "/projects/first-global-uae",
       photo: firstGlobalUaePhoto,

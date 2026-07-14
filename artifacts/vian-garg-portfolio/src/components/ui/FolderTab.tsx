@@ -6,7 +6,7 @@ export const TABS = [
   { label: '01 / MOON MINERS', href: '/projects/moon-miners' },
   { label: '02 / UR10E', href: '/projects/ur10e-welding' },
   { label: '03 / MOONRANGER', href: '/projects/moon-ranger' },
-  { label: '04 / SKYRYDER', href: '/projects/skyryder' },
+  { label: '04 / SKYRYDER', href: '/skyryder' },
   { label: '05 / SPIRIT BUGGY', href: '/projects/spirit-buggy' },
   { label: '06 / FIRST GLOBAL UAE', href: '/projects/first-global-uae' }
 ];
