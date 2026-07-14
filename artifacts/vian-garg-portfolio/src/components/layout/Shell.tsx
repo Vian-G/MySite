@@ -30,7 +30,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <nav className="flex items-center h-full">
             {navItems.map((item) => {
               const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume');
-              const isProjects = item.path === '/projects' && (location.startsWith('/projects') || location === '/skyryder');
+              const isProjects = item.path === '/projects' && (location.startsWith('/projects'));
               const finalActive = active || isProjects;
               
               return (
@@ -66,8 +66,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-xs uppercase tracking-wider">
             <a href={`mailto:${EMAIL}`} className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">Email</a>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">LinkedIn <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" /></a>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">GitHub <ArrowUpRight className="w-3 h-3" strokeWidth={2} aria-hidden="true" /></a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible[...]
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:t[...]
             <ResumeAction mode="view">
               {(onClick) => (
                 <button type="button" onClick={onClick} className="inline-flex items-center gap-1 hover:text-primary transition-colors focus-visible:outline-none focus-visible:text-primary">
