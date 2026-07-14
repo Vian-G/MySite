@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { useHashLocation } from 'wouter/use-hash-location';
 import { Shell } from '@/components/layout/Shell';
 import { PageTransitionProvider } from '@/components/layout/PageTransitionOverlay';
 
@@ -18,16 +19,6 @@ import About from '@/pages/About';
 import Resume from '@/pages/Resume';
 
 const queryClient = new QueryClient();
-const AFS_USERWEB_BASE = '/user/viang';
-
-function getRouterBase() {
-  if (typeof window === 'undefined') return '';
-
-  const { pathname } = window.location;
-  return pathname === AFS_USERWEB_BASE || pathname.startsWith(`${AFS_USERWEB_BASE}/`)
-    ? AFS_USERWEB_BASE
-    : '';
-}
 
 function Router() {
   return (
@@ -51,7 +42,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={getRouterBase()}>
+        <WouterRouter hook={useHashLocation}>
           <PageTransitionProvider>
             <Shell>
               <Router />
