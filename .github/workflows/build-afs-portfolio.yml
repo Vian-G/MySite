@@ -49,7 +49,7 @@ jobs:
           pnpm --version
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --allow-build=esbuild
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build portfolio
         run: |
