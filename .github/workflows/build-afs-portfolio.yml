@@ -14,7 +14,7 @@ on:
       - ".github/workflows/build-afs-portfolio.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -72,3 +72,11 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish site to afs-deploy branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: artifacts/vian-garg-portfolio/dist/public
+          publish_branch: afs-deploy
+          force_orphan: true
