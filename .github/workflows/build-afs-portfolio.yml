@@ -7,7 +7,10 @@ on:
     branches:
       - main
     paths:
-      - "artifacts/vian-garg-portfolio/**"
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "vite.config.ts"
       - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
@@ -52,23 +55,21 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Build portfolio
-        run: |
-          node artifacts/vian-garg-portfolio/node_modules/vite/bin/vite.js build \
-            --config artifacts/vian-garg-portfolio/vite.config.ts
+        run: pnpm build
 
       - name: Verify deploy files
         run: |
-          test -f artifacts/vian-garg-portfolio/dist/public/index.html
-          test -d artifacts/vian-garg-portfolio/dist/public/assets
-          grep -q 'src="./assets/' artifacts/vian-garg-portfolio/dist/public/index.html
-          ! grep -q 'src="/assets/' artifacts/vian-garg-portfolio/dist/public/index.html
-          ! grep -q 'src="/src/main.tsx' artifacts/vian-garg-portfolio/dist/public/index.html
+          test -f dist/public/index.html
+          test -d dist/public/assets
+          grep -q 'src="./assets/' dist/public/index.html
+          ! grep -q 'src="/assets/' dist/public/index.html
+          ! grep -q 'src="/src/main.tsx' dist/public/index.html
 
       - name: Save AFS-ready site
         uses: actions/upload-artifact@v4
         with:
           name: afs-portfolio
-          path: artifacts/vian-garg-portfolio/dist/public
+          path: dist/public
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
@@ -77,6 +78,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: artifacts/vian-garg-portfolio/dist/public
+          publish_dir: dist/public
           publish_branch: afs-deploy
           force_orphan: true
