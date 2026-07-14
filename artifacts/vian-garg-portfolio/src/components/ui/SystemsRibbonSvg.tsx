@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
+import type { Project } from '@/config/projects';
+
+export type ProjectId = Project['id'];
+
 interface SystemsRibbonSvgProps {
-  activeState?: '01' | '02' | '03' | '04' | '05' | '06';
+  activeState?: ProjectId;
   className?: string;
 }
 
-const STATE_DESCRIPTIONS: Record<string, string> = {
+const STATE_DESCRIPTIONS: Record<ProjectId, string> = {
   '01': 'Animated schematic of a tracked lunar rover with continuously rotating tank treads.',
   '02': 'Animated schematic of a six-axis robotic arm with each joint in continuous idle motion.',
   '03': 'Animated schematic of a four-wheeled lunar rover with a solar panel and spinning wheels.',

@@ -19,6 +19,7 @@ import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg';
 
 export type Project = {
   id: string;
+  slug: string;
   title: string;
   role: string;
   problem: string;
@@ -26,13 +27,11 @@ export type Project = {
   result: string;
   href: string;
   photo: string;
-  slug: string;
-  /** Optional fields used by the projects index page */
   type?: string;
-  summary?: string;
-  tools?: string;
-  galleryPhotos?: string[];
-  facts?: string[];
+  summary: string;
+  tools: string;
+  galleryPhotos: string[];
+  facts: string[];
 };
 
 export const projects: Project[] = [
@@ -108,6 +107,7 @@ export const projects: Project[] = [
     photo: skyryderPhoto,
     type: 'Interactive Work / Playable Project',
     summary: 'Skyryder is an original playable game project, published independently on itch.io.',
+    tools: 'Game Design, Level Design, Itch.io',
     galleryPhotos: [skyryderPhoto2, skyryderPhoto3],
     facts: [
       'Original playable game project, designed and built independently',

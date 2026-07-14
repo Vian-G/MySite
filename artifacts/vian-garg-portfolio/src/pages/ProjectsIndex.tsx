@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { FolderTab } from '@/components/ui/FolderTab';
-import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
+import { SystemsRibbonSvg, type ProjectId } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
 import { useActiveSection } from '@/hooks/use-active-section';
 import { usePageTransition } from '@/components/layout/PageTransitionOverlay';
@@ -14,8 +14,8 @@ const projectCards: ProjectCardData[] = projects.map((project) => ({
   title: project.title,
   role: project.type ? undefined : project.role,
   type: project.type,
-  summary: project.summary ?? `${project.problem} ${project.result}`,
-  tools: project.tools ?? project.stack.join(', '),
+  summary: project.summary,
+  tools: project.tools,
   href: project.href,
   photo: project.photo,
   galleryPhotos: project.galleryPhotos,
@@ -35,7 +35,7 @@ export default function ProjectsIndex() {
       <FolderTab />
       
       <div className="flex flex-col gap-6 items-start -mt-4">
-        <MetalDataPlate>PROJECT ARCHIVE / 06 ENTRIES</MetalDataPlate>
+        <MetalDataPlate>PROJECT ARCHIVE / {String(projects.length).padStart(2, '0')} ENTRIES</MetalDataPlate>
         <div className="flex flex-col gap-4 max-w-2xl">
           <h1 className="font-serif text-4xl md:text-5xl text-foreground">Engineering work</h1>
           <p className="font-sans text-lg text-muted-foreground">
@@ -70,7 +70,7 @@ export default function ProjectsIndex() {
                   className="w-full h-full"
                   exit={{ opacity: 0 }}
                 >
-                  <SystemsRibbonSvg activeState={(activeProjectId || '01') as any} />
+                  <SystemsRibbonSvg activeState={(activeProjectId ?? '01') as ProjectId} />
                 </motion.div>
               )}
             </AnimatePresence>

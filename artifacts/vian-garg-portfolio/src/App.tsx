@@ -32,6 +32,14 @@ const projectComponents: Record<string, ComponentType> = {
 };
 
 function Router() {
+  if (import.meta.env.DEV) {
+    projects.forEach((p) => {
+      if (!projectComponents[p.slug]) {
+        console.warn(`[App] No component registered for project slug: "${p.slug}". Add it to projectComponents.`);
+      }
+    });
+  }
+
   return (
     <Switch>
       <Route path="/" component={Home} />
