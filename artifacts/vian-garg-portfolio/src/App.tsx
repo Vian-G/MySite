@@ -18,6 +18,16 @@ import About from '@/pages/About';
 import Resume from '@/pages/Resume';
 
 const queryClient = new QueryClient();
+const AFS_USERWEB_BASE = '/user/viang';
+
+function getRouterBase() {
+  if (typeof window === 'undefined') return '';
+
+  const { pathname } = window.location;
+  return pathname === AFS_USERWEB_BASE || pathname.startsWith(`${AFS_USERWEB_BASE}/`)
+    ? AFS_USERWEB_BASE
+    : '';
+}
 
 function Router() {
   return (
@@ -41,7 +51,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+        <WouterRouter base={getRouterBase()}>
           <PageTransitionProvider>
             <Shell>
               <Router />

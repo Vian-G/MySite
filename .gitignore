@@ -47,3 +47,15 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Build/deploy output
+artifacts/vian-garg-portfolio/dist/
+
+# Local Python server cache
+__pycache__/
+*.py[cod]
