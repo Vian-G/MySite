@@ -9,56 +9,13 @@ import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { ResumeAction } from '@/components/ui/ResumeAction';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
-import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
-import ur10ePhoto from '@/assets/projects/ur10e.jpg';
-import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
-import skyryderPhoto from '@/assets/projects/skyryder.jpg';
+import { projects } from '@/config/projects';
+import { skills } from '@/config/skills';
+
+const featuredProjects = projects.slice(0, 4);
 
 export default function Home() {
   useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
-
-  const featuredProjects = [
-    {
-      id: '01',
-      title: 'CMU Moon Miners — NASA Lunabotics',
-      role: 'Mechanical / Robotics Engineer',
-      problem: 'Developing a high-payload autonomous lunar excavation rover for competition.',
-      stack: ['SolidWorks', 'CAD', 'Simulation', 'Robotics'],
-      result: 'Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 simulant.',
-      href: '/projects/moon-miners',
-      photo: moonMinersPhoto,
-    },
-    {
-      id: '02',
-      title: 'UR10e Cobot Welding',
-      role: 'Robotics Researcher',
-      problem: 'Developing a virtual cobot welding system bridging human motion to execution.',
-      stack: ['UR10e', 'URScript', 'EtherNet/IP'],
-      result: 'Engineered remote validation infrastructure for uploading/testing scripts over VPN via SSH.',
-      href: '/projects/ur10e-welding',
-      photo: ur10ePhoto,
-    },
-    {
-      id: '03',
-      title: 'MoonRanger — NASA Lunar Rover Mission',
-      role: 'Mechanical Engineer',
-      problem: 'Contributing mechanical hardware to a CMU / Astrobotic / NASA autonomous lunar rover launching in 2029.',
-      stack: ['SolidWorks', 'CAD', 'Stereo Vision Hardware'],
-      result: "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system.",
-      href: '/projects/moon-ranger',
-      photo: moonRangerPhoto,
-    },
-    {
-      id: '04',
-      title: 'Skyryder',
-      role: 'Independent Developer',
-      problem: 'Designing and building an original playable game project independently, outside of coursework.',
-      stack: ['Game Design', 'Level Design', 'Itch.io'],
-      result: 'Published and playable free on itch.io.',
-      href: '/skyryder',
-      photo: skyryderPhoto,
-    }
-  ];
 
   return (
     <div className="flex flex-col gap-16 md:gap-24 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
@@ -193,29 +150,13 @@ export default function Home() {
         <div className="col-span-1 md:col-span-8">
           <PaperSheet className="p-6 md:p-8 flex flex-col gap-8" variant="clipped">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
-                <div className="font-mono text-xs text-muted-foreground uppercase">Hardware / Embedded</div>
-                <div className="font-sans font-medium text-foreground">Microcontrollers, PCB Design, Sensors</div>
-                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">STM32, ESP32, Altium Designer, I2C/SPI/UART, Motor Drivers, Power Electronics.</div>
-              </div>
-              
-              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
-                <div className="font-mono text-xs text-muted-foreground uppercase">Software / Controls</div>
-                <div className="font-sans font-medium text-foreground">RTOS, Kinematics, Control Theory</div>
-                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">C/C++, Python, ROS2, PID, State Estimation, Trajectory Generation.</div>
-              </div>
-
-              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
-                <div className="font-mono text-xs text-muted-foreground uppercase">Perception</div>
-                <div className="font-sans font-medium text-foreground">Computer Vision, Sensor Fusion</div>
-                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">OpenCV, LiDAR integration, Kalman Filters, SLAM fundamentals.</div>
-              </div>
-
-              <div className="flex flex-col gap-2 border-l-2 border-border pl-4">
-                <div className="font-mono text-xs text-muted-foreground uppercase">Mechanical</div>
-                <div className="font-sans font-medium text-foreground">CAD, Rapid Prototyping</div>
-                <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">SolidWorks, 3D Printing, Machining fundamentals, Actuator sizing.</div>
-              </div>
+              {skills.map((skill) => (
+                <div key={skill.label} className="flex flex-col gap-2 border-l-2 border-border pl-4">
+                  <div className="font-mono text-xs text-muted-foreground uppercase">{skill.label}</div>
+                  <div className="font-sans font-medium text-foreground">{skill.title}</div>
+                  <div className="font-sans text-sm text-secondary-foreground leading-relaxed mt-1">{skill.description}</div>
+                </div>
+              ))}
             </div>
           </PaperSheet>
         </div>

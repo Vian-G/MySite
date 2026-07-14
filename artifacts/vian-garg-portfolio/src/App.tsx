@@ -6,31 +6,43 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { useHashLocation } from 'wouter/use-hash-location';
 import { Shell } from '@/components/layout/Shell';
 import { PageTransitionProvider } from '@/components/layout/PageTransitionOverlay';
+import type { ComponentType } from 'react';
 
 import Home from '@/pages/Home';
 import ProjectsIndex from '@/pages/ProjectsIndex';
 import MoonMiners from '@/pages/projects/MoonMiners';
 import Ur10eWelding from '@/pages/projects/Ur10eWelding';
 import MoonRanger from '@/pages/projects/MoonRanger';
-import Skyryder from '@/pages/Skyryder';
+import Skyryder from '@/pages/projects/Skyryder';
 import SpiritBuggy from '@/pages/projects/SpiritBuggy';
 import FirstGlobalUae from '@/pages/projects/FirstGlobalUae';
 import About from '@/pages/About';
 import Resume from '@/pages/Resume';
+import { projects } from '@/config/projects';
 
 const queryClient = new QueryClient();
+
+const projectComponents: Record<string, ComponentType> = {
+  'moon-miners': MoonMiners,
+  'ur10e-welding': Ur10eWelding,
+  'moon-ranger': MoonRanger,
+  skyryder: Skyryder,
+  'spirit-buggy': SpiritBuggy,
+  'first-global-uae': FirstGlobalUae,
+};
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/projects" component={ProjectsIndex} />
-      <Route path="/projects/moon-miners" component={MoonMiners} />
-      <Route path="/projects/ur10e-welding" component={Ur10eWelding} />
-      <Route path="/projects/moon-ranger" component={MoonRanger} />
-      <Route path="/projects/skyryder" component={Skyryder} />
-      <Route path="/projects/spirit-buggy" component={SpiritBuggy} />
-      <Route path="/projects/first-global-uae" component={FirstGlobalUae} />
+      {projects.map((project) => (
+        <Route
+          key={project.slug}
+          path={project.href}
+          component={projectComponents[project.slug]}
+        />
+      ))}
       <Route path="/about" component={About} />
       <Route path="/resume" component={Resume} />
       <Route component={NotFound} />

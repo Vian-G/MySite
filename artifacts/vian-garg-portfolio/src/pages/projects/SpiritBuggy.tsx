@@ -43,7 +43,7 @@ export default function SpiritBuggy() {
         svg: <SystemsRibbonSvg activeState="05" />
       }}
       reinforced="Helped design and build CMU Buggy's first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering assembly's design through SolidWorks modeling and ANSYS simulation before it raced."
-      prevLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
+      prevLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
       nextLink={{ href: "/projects/first-global-uae", label: "06 / FIRST GLOBAL UAE" }}
       slots={
         <>

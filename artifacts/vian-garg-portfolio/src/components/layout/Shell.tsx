@@ -30,7 +30,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <nav className="flex items-center h-full">
             {navItems.map((item) => {
               const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume');
-              const isProjects = item.path === '/projects' && (location.startsWith('/projects') || location === '/skyryder');
+              const isProjects = item.path === '/projects' && location.startsWith('/projects');
               const finalActive = active || isProjects;
               
               return (

@@ -40,7 +40,7 @@ export default function MoonRanger() {
       }}
       reinforced="Mechanical engineer on MoonRanger, a CMU/Astrobotic/NASA autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing the rover's stereo-vision navigation system."
       prevLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
-      nextLink={{ href: "/skyryder", label: "04 / SKYRYDER" }}
+      nextLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
       slots={
         <>
           <TechnicalFigure caption="Camera shroud CAD render" altText="" isSlot />
