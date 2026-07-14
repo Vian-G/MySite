@@ -6,7 +6,7 @@ export const TABS = [
   { label: '01 / MOON MINERS', href: '/projects/moon-miners' },
   { label: '02 / UR10E', href: '/projects/ur10e-welding' },
   { label: '03 / MOONRANGER', href: '/projects/moon-ranger' },
-  { label: '04 / SKYRYDER', href: '/skyryder' },
+  { label: '04 / SKYRYDER', href: '/projects/skyryder' },
   { label: '05 / SPIRIT BUGGY', href: '/projects/spirit-buggy' },
   { label: '06 / FIRST GLOBAL UAE', href: '/projects/first-global-uae' }
 ];
@@ -24,10 +24,10 @@ export function FolderTab() {
               key={tab.href}
               href={tab.href} 
               className={cn(
-                "px-3 sm:px-6 py-2.5 font-mono text-xs border border-b-0 rounded-t-[4px] transition-all duration-300 whitespace-nowrap min-w-[120px] text-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "px-3 sm:px-6 py-2.5 font-mono text-xs border border-b-0 rounded-t-[4px] transition-all duration-300 whitespace-nowrap min-w-[120px] text-center shadow-sm focus-visible:outline-non[...]
                 isActive 
-                  ? "bg-primary text-primary-foreground border-primary/80 shadow-[inset_0_2px_0_rgba(255,255,255,0.2)] z-10 -mb-[1px] pt-3 pb-2 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary-foreground" 
-                  : "bg-secondary text-secondary-foreground border-border/60 hover:bg-[#C0BDA3] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] opacity-80 hover:opacity-100 hover:-translate-y-[1px] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                  ? "bg-primary text-primary-foreground border-primary/80 shadow-[inset_0_2px_0_rgba(255,255,255,0.2)] z-10 -mb-[1px] pt-3 pb-2 relative after:absolute after:bottom-0 after:left-0 [...]
+                  : "bg-secondary text-secondary-foreground border-border/60 hover:bg-[#C0BDA3] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] opacity-80 hover:opacity-100 hover:-translate-y-[1px] m[...]
               )}
               role="tab"
               aria-selected={isActive}
