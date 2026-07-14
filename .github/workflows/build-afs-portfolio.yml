@@ -48,11 +48,8 @@ jobs:
           node --version
           pnpm --version
 
-      - name: Allow required native build scripts
-        run: pnpm approve-builds esbuild
-
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --allow-build=esbuild
 
       - name: Build portfolio
         run: |
