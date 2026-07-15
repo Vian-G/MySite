@@ -2,7 +2,6 @@ import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
-import { FolderTab } from '@/components/ui/FolderTab';
 import { useSEO } from '@/hooks/use-seo';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import { skills } from '@/config/skills';
@@ -34,12 +33,9 @@ export default function About() {
   return (
     <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out pb-16">
 
-      <FolderTab />
-      <div className="-mt-4">
-        <MetalDataPlate>PROFILE / ECE + ROBOTICS MINOR / CMU</MetalDataPlate>
-      </div>
+      <MetalDataPlate>PROFILE / ECE + ROBOTICS MINOR / CMU</MetalDataPlate>
 
-      {/* \u2500\u2500 Identity header \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */}
+      {/* \u2500\u2500 Identity header */}
       <div className="flex flex-col gap-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
 
@@ -93,7 +89,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* \u2500\u2500 Two-column body \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */}
+      {/* \u2500\u2500 Two-column body */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
         {/* LEFT COL */}
