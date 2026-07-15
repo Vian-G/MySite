@@ -8,6 +8,9 @@ import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
 import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
+import skyryderPhoto from '@/assets/projects/skyryder.jpg';
+import skyryderPhoto2 from '@/assets/projects/skyryder-2.jpg';
+import skyryderPhoto3 from '@/assets/projects/skyryder-3.jpg';
 
 const { prev, next } = getAdjacentProjects('skyryder');
 
@@ -39,28 +42,59 @@ export default function Skyryder() {
         </PaperSheet>
       </div>
 
-      <div className="w-full max-w-4xl mb-12">
-        <TechnicalFigure 
-          caption="Skyryder flight mechanics / conceptual trajectory"
-          label="FLIGHT TRAJECTORY / CONCEPTUAL"
-          altText="Animated flight trajectory schematic for Skyryder, showing a plane navigating a scrolling environment from a third-person chase view"
-          figureNumber="01"
-        >
-          <SystemsRibbonSvg activeState="04" />
-        </TechnicalFigure>
-      </div>
-      
-      <div className="w-full max-w-4xl flex justify-center mb-4">
-        <a 
-          href="https://vian-g.itch.io/skyryder" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-        >
-          <PhysicalButton asDiv variant="metal" size="md" className="gap-2">
-            Play the full game <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-          </PhysicalButton>
-        </a>
+      {/* Two-column: schematic + description on left, photo stack on right */}
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 items-start">
+
+        {/* Left column */}
+        <div className="flex flex-col gap-8">
+          <TechnicalFigure 
+            caption="Skyryder flight mechanics / conceptual trajectory"
+            label="FLIGHT TRAJECTORY / CONCEPTUAL"
+            altText="Animated flight trajectory schematic for Skyryder, showing a plane navigating a scrolling environment from a third-person chase view"
+            figureNumber="01"
+          >
+            <SystemsRibbonSvg activeState="04" />
+          </TechnicalFigure>
+
+          <div className="flex justify-center">
+            <a 
+              href="https://vian-g.itch.io/skyryder" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
+            >
+              <PhysicalButton asDiv variant="metal" size="md" className="gap-2">
+                Play the full game <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+              </PhysicalButton>
+            </a>
+          </div>
+        </div>
+
+        {/* Right photo column (sticky) */}
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+          <TechnicalFigure
+            src={skyryderPhoto}
+            caption="Skyryder gameplay"
+            altText="Skyryder in-game screenshot showing flight gameplay"
+            figureNumber="02"
+            label="PHOTO / FIG. 02"
+          />
+          <TechnicalFigure
+            src={skyryderPhoto2}
+            caption="Level design"
+            altText="Skyryder level design and environment"
+            figureNumber="03"
+            label="PHOTO / FIG. 03"
+          />
+          <TechnicalFigure
+            src={skyryderPhoto3}
+            caption="Obstacles and scoring"
+            altText="Skyryder obstacle layout and scoring system"
+            figureNumber="04"
+            label="PHOTO / FIG. 04"
+          />
+        </aside>
+
       </div>
 
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">

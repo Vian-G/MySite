@@ -8,6 +8,15 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
 
+export interface ProjectPhoto {
+  /** Imported asset URL or any image path. Accepts jpg, png, webp, gif, avif, svg. */
+  src: string;
+  /** Short mono caption shown below the figure. Defaults to empty string. */
+  caption?: string;
+  /** Alt text for the <img>. Defaults to caption or the project title. */
+  altText?: string;
+}
+
 interface ProjectLayoutProps {
   slug: string;
   plateText: string;
@@ -32,6 +41,18 @@ interface ProjectLayoutProps {
   };
   reinforced: string;
   slots?: React.ReactNode;
+  /**
+   * Optional array of photos shown in a sticky right-column figure stack.
+   * Each entry needs at minimum a `src` (imported asset or path).
+   * Accepts jpg, png, webp, gif, avif, svg.
+   *
+   * @example
+   * photos={[
+   *   { src: roverPhoto, caption: 'Rover on the test bed', altText: 'Rover on the test bed' },
+   *   { src: trackPhoto, caption: 'Metal track fabrication' },
+   * ]}
+   */
+  photos?: ProjectPhoto[];
 }
 
 export function ProjectLayout({
@@ -47,9 +68,11 @@ export function ProjectLayout({
   challenges,
   primaryFigure,
   reinforced,
-  slots
+  slots,
+  photos,
 }: ProjectLayoutProps) {
   const { prev, next } = getAdjacentProjects(slug);
+  const hasPhotos = photos && photos.length > 0;
 
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-700 pb-16">
@@ -87,93 +110,118 @@ export function ProjectLayout({
         })}
       </div>
 
-      <div className="max-w-3xl flex flex-col gap-12 mt-6">
-        <section>
-          <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            Overview
-          </h2>
-          <p className="font-sans text-foreground leading-relaxed">{brief}</p>
-        </section>
+      {/* Two-column layout when photos are provided, single-column otherwise */}
+      <div className={hasPhotos
+        ? 'max-w-5xl w-full grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 items-start mt-6'
+        : 'max-w-3xl flex flex-col gap-12 mt-6'
+      }>
 
-        {objective && (
+        {/* ── Body column ── */}
+        <div className="flex flex-col gap-12">
           <section>
             <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-              Objective
+              Overview
             </h2>
-            <p className="font-sans text-foreground leading-relaxed">{objective}</p>
+            <p className="font-sans text-foreground leading-relaxed">{brief}</p>
           </section>
-        )}
 
-        {workedOn && workedOn.length > 0 && (
-          <section>
-            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-              What I built
-            </h2>
-            <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
-              {workedOn.map((item, idx) => (
-                <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        <section>
-          <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            Tools & Stack
-          </h2>
-          {Array.isArray(approach) ? (
-            <div className="flex flex-wrap gap-2">
-              {approach.map((item, idx) => (
-                <span key={idx} className="font-mono text-[10px] sm:text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-[2px] border border-border shadow-sm uppercase tracking-wider">
-                  {item}
-                </span>
-              ))}
-            </div>
-          ) : (
-            approach
+          {objective && (
+            <section>
+              <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                Objective
+              </h2>
+              <p className="font-sans text-foreground leading-relaxed">{objective}</p>
+            </section>
           )}
-        </section>
 
-        {challenges && (
-          <section>
-            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-              Key Challenges
-            </h2>
-            {Array.isArray(challenges) ? (
+          {workedOn && workedOn.length > 0 && (
+            <section>
+              <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                What I built
+              </h2>
               <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
-                {challenges.map((item, idx) => (
+                {workedOn.map((item, idx) => (
                   <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
                 ))}
               </ul>
+            </section>
+          )}
+
+          <section>
+            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+              Tools & Stack
+            </h2>
+            {Array.isArray(approach) ? (
+              <div className="flex flex-wrap gap-2">
+                {approach.map((item, idx) => (
+                  <span key={idx} className="font-mono text-[10px] sm:text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-[2px] border border-border shadow-sm uppercase tracking-wider">
+                    {item}
+                  </span>
+                ))}
+              </div>
             ) : (
-              <div className="font-sans text-foreground leading-relaxed">{challenges}</div>
+              approach
             )}
           </section>
+
+          {challenges && (
+            <section>
+              <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                Key Challenges
+              </h2>
+              {Array.isArray(challenges) ? (
+                <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
+                  {challenges.map((item, idx) => (
+                    <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="font-sans text-foreground leading-relaxed">{challenges}</div>
+              )}
+            </section>
+          )}
+
+          <section>
+            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+              Process and evidence
+            </h2>
+            <div className="flex flex-col gap-6">
+              <p className="font-sans text-sm text-muted-foreground italic">Reference Figure 01 above for system schematic.</p>
+              {slots}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+              Results & lessons learned
+            </h2>
+            <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
+          </section>
+        </div>
+
+        {/* ── Right photo column (sticky) — only rendered when photos are provided ── */}
+        {hasPhotos && (
+          <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+            {photos!.map((photo, idx) => (
+              <TechnicalFigure
+                key={idx}
+                src={photo.src}
+                caption={photo.caption ?? ''}
+                altText={photo.altText ?? photo.caption ?? title}
+                figureNumber={String(idx + 2).padStart(2, '0')}
+                label={`PHOTO / FIG. ${String(idx + 2).padStart(2, '0')}`}
+              />
+            ))}
+          </aside>
         )}
 
-        <section>
-          <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            Process and evidence
-          </h2>
-          <div className="flex flex-col gap-6">
-            <p className="font-sans text-sm text-muted-foreground italic">Reference Figure 01 above for system schematic.</p>
-            {slots}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-            Results & lessons learned
-          </h2>
-          <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
-        </section>
       </div>
 
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">

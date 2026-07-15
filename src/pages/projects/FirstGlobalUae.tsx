@@ -2,6 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
+import firstGlobalUaePhoto from '@/assets/projects/first-global-uae.jpg';
+import firstGlobalUaePhoto2 from '@/assets/projects/first-global-uae-2.jpg';
+import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg';
 
 export default function FirstGlobalUae() {
   useSEO('FIRST Global Team UAE | Vian Garg', 'National Robotics Vice President leading a 22-member team to a 2nd-of-193-countries finish in Athens, Greece.');
@@ -43,6 +46,11 @@ export default function FirstGlobalUae() {
         svg: <SystemsRibbonSvg activeState="06" />
       }}
       reinforced="Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece — a record-breaking result built on a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain."
+      photos={[
+        { src: firstGlobalUaePhoto, caption: 'Team UAE at FIRST Global 2025', altText: 'FIRST Global Team UAE at the 2025 competition in Athens, Greece' },
+        { src: firstGlobalUaePhoto2, caption: 'Robot with cascade lift', altText: 'Competition robot featuring 6-foot telescoping cascade lift' },
+        { src: firstGlobalUaePhoto3, caption: 'Omni-wheel drivetrain', altText: 'Omni-wheel drivetrain assembly' },
+      ]}
       slots={
         <>
           <TechnicalFigure caption="Omni-wheel drivetrain" altText="Reserved figure slot for Omni-wheel drivetrain" isSlot />

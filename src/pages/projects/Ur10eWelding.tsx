@@ -3,6 +3,9 @@ import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
+import ur10ePhoto from '@/assets/projects/ur10e.jpg';
+import ur10ePhoto2 from '@/assets/projects/ur10e-2.jpg';
+import ur10ePhoto3 from '@/assets/projects/ur10e-3.jpg';
 
 export default function Ur10eWelding() {
   useSEO('UR10e Welding Automation | Vian Garg', 'Integrating collaborative robotics with industrial welding equipment.');
@@ -59,6 +62,11 @@ export default function Ur10eWelding() {
         svg: <SystemsRibbonSvg activeState="02" />
       }}
       reinforced="Engineered remote validation infrastructure for uploading and testing scripts over the CMU VPN via SSH, allowing the system to be tested and iterated upon rapidly without in-person lab access."
+      photos={[
+        { src: ur10ePhoto, caption: 'UR10e cobot arm setup', altText: 'UR10e collaborative robot arm in the lab' },
+        { src: ur10ePhoto2, caption: 'Welding integration', altText: 'Cobot and welding equipment integration' },
+        { src: ur10ePhoto3, caption: 'Remote validation setup', altText: 'Remote SSH validation infrastructure' },
+      ]}
       slots={
         <>
           <TechnicalFigure caption="Integration photo" altText="Reserved figure slot for Integration photo" isSlot />

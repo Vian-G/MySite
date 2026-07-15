@@ -2,6 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
+import spiritBuggyPhoto from '@/assets/projects/spirit-buggy.jpg';
+import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg';
+import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg';
 
 export default function SpiritBuggy() {
   useSEO('SPIRIT Buggy | Vian Garg', 'Assistant Build Lead on CMU Buggy\u2019s first new carbon-fiber buggy design in over fifteen years.');
@@ -44,6 +47,11 @@ export default function SpiritBuggy() {
         svg: <SystemsRibbonSvg activeState="05" />
       }}
       reinforced="Helped design and build CMU Buggy's first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering assembly's design through SolidWorks modeling and ANSYS simulation before it raced."
+      photos={[
+        { src: spiritBuggyPhoto, caption: 'SPIRIT buggy on the race course', altText: 'SPIRIT carbon-fiber buggy on the CMU Sweepstakes race course' },
+        { src: spiritBuggyPhoto2, caption: 'Composite layup process', altText: 'Carbon-fiber composite layup over Nomex honeycomb core' },
+        { src: spiritBuggyPhoto3, caption: 'Steering assembly', altText: 'Steering assembly validated in ANSYS' },
+      ]}
       slots={
         <>
           <TechnicalFigure caption="Composite layup" altText="Reserved figure slot for Composite layup" isSlot />
