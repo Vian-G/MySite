@@ -154,52 +154,73 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
 
   // ─── Spirit Buggy ───────────────────────────────────────────────────────────
   //
-  // Local origin = rear-wheel ground contact (0, 0), upward = −Y.
+  // Local origin = rear-wheel ground contact (0,0), upward = −Y.
   //
-  // Ground clearance: shell belly at y = -gc.
-  // Wheel axles at y = -(r + gc), so wheel bottoms touch y = 0 (track).
-  // Shell is fill="none" (transparent) — wheels visible through it.
+  // gc = ground clearance. Every Y in the shell is -(gc + Δ) where Δ
+  // is height above the belly. No hardcoded absolutes.
   //
-  // Draw order: wheels first → shell outline on top (occludes nothing, just outlines).
-  //
-  // Pushbar: T-shape, −10° from vertical (top tilts forward toward nose).
-  // Stem 30px, crossbar half-width 9px.
+  // Axles: y = -(r + gc)  ⇒  wheel bottom touches y = 0 exactly.
+  // Belly: y = -gc         ⇒  lowest shell point is ABOVE axle centre.
+  // Crown: y = -(gc + 28)  ⇒  total shell height ≈28 px above belly.
   //
   const buggyTrackY = 340;
-  const buggyGroundClearance = 8;
-  const buggyRearWheelR = 8;
+  const buggyGroundClearance = 8;   // gc
+  const buggyRearWheelR  = 8;
   const buggyFrontWheelR = 6;
-  const buggyFrontAxleX = 100;
+  const buggyFrontAxleX  = 100;
   const buggyDur = '10s';
   const buggyMotionXStart = -80;
-  const buggyMotionXEnd = 500;
+  const buggyMotionXEnd   = 500;
   const buggyStaticGroupX = 130;
 
-  const buggyRearAxleY  = -(buggyRearWheelR  + buggyGroundClearance); // wheel bottom = y=0
-  const buggyFrontAxleY = -(buggyFrontWheelR + buggyGroundClearance);
-
   const gc = buggyGroundClearance;
-  // Shell belly at y=-gc, crown at y≈-(gc+28)
+
+  // Axle Y — wheel bottom = y=0
+  const buggyRearAxleY  = -(buggyRearWheelR  + gc);
+  const buggyFrontAxleY = -(buggyFrontWheelR + gc);
+
+  // Δ-heights above belly (all positive, added to -gc in path)
+  const dTail   = 10;  // Kammback chop height above belly
+  const dNose1  =  5;  // nose shoulder start
+  const dNose2  = 10;  // nose peak
+  const dWind1  = 14;  // windshield base
+  const dWind2  = 22;  // windshield top / crown start
+  const dCrown  = 28;  // crown plateau
+
+  // Helper: y coord = -(gc + delta)
+  const y = (delta: number) => -(gc + delta);
+
+  // Shell: all Ys expressed as y(Δ). Belly at y(0) = -gc.
   const buggyShellPath = [
-    `M -10,${-(gc + 1)}`,
-    `C 10,${-gc} 80,${-gc} 128,${-(gc + 1)}`,
-    'C 136,-9 140,-13 138,-18',
-    'C 135,-23 124,-30 112,-33',
-    'C 88,-36 66,-36 48,-35',
-    `C 28,-34 6,-26 -4,${-(gc + 10)}`,
-    `L -10,${-(gc + 10)}`,
+    `M -10,${y(dTail)}`,              // tail top (Kammback)
+    `L -10,${y(0)}`,                  // tail bottom (belly)
+    `C 10,${y(0)} 80,${y(0)} 128,${y(0)}`,  // belly — flat
+    `C 136,${y(0)} 140,${y(dNose1)} 138,${y(dNose2)}`,  // nose round-off
+    `C 135,${y(dNose2+5)} 124,${y(dWind2)} 112,${y(dWind2+1)}`, // windshield rise
+    `C 88,${y(dCrown)} 66,${y(dCrown)} 48,${y(dCrown-1)}`,      // crown plateau
+    `C 28,${y(dCrown-2)} 6,${y(dWind1)} -4,${y(dTail)}`,        // spine descent
     'Z',
   ].join(' ');
 
-  const buggyWindshieldPath = 'M 131,-13 C 127,-20 118,-28 110,-32 C 116,-30 126,-22 132,-15 Z';
-  const buggyHatchCx = 66, buggyHatchCy = -(gc + 25), buggyHatchRx = 18, buggyHatchRy = 3;
+  // Windshield: stays in the nose zone, all Ys via y()
+  const buggyWindshieldPath = [
+    `M 131,${y(dNose1)}`,
+    `C 127,${y(dWind1)} 118,${y(dWind2)} 110,${y(dWind2+2)}`,
+    `C 116,${y(dWind2)} 126,${y(dWind1)} 132,${y(dNose1+2)}`,
+    'Z',
+  ].join(' ');
 
-  // Pushbar pivot at tail exit
+  // Hatch: above mid-body
+  const buggyHatchCx = 66;
+  const buggyHatchCy = y(dCrown);
+  const buggyHatchRx = 18, buggyHatchRy = 3;
+
+  // Pushbar pivot at tail exit (belly mid-height)
   const pushbarPivotX = -10;
-  const pushbarPivotY = -(gc + 5);
-  const pushbarTilt = -10; // negative = top leans forward (toward nose)
-  const pushbarStemLen = 30;
-  const pushbarCrossHalf = 9;
+  const pushbarPivotY = y(dTail / 2);
+  const pushbarTilt   = -10;  // −10°: top tilts forward toward nose
+  const pushbarStemLen   = 30;
+  const pushbarCrossHalf =  9;
 
   const liftBaseY = 330;
   const liftExtendedTopY = 210;
@@ -351,21 +372,16 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
 
         <g transform={motionAllowed ? undefined : `translate(${buggyStaticGroupX}, ${buggyTrackY})`}>
 
-          {/* ── Pushbar first (behind wheels + shell) */}
+          {/* Pushbar (behind everything) */}
           <g transform={`rotate(${pushbarTilt}, ${pushbarPivotX}, ${pushbarPivotY})`}>
-            <line
-              x1={pushbarPivotX} y1={pushbarPivotY}
-              x2={pushbarPivotX} y2={pushbarPivotY - pushbarStemLen}
-              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-            />
-            <line
-              x1={pushbarPivotX - pushbarCrossHalf} y1={pushbarPivotY - pushbarStemLen}
+            <line x1={pushbarPivotX} y1={pushbarPivotY} x2={pushbarPivotX} y2={pushbarPivotY - pushbarStemLen}
+              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1={pushbarPivotX - pushbarCrossHalf} y1={pushbarPivotY - pushbarStemLen}
               x2={pushbarPivotX + pushbarCrossHalf} y2={pushbarPivotY - pushbarStemLen}
-              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-            />
+              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </g>
 
-          {/* ── Wheels (drawn before shell so shell outline sits on top) */}
+          {/* Wheels — bottom tangent at y=0 (track) */}
           <g transform={`translate(0, ${buggyRearAxleY})`}>
             <BuggyWheel motionAllowed={motionAllowed} dur="1.1s" r={buggyRearWheelR} />
           </g>
@@ -373,13 +389,13 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
             <BuggyWheel motionAllowed={motionAllowed} dur="0.85s" r={buggyFrontWheelR} />
           </g>
 
-          {/* ── Shell outline (fill="none" — transparent, pure line art) */}
+          {/* Shell outline — fill=none, all Ys via y(Δ), belly at y(0)=-(gc) */}
           <path d={buggyShellPath} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
 
           {/* Windshield accent */}
           <path d={buggyWindshieldPath} fill="none" stroke="hsl(var(--primary))" strokeWidth="1.25" />
 
-          {/* Hatch aperture */}
+          {/* Hatch */}
           <ellipse cx={buggyHatchCx} cy={buggyHatchCy} rx={buggyHatchRx} ry={buggyHatchRy}
             fill="none" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" />
 
