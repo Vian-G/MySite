@@ -2,12 +2,16 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
+import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
+import moonRangerPhoto2 from '@/assets/projects/moon-ranger-2.jpg';
+import moonRangerPhoto3 from '@/assets/projects/moon-ranger-3.jpg';
 
 export default function MoonRanger() {
   useSEO('MoonRanger — NASA Lunar Rover Mission | Vian Garg', 'Mechanical contributions to a CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029.');
 
   return (
     <ProjectLayout
+      slug="moon-ranger"
       plateText="PROJECT 03 / LUNAR SURFACE MOBILITY"
       title="MoonRanger — NASA Lunar Rover Mission"
       subtitle="Mechanical contributions to a CMU / Astrobotic / NASA Ames autonomous lunar rover."
@@ -39,12 +43,18 @@ export default function MoonRanger() {
         svg: <SystemsRibbonSvg activeState="03" />
       }}
       reinforced="Mechanical engineer on MoonRanger, a CMU/Astrobotic/NASA autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing the rover's stereo-vision navigation system."
-      prevLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
-      nextLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
+      photos={[
+        { src: moonRangerPhoto, caption: 'MoonRanger rover', altText: 'MoonRanger suitcase-sized autonomous lunar rover' },
+        { src: moonRangerPhoto2, caption: 'Camera shroud detail', altText: 'Camera shroud housing the stereo-vision navigation system' },
+        { src: moonRangerPhoto3, caption: 'Integration and assembly', altText: 'MoonRanger mechanical integration and assembly' },
+      ]}
+      links={[
+        { label: 'MoonRanger Lab', href: 'https://labs.ri.cmu.edu/moonranger/' },
+      ]}
       slots={
         <>
-          <TechnicalFigure caption="Camera shroud CAD render" altText="" isSlot />
-          <TechnicalFigure caption="Rover integration photo" altText="" isSlot />
+          <TechnicalFigure caption="Camera shroud CAD render" altText="Reserved figure slot for Camera shroud CAD render" isSlot />
+          <TechnicalFigure caption="Rover integration photo" altText="Reserved figure slot for Rover integration photo" isSlot />
         </>
       }
     />

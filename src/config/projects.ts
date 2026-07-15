@@ -32,6 +32,8 @@ export type Project = {
   tools: string;
   galleryPhotos: string[];
   facts: string[];
+  /** When true, this project is surfaced in featured contexts (e.g. homepage highlights). */
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -51,9 +53,10 @@ export const projects: Project[] = [
     galleryPhotos: [moonMinersPhoto2, moonMinersPhoto3],
     facts: [
       'Drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant',
-      'Won the Caterpillar “First Steps” Award for best first-year team',
+      'Won the Caterpillar "First Steps" Award for best first-year team',
       'First first-year team to score autonomous-navigation points at NASA Lunabotics',
     ],
+    featured: true,
   },
   {
     id: '02',
@@ -74,6 +77,7 @@ export const projects: Project[] = [
       'Remote script validation over the CMU VPN via SSH — no in-person lab access required',
       "Active research at CMU's Engineering Materials for Transformative Technologies Lab",
     ],
+    featured: true,
   },
   {
     id: '03',
@@ -94,6 +98,7 @@ export const projects: Project[] = [
       'Redesigned the camera shroud protecting its stereo-vision navigation sensors',
       "Launches 2029 aboard Firefly Aerospace's Blue Ghost lander to the lunar south pole",
     ],
+    featured: true,
   },
   {
     id: '04',
@@ -155,3 +160,25 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+/**
+ * Returns the previous and next projects relative to the given slug,
+ * wrapping around at the ends (last → first, first → last).
+ * Throws a clear error if the slug is not found in the canonical list.
+ */
+export function getAdjacentProjects(slug: string): { prev: Project; next: Project } {
+  const idx = projects.findIndex((p) => p.slug === slug);
+  if (idx === -1) {
+    throw new Error(
+      `getAdjacentProjects: unknown slug "${slug}". Valid slugs are: ${projects.map((p) => p.slug).join(', ')}.`,
+    );
+  }
+  const prev = projects[(idx - 1 + projects.length) % projects.length];
+  const next = projects[(idx + 1) % projects.length];
+  return { prev, next };
+}
+
+/** Formats a project into a short navigation label, e.g. "01 / MOON MINERS". */
+export function projectNavLabel(project: Project): string {
+  return `${project.id} / ${project.title.split('—')[0].split('/')[0].trim().toUpperCase()}`;
+}
