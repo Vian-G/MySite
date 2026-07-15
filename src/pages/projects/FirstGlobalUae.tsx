@@ -8,6 +8,7 @@ export default function FirstGlobalUae() {
 
   return (
     <ProjectLayout
+      slug="first-global-uae"
       plateText="PROJECT 06 / COMPETITION LEADERSHIP"
       title="FIRST Global Team UAE 2025"
       subtitle="National Robotics Vice President leading a 22-member national team to a record-breaking international finish."
@@ -42,12 +43,10 @@ export default function FirstGlobalUae() {
         svg: <SystemsRibbonSvg activeState="06" />
       }}
       reinforced="Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece — a record-breaking result built on a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain."
-      prevLink={{ href: "/projects/spirit-buggy", label: "05 / SPIRIT BUGGY" }}
-      nextLink={{ href: "/projects/moon-miners", label: "01 / MOON MINERS" }}
       slots={
         <>
-          <TechnicalFigure caption="Omni-wheel drivetrain" altText="" isSlot />
-          <TechnicalFigure caption="Team with completed robot" altText="" isSlot />
+          <TechnicalFigure caption="Omni-wheel drivetrain" altText="Reserved figure slot for Omni-wheel drivetrain" isSlot />
+          <TechnicalFigure caption="Team with completed robot" altText="Reserved figure slot for Team with completed robot" isSlot />
         </>
       }
     />

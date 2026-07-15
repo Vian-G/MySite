@@ -8,6 +8,7 @@ export default function SpiritBuggy() {
 
   return (
     <ProjectLayout
+      slug="spirit-buggy"
       plateText="PROJECT 05 / VEHICLE FABRICATION"
       title="SPIRIT Buggy — CMU Buggy"
       subtitle="Assistant Build Lead on CMU Buggy's first new carbon-fiber vehicle design in over fifteen years."
@@ -43,12 +44,10 @@ export default function SpiritBuggy() {
         svg: <SystemsRibbonSvg activeState="05" />
       }}
       reinforced="Helped design and build CMU Buggy's first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering assembly's design through SolidWorks modeling and ANSYS simulation before it raced."
-      prevLink={{ href: "/projects/skyryder", label: "04 / SKYRYDER" }}
-      nextLink={{ href: "/projects/first-global-uae", label: "06 / FIRST GLOBAL UAE" }}
       slots={
         <>
-          <TechnicalFigure caption="Composite layup" altText="" isSlot />
-          <TechnicalFigure caption="Steering assembly" altText="" isSlot />
+          <TechnicalFigure caption="Composite layup" altText="Reserved figure slot for Composite layup" isSlot />
+          <TechnicalFigure caption="Steering assembly" altText="Reserved figure slot for Steering assembly" isSlot />
         </>
       }
     />

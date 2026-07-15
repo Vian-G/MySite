@@ -32,6 +32,7 @@ export default function Ur10eWelding() {
 
   return (
     <ProjectLayout
+      slug="ur10e-welding"
       plateText="PROJECT 02 / INDUSTRIAL AUTOMATION"
       title="UR10e Cobot Welding"
       subtitle="Integrating collaborative robotics with industrial welding equipment."
@@ -58,13 +59,11 @@ export default function Ur10eWelding() {
         svg: <SystemsRibbonSvg activeState="02" />
       }}
       reinforced="Engineered remote validation infrastructure for uploading and testing scripts over the CMU VPN via SSH, allowing the system to be tested and iterated upon rapidly without in-person lab access."
-      prevLink={{ href: "/projects/moon-miners", label: "01 / MOON MINERS" }}
-      nextLink={{ href: "/projects/moon-ranger", label: "03 / MOONRANGER" }}
       slots={
         <>
-          <TechnicalFigure caption="Integration photo" altText="" isSlot />
-          <TechnicalFigure caption="Wiring diagram" altText="" isSlot />
-          <TechnicalFigure caption="Commissioning evidence" altText="" isSlot />
+          <TechnicalFigure caption="Integration photo" altText="Reserved figure slot for Integration photo" isSlot />
+          <TechnicalFigure caption="Wiring diagram" altText="Reserved figure slot for Wiring diagram" isSlot />
+          <TechnicalFigure caption="Commissioning evidence" altText="Reserved figure slot for Commissioning evidence" isSlot />
         </>
       }
     />

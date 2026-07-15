@@ -7,6 +7,9 @@ import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useSEO } from '@/hooks/use-seo';
+import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
+
+const { prev, next } = getAdjacentProjects('skyryder');
 
 export default function Skyryder() {
   useSEO('Skyryder | Vian Garg', 'Skyryder is an original playable game project, published independently on itch.io.');
@@ -40,7 +43,7 @@ export default function Skyryder() {
         <TechnicalFigure 
           caption="Skyryder flight mechanics / conceptual trajectory"
           label="FLIGHT TRAJECTORY / CONCEPTUAL"
-          altText="Flight trajectory schematic"
+          altText="Animated flight trajectory schematic for Skyryder, showing a plane navigating a scrolling environment from a third-person chase view"
           figureNumber="01"
         >
           <SystemsRibbonSvg activeState="04" />
@@ -61,15 +64,15 @@ export default function Skyryder() {
       </div>
 
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
-        <Link href="/projects/moon-ranger" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+        <Link href={prev.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
             <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>
-            <span>03 / MOONRANGER</span>
+            <span>{projectNavLabel(prev)}</span>
           </PhysicalButton>
         </Link>
-        <Link href="/projects/spirit-buggy" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+        <Link href={next.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
-            <span>05 / SPIRIT BUGGY</span>
+            <span>{projectNavLabel(next)}</span>
             <span className="text-muted-foreground/70 inline-flex items-center gap-1">Next <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /></span>
           </PhysicalButton>
         </Link>

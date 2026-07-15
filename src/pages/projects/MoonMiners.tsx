@@ -8,6 +8,7 @@ export default function MoonMiners() {
 
   return (
     <ProjectLayout
+      slug="moon-miners"
       plateText="PROJECT 01 / ROVER SYSTEMS"
       title="CMU Moon Miners — NASA Lunabotics"
       subtitle="Mechanical and robotics contributions to a lunar excavation rover."
@@ -41,13 +42,11 @@ export default function MoonMiners() {
         svg: <SystemsRibbonSvg activeState="01" />
       }}
       reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar 'First Steps' Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
-      prevLink={{ href: "/projects/first-global-uae", label: "06 / FIRST GLOBAL UAE" }}
-      nextLink={{ href: "/projects/ur10e-welding", label: "02 / UR10E" }}
       slots={
         <>
-          <TechnicalFigure caption="Rover CAD render" altText="" isSlot />
-          <TechnicalFigure caption="Build photo" altText="" isSlot />
-          <TechnicalFigure caption="Integration test" altText="" isSlot />
+          <TechnicalFigure caption="Rover CAD render" altText="Reserved figure slot for Rover CAD render" isSlot />
+          <TechnicalFigure caption="Build photo" altText="Reserved figure slot for Build photo" isSlot />
+          <TechnicalFigure caption="Integration test" altText="Reserved figure slot for Integration test" isSlot />
         </>
       }
     />
