@@ -42,9 +42,8 @@ interface ProjectLayoutProps {
   reinforced: string;
   slots?: React.ReactNode;
   /**
-   * Optional array of photos shown in a sticky right-column figure stack
-   * that runs alongside the entire page — from the title down to the nav.
-   * Each entry needs at minimum a `src` (imported asset or path).
+   * Optional array of photos shown in a sticky right-column figure stack.
+   * The column starts level with the project title / subtitle card.
    * Accepts jpg, png, webp, gif, avif, svg.
    *
    * @example
@@ -75,7 +74,6 @@ export function ProjectLayout({
   const { prev, next } = getAdjacentProjects(slug);
   const hasPhotos = photos && photos.length > 0;
 
-  // ── Shared section heading ──────────────────────────────────────────────
   const SectionHead = ({ children }: { children: React.ReactNode }) => (
     <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
       <div className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
@@ -83,160 +81,151 @@ export function ProjectLayout({
     </h2>
   );
 
-  // ── Body content (always the same, left column when photos present) ─────
-  const bodyContent = (
-    <div className="flex flex-col gap-8 min-w-0">
-      {/* FolderTab + title block */}
-      <FolderTab />
-
-      <div className="flex flex-col gap-6 items-start -mt-4">
-        <MetalDataPlate>{plateText}</MetalDataPlate>
-        <PaperSheet className="p-8 md:p-12 w-full" variant="clipped">
-          <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4 leading-tight">{title}</h1>
-          <p className="font-sans text-lg text-muted-foreground">{subtitle}</p>
-        </PaperSheet>
-      </div>
-
-      {/* Primary schematic figure */}
-      <TechnicalFigure
-        caption={primaryFigure.caption || title}
-        label={primaryFigure.label}
-        altText={`Conceptual system schematic for ${title}`}
-        figureNumber="01"
-      >
-        {primaryFigure.svg}
-      </TechnicalFigure>
-
-      {/* Metadata table */}
-      <div className="flex flex-col gap-3 w-full bg-secondary/30 p-6 border border-border/50">
-        {Object.entries(metadata).map(([key, value]) => {
-          if (!value) return null;
-          return (
-            <div key={key} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-border/40 pb-2 last:border-0 last:pb-0">
-              <span className="font-mono text-[10px] sm:text-xs text-muted-foreground w-24 shrink-0 uppercase tracking-wider">{key}</span>
-              <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground">{value}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* ── Sections ── */}
-      <div className="flex flex-col gap-12 mt-2">
-        <section>
-          <SectionHead>Overview</SectionHead>
-          <p className="font-sans text-foreground leading-relaxed">{brief}</p>
-        </section>
-
-        {objective && (
-          <section>
-            <SectionHead>Objective</SectionHead>
-            <p className="font-sans text-foreground leading-relaxed">{objective}</p>
-          </section>
-        )}
-
-        {workedOn && workedOn.length > 0 && (
-          <section>
-            <SectionHead>What I built</SectionHead>
-            <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
-              {workedOn.map((item, idx) => (
-                <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        <section>
-          <SectionHead>Tools &amp; Stack</SectionHead>
-          {Array.isArray(approach) ? (
-            <div className="flex flex-wrap gap-2">
-              {approach.map((item, idx) => (
-                <span key={idx} className="font-mono text-[10px] sm:text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-[2px] border border-border shadow-sm uppercase tracking-wider">
-                  {item}
-                </span>
-              ))}
-            </div>
-          ) : approach}
-        </section>
-
-        {challenges && (
-          <section>
-            <SectionHead>Key Challenges</SectionHead>
-            {Array.isArray(challenges) ? (
-              <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
-                {challenges.map((item, idx) => (
-                  <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <div className="font-sans text-foreground leading-relaxed">{challenges}</div>
-            )}
-          </section>
-        )}
-
-        <section>
-          <SectionHead>Process and evidence</SectionHead>
-          <div className="flex flex-col gap-6">
-            <p className="font-sans text-sm text-muted-foreground italic">Reference Figure 01 above for system schematic.</p>
-            {slots}
-          </div>
-        </section>
-
-        <section>
-          <SectionHead>Results &amp; lessons learned</SectionHead>
-          <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
-        </section>
-      </div>
-    </div>
-  );
+  // ── Photo figures (shared between desktop aside and mobile fallback) ────
+  const photoFigures = hasPhotos ? photos!.map((photo, idx) => (
+    <TechnicalFigure
+      key={idx}
+      src={photo.src}
+      caption={photo.caption ?? ''}
+      altText={photo.altText ?? photo.caption ?? title}
+      figureNumber={String(idx + 2).padStart(2, '0')}
+      label={`PHOTO / FIG. ${String(idx + 2).padStart(2, '0')}`}
+    />
+  )) : null;
 
   return (
-    <div className="animate-in fade-in duration-700 pb-16">
-      {hasPhotos ? (
-        // ── Two-column: full-page grid ──────────────────────────────────────
-        // max-w-7xl fills wide screens; body gets all spare space, sidebar is fixed 300px.
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
-          {/* Left — all body content */}
-          {bodyContent}
+    <div className="animate-in fade-in duration-700 pb-16 flex flex-col gap-8">
 
-          {/* Right — sticky photo stack, starts at the very top */}
+      {/* ── Full-width top chrome (FolderTab + plate label) ────────────────
+          These sit above the grid so they span the full width as before.   */}
+      <FolderTab />
+      <div className="-mt-4">
+        <MetalDataPlate>{plateText}</MetalDataPlate>
+      </div>
+
+      {/* ── From the title card downward: two-column on lg, single below ── */}
+      <div className={hasPhotos
+        ? 'w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start'
+        : 'w-full max-w-4xl flex flex-col gap-8'
+      }>
+
+        {/* LEFT / single column — title card → schematic → metadata → sections */}
+        <div className="flex flex-col gap-8 min-w-0">
+          {/* Title + subtitle */}
+          <PaperSheet className="p-8 md:p-12 w-full" variant="clipped">
+            <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4 leading-tight">{title}</h1>
+            <p className="font-sans text-lg text-muted-foreground">{subtitle}</p>
+          </PaperSheet>
+
+          {/* Primary schematic */}
+          <TechnicalFigure
+            caption={primaryFigure.caption || title}
+            label={primaryFigure.label}
+            altText={`Conceptual system schematic for ${title}`}
+            figureNumber="01"
+          >
+            {primaryFigure.svg}
+          </TechnicalFigure>
+
+          {/* Metadata table */}
+          <div className="flex flex-col gap-3 w-full bg-secondary/30 p-6 border border-border/50">
+            {Object.entries(metadata).map(([key, value]) => {
+              if (!value) return null;
+              return (
+                <div key={key} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-border/40 pb-2 last:border-0 last:pb-0">
+                  <span className="font-mono text-[10px] sm:text-xs text-muted-foreground w-24 shrink-0 uppercase tracking-wider">{key}</span>
+                  <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground">{value}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Body sections */}
+          <div className="flex flex-col gap-12">
+            <section>
+              <SectionHead>Overview</SectionHead>
+              <p className="font-sans text-foreground leading-relaxed">{brief}</p>
+            </section>
+
+            {objective && (
+              <section>
+                <SectionHead>Objective</SectionHead>
+                <p className="font-sans text-foreground leading-relaxed">{objective}</p>
+              </section>
+            )}
+
+            {workedOn && workedOn.length > 0 && (
+              <section>
+                <SectionHead>What I built</SectionHead>
+                <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
+                  {workedOn.map((item, idx) => (
+                    <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            <section>
+              <SectionHead>Tools &amp; Stack</SectionHead>
+              {Array.isArray(approach) ? (
+                <div className="flex flex-wrap gap-2">
+                  {approach.map((item, idx) => (
+                    <span key={idx} className="font-mono text-[10px] sm:text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-[2px] border border-border shadow-sm uppercase tracking-wider">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ) : approach}
+            </section>
+
+            {challenges && (
+              <section>
+                <SectionHead>Key Challenges</SectionHead>
+                {Array.isArray(challenges) ? (
+                  <ul className="list-disc list-inside font-sans text-foreground leading-relaxed space-y-2">
+                    {challenges.map((item, idx) => (
+                      <li key={idx} className="pl-1 marker:text-muted-foreground">{item}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="font-sans text-foreground leading-relaxed">{challenges}</div>
+                )}
+              </section>
+            )}
+
+            <section>
+              <SectionHead>Process and evidence</SectionHead>
+              <div className="flex flex-col gap-6">
+                <p className="font-sans text-sm text-muted-foreground italic">Reference Figure 01 above for system schematic.</p>
+                {slots}
+              </div>
+            </section>
+
+            <section>
+              <SectionHead>Results &amp; lessons learned</SectionHead>
+              <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
+            </section>
+          </div>
+
+          {/* Mobile photo stack — below body, hidden on lg */}
+          {hasPhotos && (
+            <div className="lg:hidden flex flex-col gap-5 mt-4">
+              {photoFigures}
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT — sticky photo column, desktop only, top-aligns with title card */}
+        {hasPhotos && (
           <aside className="hidden lg:flex flex-col gap-5 sticky top-8 self-start">
-            {photos!.map((photo, idx) => (
-              <TechnicalFigure
-                key={idx}
-                src={photo.src}
-                caption={photo.caption ?? ''}
-                altText={photo.altText ?? photo.caption ?? title}
-                figureNumber={String(idx + 2).padStart(2, '0')}
-                label={`PHOTO / FIG. ${String(idx + 2).padStart(2, '0')}`}
-              />
-            ))}
+            {photoFigures}
           </aside>
-        </div>
-      ) : (
-        // ── Single-column (no photos) ───────────────────────────────────────
-        <div className="max-w-4xl w-full">
-          {bodyContent}
-        </div>
-      )}
+        )}
 
-      {/* On mobile, photos flow below the body when provided */}
-      {hasPhotos && (
-        <div className="lg:hidden flex flex-col gap-5 mt-10 max-w-2xl">
-          {photos!.map((photo, idx) => (
-            <TechnicalFigure
-              key={idx}
-              src={photo.src}
-              caption={photo.caption ?? ''}
-              altText={photo.altText ?? photo.caption ?? title}
-              figureNumber={String(idx + 2).padStart(2, '0')}
-              label={`PHOTO / FIG. ${String(idx + 2).padStart(2, '0')}`}
-            />
-          ))}
-        </div>
-      )}
+      </div>
 
-      {/* ── Prev / Next nav ── */}
-      <div className="max-w-7xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
+      {/* Prev / Next nav */}
+      <div className="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border">
         <Link href={prev.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
             <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>
