@@ -19,7 +19,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
     <div className="min-h-[100dvh] flex flex-col relative w-full overflow-x-clip selection:bg-primary/20 selection:text-foreground">
       {/* Top drafting rule / technical header */}
       <header className="w-full border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 h-12 flex items-center justify-between font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-12 h-12 flex items-center justify-between font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-foreground font-medium flex items-center gap-2 hover:opacity-80 transition-opacity">
               <div className="w-2 h-2 rounded-[1px] bg-primary shadow-[0_0_4px_rgba(184,66,45,0.5)]" />
@@ -53,13 +53,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </header>
       
       {/* Page content */}
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-16">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-12 py-8 md:py-16">
         {children}
       </main>
 
       {/* Footer */}
       <footer className="w-full border-t border-border mt-auto">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-secondary-foreground font-sans">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-12 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-secondary-foreground font-sans">
           <div className="flex flex-col gap-1">
             <span className="font-medium text-foreground">Vian Garg</span>
             <span className="text-muted-foreground text-xs">{LOCATION_STATUS}</span>

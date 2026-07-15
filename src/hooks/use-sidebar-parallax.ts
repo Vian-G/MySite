@@ -4,13 +4,14 @@ import { useEffect, useRef } from 'react';
  * Drives a sidebar element so that it finishes scrolling at exactly the same
  * moment the user reaches the bottom of the page.
  *
- * The sidebar starts at translateY(0) (top of its grid cell) and translates
- * downward at a rate proportional to page scroll progress, so that when
- * `window.scrollY` reaches its maximum the sidebar's bottom edge is flush
- * with the bottom of its containing column.
+ * Strategy: the sidebar starts at translateY(0) and is pushed down
+ * proportionally to page scroll progress. The maximum translation is
+ * `sidebarStackHeight - bodyColumnHeight`, i.e. how much the stack overflows
+ * its peer column. When scrollY / maxPageScroll === 1 the sidebar bottom
+ * is flush with the body column bottom.
  *
  * Returns a ref to attach to the sidebar <aside> element.
- * Skips all transforms when `prefers-reduced-motion: reduce` is set.
+ * No-ops when prefers-reduced-motion is set.
  */
 export function useSidebarParallax<T extends HTMLElement>() {
   const sidebarRef = useRef<T>(null);
@@ -19,7 +20,6 @@ export function useSidebarParallax<T extends HTMLElement>() {
     const sidebar = sidebarRef.current;
     if (!sidebar) return;
 
-    // Respect reduced-motion preference.
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mq.matches) return;
 
@@ -27,38 +27,51 @@ export function useSidebarParallax<T extends HTMLElement>() {
 
     const update = () => {
       rafId = null;
-      const sidebar = sidebarRef.current;
-      if (!sidebar) return;
+      const el = sidebarRef.current;
+      if (!el) return;
 
-      const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
+      const maxPageScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (maxPageScroll <= 0) return;
 
-      // How far the sidebar can travel before its bottom exits its column.
-      const column = sidebar.parentElement;
-      const columnH = column ? column.getBoundingClientRect().height : 0;
-      const sidebarH = sidebar.scrollHeight;
-      const maxTravel = Math.max(0, sidebarH - columnH);
+      // The grid container is the sidebar wrapper's parent.
+      // Its first child is the left body column — that is the reference height
+      // we want the sidebar to travel alongside.
+      const gridEl = el.parentElement?.parentElement;
+      const bodyCol = gridEl?.firstElementChild as HTMLElement | null;
+      const bodyColH = bodyCol ? bodyCol.scrollHeight : 0;
 
-      if (maxTravel === 0) return; // sidebar is shorter than its column; nothing to do.
+      const sidebarH = el.scrollHeight;
+      const maxTravel = Math.max(0, sidebarH - bodyColH);
 
-      const progress = scrollY / maxScroll;           // 0 → 1
+      // If the photo stack is shorter than the body column there is nothing
+      // to scroll — just leave it pinned at the top.
+      if (maxTravel === 0) {
+        el.style.transform = '';
+        return;
+      }
+
+      const progress = window.scrollY / maxPageScroll; // 0 → 1
       const translateY = Math.round(progress * maxTravel);
-
-      sidebar.style.transform = `translateY(${translateY}px)`;
+      el.style.transform = `translateY(${translateY}px)`;
     };
 
     const onScroll = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(update);
-      }
+      if (rafId === null) rafId = requestAnimationFrame(update);
+    };
+
+    // Also re-measure on resize (viewport changes alter bodyColH).
+    const onResize = () => {
+      if (rafId === null) rafId = requestAnimationFrame(update);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
     update(); // sync on mount
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
