@@ -11,13 +11,6 @@ import { projects } from '@/config/projects';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
 
-const SIDEBAR_ANIMATIONS: { id: ProjectId; label: string }[] = [
-  { id: '01', label: 'MOBILITY / TRACK SYSTEM' },
-  { id: '02', label: 'TOOLPATH / ROBOT ARM' },
-  { id: '03', label: 'SURFACE MOBILITY / SOLAR' },
-  { id: '05', label: 'VEHICLE FAB / COMPOSITE' },
-];
-
 const SectionHead = ({ children }: { children: React.ReactNode }) => (
   <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
     <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
@@ -119,17 +112,17 @@ export default function ProjectsIndex() {
           ))}
         </div>
 
-        {/* RIGHT — 4 animations, proportional scroll */}
+        {/* RIGHT — all 6 animations, proportional scroll */}
         <div className="hidden lg:block relative">
           <aside ref={sidebarRef} className="flex flex-col gap-5 will-change-transform">
-            {SIDEBAR_ANIMATIONS.map(({ id, label }) => (
-              <div key={id} className="flex flex-col gap-2">
+            {projects.map((prj) => (
+              <div key={prj.id} className="flex flex-col gap-2">
                 <div className="w-full aspect-square border border-border/50 bg-[#E8E6D9] p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
-                  <SystemsRibbonSvg activeState={id} className="w-full h-full" />
+                  <SystemsRibbonSvg activeState={prj.id as ProjectId} className="w-full h-full" />
                 </div>
                 <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider px-1 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
-                  {label} / FIG. {id}
+                  SYSTEM SCHEMATIC / FIG. {prj.id}
                 </div>
               </div>
             ))}
