@@ -87,9 +87,9 @@ export function ProjectLayout({
           rel="noopener noreferrer"
           className="w-full outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
         >
-          <PhysicalButton asDiv variant="rust" size="sm" className="w-full justify-between gap-1.5 text-xs">
+          <PhysicalButton asDiv variant="rust" size="lg" className="w-full justify-between gap-2 text-lg py-4">
             {link.label}
-            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" strokeWidth={2} aria-hidden="true" />
+            <ArrowUpRight className="w-5 h-5 shrink-0" strokeWidth={2} aria-hidden="true" />
           </PhysicalButton>
         </a>
       ))}
