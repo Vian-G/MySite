@@ -51,7 +51,7 @@ export const projects: Project[] = [
     galleryPhotos: [moonMinersPhoto2, moonMinersPhoto3],
     facts: [
       'Drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant',
-      'Won the Caterpillar “First Steps” Award for best first-year team',
+      'Won the Caterpillar "First Steps" Award for best first-year team',
       'First first-year team to score autonomous-navigation points at NASA Lunabotics',
     ],
   },
@@ -155,3 +155,25 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+/**
+ * Returns the previous and next projects relative to the given slug,
+ * wrapping around at the ends (last → first, first → last).
+ * Throws a clear error if the slug is not found in the canonical list.
+ */
+export function getAdjacentProjects(slug: string): { prev: Project; next: Project } {
+  const idx = projects.findIndex((p) => p.slug === slug);
+  if (idx === -1) {
+    throw new Error(
+      `getAdjacentProjects: unknown slug "${slug}". Valid slugs are: ${projects.map((p) => p.slug).join(', ')}.`,
+    );
+  }
+  const prev = projects[(idx - 1 + projects.length) % projects.length];
+  const next = projects[(idx + 1) % projects.length];
+  return { prev, next };
+}
+
+/** Formats a project into a short navigation label, e.g. "01 / MOON MINERS". */
+export function projectNavLabel(project: Project): string {
+  return `${project.id} / ${project.title.split('—')[0].split('/')[0].trim().toUpperCase()}`;
+}
