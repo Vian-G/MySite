@@ -103,10 +103,7 @@ function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean;
   );
 }
 
-/**
- * BuggyWheel — line-art wheel rendered at local origin.
- * Hub uses fill="var(--background)" cutout like MoonRanger.
- */
+/** BuggyWheel — line-art wheel at local origin. Hub cutout matches MoonRanger style. */
 function BuggyWheel({ motionAllowed, dur, r = 6 }: { motionAllowed: boolean; dur: string; r?: number }) {
   const hubR = Math.round(r * 0.35);
   return (
@@ -159,17 +156,17 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   //
   // Local origin = rear-wheel ground contact (0, 0), upward = −Y.
   //
-  // Ground clearance: shell belly sits at y = -buggyGroundClearance.
-  // Wheel axles are at y = -(wheelR + buggyGroundClearance).
+  // Ground clearance: shell belly at y = -gc.
+  // Wheel axles at y = -(r + gc), so wheel bottoms touch y = 0 (track).
+  // Shell is fill="none" (transparent) — wheels visible through it.
   //
-  // Rear wheel: r=8 (bigger, single rear wheel — matches real buggy geometry).
-  // Front wheel: r=6, clipped so only the arc below the belly line is visible.
+  // Draw order: wheels first → shell outline on top (occludes nothing, just outlines).
   //
-  // Pushbar: T-shape, pivoted at tail exit, rotated 10° off vertical
-  //   (top tilts rearward — matching the real angled pushbar on CMU buggies).
+  // Pushbar: T-shape, −10° from vertical (top tilts forward toward nose).
+  // Stem 30px, crossbar half-width 9px.
   //
   const buggyTrackY = 340;
-  const buggyGroundClearance = 8;   // belly above ground, in local px
+  const buggyGroundClearance = 8;
   const buggyRearWheelR = 8;
   const buggyFrontWheelR = 6;
   const buggyFrontAxleX = 100;
@@ -178,35 +175,31 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   const buggyMotionXEnd = 500;
   const buggyStaticGroupX = 130;
 
-  // Axle Y coords (both relative to local origin = ground)
-  const buggyRearAxleY  = -(buggyRearWheelR  + buggyGroundClearance);
+  const buggyRearAxleY  = -(buggyRearWheelR  + buggyGroundClearance); // wheel bottom = y=0
   const buggyFrontAxleY = -(buggyFrontWheelR + buggyGroundClearance);
 
-  // Shell: belly at y = -buggyGroundClearance, crown at y ≈ -(26 + gc) = -34
   const gc = buggyGroundClearance;
+  // Shell belly at y=-gc, crown at y≈-(gc+28)
   const buggyShellPath = [
-    `M -10,${-gc - 1}`,
-    `C 10,${-gc} 80,${-gc} 128,${-gc - 1}`,
+    `M -10,${-(gc + 1)}`,
+    `C 10,${-gc} 80,${-gc} 128,${-(gc + 1)}`,
     'C 136,-9 140,-13 138,-18',
     'C 135,-23 124,-30 112,-33',
     'C 88,-36 66,-36 48,-35',
-    `C 28,-34 6,-26 -4,${-gc - 10}`,
-    `L -10,${-gc - 10}`,
+    `C 28,-34 6,-26 -4,${-(gc + 10)}`,
+    `L -10,${-(gc + 10)}`,
     'Z',
   ].join(' ');
 
-  // Windshield: accent facet in the nose zone
   const buggyWindshieldPath = 'M 131,-13 C 127,-20 118,-28 110,-32 C 116,-30 126,-22 132,-15 Z';
-
-  // Hatch: thin ellipse above mid-body
   const buggyHatchCx = 66, buggyHatchCy = -(gc + 25), buggyHatchRx = 18, buggyHatchRy = 3;
 
-  // Pushbar pivot exits the tail at (x=-10, y = belly midpoint)
+  // Pushbar pivot at tail exit
   const pushbarPivotX = -10;
   const pushbarPivotY = -(gc + 5);
-  // Tilt 10° off vertical (top leans backward = positive rotation in SVG coords)
-  // stem length ~20px, crossbar half-length ~6px
-  const pushbarTilt = 10;
+  const pushbarTilt = -10; // negative = top leans forward (toward nose)
+  const pushbarStemLen = 30;
+  const pushbarCrossHalf = 9;
 
   const liftBaseY = 330;
   const liftExtendedTopY = 210;
@@ -221,19 +214,6 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
     >
       <title>Systems Ribbon Schematic</title>
       <desc>{STATE_DESCRIPTIONS[activeState] ?? `Continuous engineering blueprint showing ${activeState} active state.`}</desc>
-
-      {/* ── Clip path: masks front wheel above the chassis belly line ─────────
-          Defined in local buggy coords (origin = ground).
-          The rect covers y from buggyFrontAxleY+r downward (i.e. below belly).
-          We only want the arc below y = -buggyGroundClearance to show.
-      */}
-      <defs>
-        <clipPath id="buggyFrontWheelClip" clipPathUnits="userSpaceOnUse">
-          {/* Rect that exposes only the region below the belly line.
-              x range is generous; y starts at belly, extends to ground + extra. */}
-          <rect x={buggyFrontAxleX - buggyFrontWheelR - 2} y={-buggyGroundClearance} width={buggyFrontWheelR * 2 + 4} height={buggyFrontWheelR + buggyGroundClearance + 4} />
-        </clipPath>
-      </defs>
 
       <path d="M 100,0 L 100,400 M 200,0 L 200,400 M 300,0 L 300,400" stroke="currentColor" strokeOpacity="0.06" strokeWidth="1" />
       <path d="M 0,100 L 400,100 M 0,200 L 400,200 M 0,300 L 400,300" stroke="currentColor" strokeOpacity="0.06" strokeWidth="1" />
@@ -371,13 +351,30 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
 
         <g transform={motionAllowed ? undefined : `translate(${buggyStaticGroupX}, ${buggyTrackY})`}>
 
-          {/* ── Rear wheel (bigger, r=8, fully visible) */}
+          {/* ── Pushbar first (behind wheels + shell) */}
+          <g transform={`rotate(${pushbarTilt}, ${pushbarPivotX}, ${pushbarPivotY})`}>
+            <line
+              x1={pushbarPivotX} y1={pushbarPivotY}
+              x2={pushbarPivotX} y2={pushbarPivotY - pushbarStemLen}
+              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+            />
+            <line
+              x1={pushbarPivotX - pushbarCrossHalf} y1={pushbarPivotY - pushbarStemLen}
+              x2={pushbarPivotX + pushbarCrossHalf} y2={pushbarPivotY - pushbarStemLen}
+              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+            />
+          </g>
+
+          {/* ── Wheels (drawn before shell so shell outline sits on top) */}
           <g transform={`translate(0, ${buggyRearAxleY})`}>
             <BuggyWheel motionAllowed={motionAllowed} dur="1.1s" r={buggyRearWheelR} />
           </g>
+          <g transform={`translate(${buggyFrontAxleX}, ${buggyFrontAxleY})`}>
+            <BuggyWheel motionAllowed={motionAllowed} dur="0.85s" r={buggyFrontWheelR} />
+          </g>
 
-          {/* ── Shell (drawn after rear wheel so it occludes the wheel top) */}
-          <path d={buggyShellPath} fill="var(--background)" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          {/* ── Shell outline (fill="none" — transparent, pure line art) */}
+          <path d={buggyShellPath} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
 
           {/* Windshield accent */}
           <path d={buggyWindshieldPath} fill="none" stroke="hsl(var(--primary))" strokeWidth="1.25" />
@@ -385,52 +382,6 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
           {/* Hatch aperture */}
           <ellipse cx={buggyHatchCx} cy={buggyHatchCy} rx={buggyHatchRx} ry={buggyHatchRy}
             fill="none" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" />
-
-          {/* ── Front wheel: clipped — only the arc below the belly line shows.
-               The clipPath is in local (userSpace) coords, translated by the group.
-               We re-apply the static transform offset inside a nested translate so
-               clipPathUnits="userSpaceOnUse" works correctly for both static and animated modes.
-               For animated mode the outer group has no transform, so we wrap the clip target
-               in a translate to keep the clip rect aligned with the wheel. */}
-          <g transform={`translate(${buggyFrontAxleX}, ${buggyFrontAxleY})`}>
-            {/* Clip rect in wheel-local space: expose only y >= belly line.
-                belly in wheel-local = -buggyFrontAxleY - buggyGroundClearance
-                                     = buggyFrontWheelR + buggyGroundClearance - buggyGroundClearance
-                                     = buggyFrontWheelR ... but we want y >= 0 in wheel-local,
-                which is the axle height. Actually: belly in group-local is y=0 (axle).
-                We want the arc from axle downward: y in [0, r+2].
-            */}
-            <g clipPath="url(#buggyFrontWheelClipLocal)">
-              <BuggyWheel motionAllowed={motionAllowed} dur="0.85s" r={buggyFrontWheelR} />
-            </g>
-            <defs>
-              <clipPath id="buggyFrontWheelClipLocal">
-                {/* Expose only the bottom half: from y=0 (axle) to y=r+2 (ground side) */}
-                <rect x={-buggyFrontWheelR - 1} y={0} width={buggyFrontWheelR * 2 + 2} height={buggyFrontWheelR + 2} />
-              </clipPath>
-            </defs>
-          </g>
-
-          {/* ── Pushbar: T-shape, 10° off vertical (top tilts rearward).
-               Pivot at tail exit. In SVG +Y is down, so the vertical axis
-               points upward = −Y. "10° from vertical" with top leaning backward
-               = rotate(+10) around the pivot (clockwise = top goes right = rearward).
-               Stem runs ~20px upward from pivot; crossbar is 6px each side at top.
-          */}
-          <g transform={`rotate(${pushbarTilt}, ${pushbarPivotX}, ${pushbarPivotY})`}>
-            {/* stem: pivot down to 20px above pivot (upward = negative Y) */}
-            <line
-              x1={pushbarPivotX} y1={pushbarPivotY}
-              x2={pushbarPivotX} y2={pushbarPivotY - 20}
-              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-            />
-            {/* crossbar at the top */}
-            <line
-              x1={pushbarPivotX - 6} y1={pushbarPivotY - 20}
-              x2={pushbarPivotX + 6} y2={pushbarPivotY - 20}
-              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-            />
-          </g>
 
           {motionAllowed && (
             <animateMotion
