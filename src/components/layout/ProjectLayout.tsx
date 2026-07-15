@@ -6,8 +6,10 @@ import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
+import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
 
 interface ProjectLayoutProps {
+  slug: string;
   plateText: string;
   title: string;
   subtitle: string;
@@ -29,12 +31,11 @@ interface ProjectLayoutProps {
     caption?: string;
   };
   reinforced: string;
-  prevLink: { href: string; label: string };
-  nextLink: { href: string; label: string };
   slots?: React.ReactNode;
 }
 
 export function ProjectLayout({
+  slug,
   plateText,
   title,
   subtitle,
@@ -46,10 +47,10 @@ export function ProjectLayout({
   challenges,
   primaryFigure,
   reinforced,
-  prevLink,
-  nextLink,
   slots
 }: ProjectLayoutProps) {
+  const { prev, next } = getAdjacentProjects(slug);
+
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-700 pb-16">
       <FolderTab />
@@ -67,7 +68,7 @@ export function ProjectLayout({
         <TechnicalFigure 
           caption={primaryFigure.caption || title}
           label={primaryFigure.label}
-          altText={`Schematic for ${title}`}
+          altText={`Conceptual system schematic for ${title}`}
           figureNumber="01"
         >
           {primaryFigure.svg}
@@ -176,15 +177,15 @@ export function ProjectLayout({
       </div>
 
       <div className="max-w-4xl w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-border">
-        <Link href={prevLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+        <Link href={prev.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
             <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>
-            <span>{prevLink.label}</span>
+            <span>{projectNavLabel(prev)}</span>
           </PhysicalButton>
         </Link>
-        <Link href={nextLink.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+        <Link href={next.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-next">
-            <span>{nextLink.label}</span>
+            <span>{projectNavLabel(next)}</span>
             <span className="text-muted-foreground/70 inline-flex items-center gap-1">Next <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /></span>
           </PhysicalButton>
         </Link>
