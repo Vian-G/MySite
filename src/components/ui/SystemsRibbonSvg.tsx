@@ -103,11 +103,18 @@ function Wheel({ cx, motionAllowed, dur }: { cx: number; motionAllowed: boolean;
   );
 }
 
-function BuggyWheel({ motionAllowed, dur, r = 8 }: { motionAllowed: boolean; dur: string; r?: number }) {
+/**
+ * BuggyWheel: tiny Xootr-style wheel to match the line-art style of the other rovers.
+ * Uses fill="var(--background)" for hub cutout, like MoonRanger wheel hubs.
+ * Rendered at local origin; caller translates to axle position.
+ */
+function BuggyWheel({ motionAllowed, dur, r = 6 }: { motionAllowed: boolean; dur: string; r?: number }) {
   return (
     <g>
       <circle r={r} fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle r={r * 0.32} fill="none" stroke="currentColor" strokeWidth="1" />
+      {/* hub cutout */}
+      <circle r={Math.round(r * 0.35)} fill="var(--background)" stroke="currentColor" strokeWidth="1" />
+      {/* 4 spokes */}
       <line x1={-r} y1="0" x2={r} y2="0" stroke="currentColor" strokeWidth="1" />
       <line x1="0" y1={-r} x2="0" y2={r} stroke="currentColor" strokeWidth="1" />
       {motionAllowed && <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur={dur} repeatCount="indefinite" />}
@@ -150,30 +157,44 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
   const rangerDur = '30s';
   const rangerTilt = buildTiltKeyframes(rangerMotionXStart, rangerMotionXEnd, rangerAmp1, rangerPer1, rangerAmp2, rangerPer2, 65, rangerRideHeight, 9);
 
-  // Spirit Buggy
+  // ─── Spirit Buggy ───────────────────────────────────────────────────────────
+  //
+  // Scaled to match MoonRanger visual weight (body ~140px wide, ~26px tall).
+  // Local origin = rear-wheel ground contact = (0, 0), upward = negative Y.
+  //
+  // Key x coords:  tail=-10  rearAxle=0  frontAxle=100  nose=138
+  // Key y coords:  ground=0  belly≈0  crown=-26  Kammback tail=-12
+  //
+  // Pushbar: T-shape extending from the tail (x=-10):
+  //   stem: x=-10 → x=-28, y=-6 (mid-height)
+  //   crossbar: x=-28, y=-2 → y=-13
+  //
   const buggyTrackY = 340;
-  const buggyWheelR = 8;
-  const buggyFrontAxleX = 160;
+  const buggyWheelR = 6;
+  const buggyFrontAxleX = 100;
   const buggyDur = '10s';
   const buggyMotionXStart = -80;
   const buggyMotionXEnd = 500;
-  // Static fallback X: rear wheel sits near left-centre of the frame.
-  const buggyStaticGroupX = 90;
+  const buggyStaticGroupX = 130; // centres the ~170px-wide assembly (shell+pushbar) in the frame
 
-  // Shell path: local coords, origin = rear-wheel ground contact (0,0).
-  // Belly hugs ground, crown peaks at y≈-43, Kammback tail chop at x=-16.
+  // Shell: torpedo profile, scaled down to match MoonRanger body proportions.
+  // Belly nearly flat (y≈0), crown at y=-26, Kammback chop at x=-10.
   const buggyShellPath = [
-    'M -16,-2',
-    'C 20,-1 140,-1 210,-2',
-    'C 222,-2 224,-10 222,-16',
-    'C 218,-22 200,-36 178,-40',
-    'C 140,-44 110,-44 80,-43',
-    'C 50,-42 10,-28 -8,-18',
-    'L -16,-18',
+    'M -10,-1',          // tail bottom
+    'C 10,0 80,0 128,-1',    // belly — nearly flat
+    'C 136,-1 140,-5 138,-10', // nose round-off
+    'C 135,-15 124,-22 112,-25', // windshield rise
+    'C 88,-28 66,-28 48,-27',  // crown plateau
+    'C 28,-26 6,-18 -4,-12',   // spine descent
+    'L -10,-12',               // Kammback vertical chop
     'Z',
   ].join(' ');
-  const buggyWindshieldPath = 'M 210,-10 C 204,-22 188,-34 176,-38 C 186,-36 204,-24 212,-12 Z';
-  const buggyHatchCx = 108, buggyHatchCy = -40, buggyHatchRx = 30, buggyHatchRy = 5;
+
+  // Windshield: narrow faceted pane in the nose zone, accent colour
+  const buggyWindshieldPath = 'M 131,-5 C 127,-12 118,-20 110,-24 C 116,-22 126,-14 132,-7 Z';
+
+  // Hatch: thin ellipse above mid-body
+  const buggyHatchCx = 66, buggyHatchCy = -25, buggyHatchRx = 18, buggyHatchRy = 3;
 
   const liftBaseY = 330;
   const liftExtendedTopY = 210;
@@ -315,52 +336,76 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         <circle cx="330" cy="110" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
       </g>
 
-      {/* 05: Spirit Buggy */}
+      {/* ═══════════════════════════════════════════════════════════════════════
+           05: Spirit Buggy — CMU Sweepstakes
+           Scaled to match MoonRanger visual weight.
+           Local coords: origin = rear-wheel ground contact (0,0), up = −Y.
+           Shell:  ~140px wide × ~28px tall (nose x=138, crown y=-26).
+           Wheels: r=6, rear@x=0, front@x=100.
+           Pushbar: T-shape from tail (x=-10), stem to x=-28, crossbar y=-2...-14.
+        ═══════════════════════════════════════════════════════════════════════ */}
       <g className={cn("transition-opacity duration-1000", activeState === '05' ? "opacity-100" : "opacity-0")}>
         <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">05 / VEHICLE FAB</text>
         <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">COMPOSITE STRUCTURE</text>
 
-        {/* Track */}
+        {/* Flat asphalt track — matches MoonRanger’s ground line style */}
         <line x1="0" y1={buggyTrackY} x2="400" y2={buggyTrackY} stroke="#5B5850" strokeOpacity="0.7" strokeWidth="2" />
-        <line x1="0" y1={buggyTrackY - 60} x2="400" y2={buggyTrackY - 60} stroke="#5B5850" strokeOpacity="0.15" strokeWidth="1" strokeDasharray="14 8" />
+        <line x1="0" y1={buggyTrackY - 50} x2="400" y2={buggyTrackY - 50} stroke="#5B5850" strokeOpacity="0.15" strokeWidth="1" strokeDasharray="14 8" />
 
         {/*
-          Static: translate(buggyStaticGroupX, buggyTrackY) — bakes track Y into position.
-          Animated: animateMotion path Y is also buggyTrackY — same ground level.
-          Both cases put the local origin (rear-wheel ground contact) exactly on the track line.
+          Static:   translate(buggyStaticGroupX, buggyTrackY)
+          Animated: animateMotion Y = buggyTrackY  → both cases put local
+                    Y=0 (ground) exactly on the track line.
         */}
         <g transform={motionAllowed ? undefined : `translate(${buggyStaticGroupX}, ${buggyTrackY})`}>
-          {/* Shell */}
-          <path d={buggyShellPath} fill="var(--background)" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-          {/* Carbon panel creases */}
-          <path d="M 80,-42 C 40,-32 0,-18 -8,-14" fill="none" stroke="currentColor" strokeOpacity="0.25" strokeWidth="0.75" strokeDasharray="4 3" />
-          <path d="M 178,-40 C 168,-34 155,-28 140,-24" fill="none" stroke="currentColor" strokeOpacity="0.2" strokeWidth="0.75" />
-          {/* Windshield */}
-          <path d={buggyWindshieldPath} fill="var(--background)" fillOpacity="0.6" stroke="hsl(var(--primary))" strokeWidth="1.25" />
-          {/* Hatch */}
-          <ellipse cx={buggyHatchCx} cy={buggyHatchCy} rx={buggyHatchRx} ry={buggyHatchRy} fill="var(--background)" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" />
+
+          {/* ── Shell — torpedo silhouette, pure line art */}
+          <path
+            d={buggyShellPath}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+
+          {/* Windshield — accent colour, narrow faceted pane */}
+          <path
+            d={buggyWindshieldPath}
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.25"
+          />
+
+          {/* Hatch aperture */}
+          <ellipse
+            cx={buggyHatchCx} cy={buggyHatchCy}
+            rx={buggyHatchRx} ry={buggyHatchRy}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeOpacity="0.5"
+          />
+
+          {/* ── Pushbar — T-shape from the tail
+               Real CMU pushbar: rigid bar extending rearward from the tail,
+               with a crossbar handle the pusher grabs.
+               Stem: (x=-10, y=-6) → (x=-28, y=-6)
+               Crossbar: (x=-28, y=-2) → (x=-28, y=-14)
+          */}
+          <line x1="-10" y1="-6" x2="-28" y2="-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="-28" y1="-2" x2="-28" y2="-14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+
+          {/* ── Wheels ────────────────────────────────────────── */}
           {/* Rear wheel */}
           <g transform={`translate(0, ${-buggyWheelR})`}>
             <BuggyWheel motionAllowed={motionAllowed} dur="1.1s" r={buggyWheelR} />
           </g>
-          {/* Front axle */}
+          {/* Front axle (2 wheels shown as 1 in side profile) */}
           <g transform={`translate(${buggyFrontAxleX}, ${-buggyWheelR})`}>
             <BuggyWheel motionAllowed={motionAllowed} dur="0.85s" r={buggyWheelR} />
           </g>
-          {/* Steering tie-rod */}
-          <line x1={buggyFrontAxleX} y1={-buggyWheelR * 2 - 4} x2={buggyFrontAxleX - 12} y2={-18} stroke="hsl(var(--primary))" strokeWidth="1.25" strokeLinecap="round" />
-          {/* Wheelbase callout */}
-          <line x1="0" y1="10" x2={buggyFrontAxleX} y2="10" stroke="currentColor" strokeOpacity="0.3" strokeWidth="0.75" strokeDasharray="2 2" />
-          <line x1="0" y1="8" x2="0" y2="12" stroke="currentColor" strokeOpacity="0.3" strokeWidth="0.75" />
-          <line x1={buggyFrontAxleX} y1="8" x2={buggyFrontAxleX} y2="12" stroke="currentColor" strokeOpacity="0.3" strokeWidth="0.75" />
-          <text x={buggyFrontAxleX / 2} y="22" fontSize="7" fill="currentColor" fillOpacity="0.4" textAnchor="middle" fontFamily="monospace">WB ≈ 67"</text>
 
-          {/*
-            FIX: animateMotion path Y = buggyTrackY, not 0.
-            animateMotion positions the element absolutely in SVG space, so Y must
-            match the track line (buggyTrackY=340) to keep the buggy on the ground.
-            The local origin is rear-wheel ground contact, so Y=buggyTrackY is correct.
-          */}
+          {/* ── Animation ────────────────────────────────────────── */}
           {motionAllowed && (
             <animateMotion
               path={`M ${buggyMotionXStart - buggyStaticGroupX},${buggyTrackY} L ${buggyMotionXEnd - buggyStaticGroupX},${buggyTrackY}`}
