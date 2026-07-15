@@ -1,78 +1,54 @@
 import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
-import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
-import { ArrowUpRight } from 'lucide-react';
 import { useSEO } from '@/hooks/use-seo';
 import skyryderPhoto from '@/assets/projects/skyryder.jpg';
 import skyryderPhoto2 from '@/assets/projects/skyryder-2.jpg';
 import skyryderPhoto3 from '@/assets/projects/skyryder-3.jpg';
 
 export default function Skyryder() {
-  useSEO('Skyryder | Vian Garg', 'Skyryder is an original playable game project, published independently on itch.io.');
+  useSEO('Skyryder | Vian Garg', 'An original playable game project published independently on itch.io.');
 
   return (
     <ProjectLayout
       slug="skyryder"
       plateText="PROJECT 04 / INTERACTIVE WORK"
       title="Skyryder"
-      subtitle="An original playable game, independently designed and published on itch.io."
-      metadata={{
-        ROLE: "Solo Developer",
-        CONTEXT: "Independent",
-        TOOLS: "Game Design, Level Design, Physics Systems",
-        TIMEFRAME: "2024",
-        STATUS: "Published"
-      }}
-      brief="Skyryder is an original flight game designed, built, and published independently on itch.io. The player pilots a plane through a scrolling environment, navigating obstacles and chasing a high score."
-      objective="Design and ship a complete, playable game — from flight mechanics and obstacle layout to level pacing and scoring — as a solo independent project."
+      subtitle="An original playable game project, designed and built independently."
+      metadata={[
+        { key: 'ROLE', value: 'Independent Developer' },
+        { key: 'CONTEXT', value: 'Personal Project' },
+        { key: 'TOOLS', value: 'Game Design, Level Design, Itch.io' },
+        { key: 'STATUS', value: 'Published' },
+      ]}
+      brief="Skyryder is an original playable game project designed and built independently outside of coursework."
+      objective="Design, build, and publish a complete playable game independently."
       workedOn={[
-        "Designed and built the flight physics and plane control system from scratch",
-        "Authored all level design, obstacle placement, and difficulty progression",
-        "Implemented the scoring system and game loop",
-        "Published independently on itch.io"
+        'Designed and built the game from scratch independently',
+        'Published and made freely available on itch.io',
       ]}
       approach={[
-        "Game Design",
-        "Level Design",
-        "Physics Systems",
-        "Obstacle Layout",
-        "Scoring Systems"
-      ]}
-      challenges={[
-        "Tuning flight physics to feel responsive and fair across a range of player skill levels.",
-        "Designing obstacle density and pacing so difficulty escalates smoothly without feeling arbitrary."
+        'Game Design',
+        'Level Design',
+        'Itch.io',
       ]}
       primaryFigure={{
-        label: "FLIGHT TRAJECTORY / CONCEPTUAL",
+        label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
         svg: <SystemsRibbonSvg activeState="04" />,
-        caption: "Skyryder flight mechanics / conceptual trajectory"
       }}
-      reinforced="Designed and shipped a complete playable flight game independently — handling physics, level design, obstacle layout, and scoring from scratch through to a published itch.io release."
+      reinforced="Published independently on itch.io. Demonstrates the ability to scope, execute, and ship a self-directed creative project from concept to completion."
       photos={[
-        { src: skyryderPhoto, caption: 'Skyryder gameplay', altText: 'Skyryder in-game screenshot showing flight gameplay' },
-        { src: skyryderPhoto2, caption: 'Level design', altText: 'Skyryder level design and environment' },
-        { src: skyryderPhoto3, caption: 'Obstacles and scoring', altText: 'Skyryder obstacle layout and scoring system' },
+        { src: skyryderPhoto, caption: 'Skyryder gameplay', altText: 'Skyryder game screenshot showing gameplay' },
+        { src: skyryderPhoto2, caption: 'Level design', altText: 'Skyryder level design overview' },
+        { src: skyryderPhoto3, caption: 'Game interface', altText: 'Skyryder game UI and interface elements' },
       ]}
       links={[
-        { label: 'Play on itch.io', href: 'https://vian-g.itch.io/skyryder' },
+        { label: 'Play on itch.io', href: 'https://itch.io' },
       ]}
       slots={
         <>
-          <div className="flex justify-center">
-            <a
-              href="https://vian-g.itch.io/skyryder"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-            >
-              <PhysicalButton asDiv variant="rust" size="lg" className="gap-2">
-                Play Skyryder on itch.io <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-              </PhysicalButton>
-            </a>
-          </div>
           <TechnicalFigure caption="Gameplay screenshot" altText="Reserved figure slot for gameplay screenshot" isSlot />
-          <TechnicalFigure caption="Level overview" altText="Reserved figure slot for level overview" isSlot />
+          <TechnicalFigure caption="Level map" altText="Reserved figure slot for level map overview" isSlot />
         </>
       }
     />

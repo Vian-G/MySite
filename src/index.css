@@ -165,32 +165,8 @@
   --destructive-border: hsl(var(--destructive));
 }
 
-.dark {
-  /* Using same palette, maybe just very slight tweaks if dark mode was asked, 
-     but instructions said: "Default to light mode. Only use dark mode when explicitly asked." 
-     So we can keep it as is or slightly invert. We'll stick to light mode paper aesthetic primarily. */
-  --background: 41.5 31.7% 92.0%; 
-  --foreground: 90.0 3.7% 10.6%; 
-  --border: 43.6 4.6% 53.1%; 
-  --card: 40.0 28.1% 87.5%; 
-  --card-foreground: 90.0 3.7% 10.6%; 
-  --card-border: 43.6 4.6% 53.1%; 
-  --popover: 41.5 31.7% 92.0%; 
-  --popover-foreground: 90.0 3.7% 10.6%; 
-  --popover-border: 43.6 4.6% 53.1%; 
-  --primary: 9.1 60.7% 44.9%; 
-  --primary-foreground: 41.5 31.7% 92.0%; 
-  --secondary: 46.2 10.4% 75.5%; 
-  --secondary-foreground: 100.0 3.4% 17.1%; 
-  --muted: 46.2 10.4% 75.5%; 
-  --muted-foreground: 45.0 4.5% 34.9%; 
-  --accent: 199.1 40.2% 32.2%; 
-  --accent-foreground: 41.5 31.7% 92.0%; 
-  --destructive: 9.1 60.7% 44.9%; 
-  --destructive-foreground: 41.5 31.7% 92.0%; 
-  --input: 43.6 4.6% 53.1%; 
-  --ring: 9.1 60.7% 44.9%; 
-}
+/* Dark mode is intentionally unsupported. The site uses a fixed light parchment aesthetic.
+   Add a real inverted palette here if a theme toggle is ever introduced. */
 
 @layer base {
   * {

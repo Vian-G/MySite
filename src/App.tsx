@@ -10,32 +10,32 @@ import type { ComponentType } from 'react';
 
 import Home from '@/pages/Home';
 import ProjectsIndex from '@/pages/ProjectsIndex';
-import MoonMiners from '@/pages/projects/MoonMiners';
-import Ur10eWelding from '@/pages/projects/Ur10eWelding';
-import MoonRanger from '@/pages/projects/MoonRanger';
-import Skyryder from '@/pages/projects/Skyryder';
-import SpiritBuggy from '@/pages/projects/SpiritBuggy';
-import FirstGlobalUae from '@/pages/projects/FirstGlobalUae';
 import About from '@/pages/About';
 import Resume from '@/pages/Resume';
 import { projects } from '@/config/projects';
 
 const queryClient = new QueryClient();
 
-const projectComponents: Record<string, ComponentType> = {
-  'moon-miners': MoonMiners,
-  'ur10e-welding': Ur10eWelding,
-  'moon-ranger': MoonRanger,
-  skyryder: Skyryder,
-  'spirit-buggy': SpiritBuggy,
-  'first-global-uae': FirstGlobalUae,
-};
+// Auto-discover all project page components — adding a new file under
+// src/pages/projects/ automatically registers its route. No manual updates needed.
+const projectModules = import.meta.glob('./pages/projects/*.tsx', { eager: true });
+
+const projectComponents: Record<string, ComponentType> = Object.fromEntries(
+  Object.entries(projectModules).map(([path, mod]) => {
+    // Derive slug from filename: MoonMiners.tsx -> moon-miners
+    const filename = path.split('/').pop()!.replace('.tsx', '');
+    const slug = filename
+      .replace(/([A-Z])/g, (m, letter, offset) => (offset > 0 ? '-' : '') + letter.toLowerCase())
+      .replace(/^-/, '');
+    return [slug, (mod as { default: ComponentType }).default];
+  }),
+);
 
 function Router() {
   if (import.meta.env.DEV) {
     projects.forEach((p) => {
       if (!projectComponents[p.slug]) {
-        console.warn(`[App] No component registered for project slug: "${p.slug}". Add it to projectComponents.`);
+        console.warn(`[App] No component registered for project slug: "${p.slug}". Add a matching file to src/pages/projects/.`);
       }
     });
   }
