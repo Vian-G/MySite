@@ -10,11 +10,8 @@ import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
 import { useSidebarParallax } from '@/hooks/use-sidebar-parallax';
 
 export interface ProjectPhoto {
-  /** Imported asset URL or any image path. Accepts jpg, png, webp, gif, avif, svg. */
   src: string;
-  /** Short mono caption shown below the figure. Defaults to empty string. */
   caption?: string;
-  /** Alt text for the <img>. Defaults to caption or the project title. */
   altText?: string;
 }
 
@@ -42,12 +39,6 @@ interface ProjectLayoutProps {
   };
   reinforced: string;
   slots?: React.ReactNode;
-  /**
-   * Optional array of photos shown in a right-column figure stack.
-   * The stack scrolls proportionally so its bottom aligns with the page
-   * bottom at the same moment you reach the end of the page.
-   * Accepts jpg, png, webp, gif, avif, svg.
-   */
   photos?: ProjectPhoto[];
 }
 
@@ -92,16 +83,16 @@ export function ProjectLayout({
   return (
     <div className="animate-in fade-in duration-700 pb-16 flex flex-col gap-8">
 
-      {/* Full-width chrome above the grid */}
+      {/* Full-width chrome — always spans the shell content area */}
       <FolderTab />
       <div className="-mt-4">
         <MetalDataPlate>{plateText}</MetalDataPlate>
       </div>
 
-      {/* Two-column grid starts at the title card */}
+      {/* Grid / single column — w-full so it exactly fills the shell, no inner max-w cap */}
       <div className={hasPhotos
-        ? 'w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start'
-        : 'w-full max-w-4xl flex flex-col gap-8'
+        ? 'w-full grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start'
+        : 'w-full max-w-3xl flex flex-col gap-8'
       }>
 
         {/* LEFT — body */}
@@ -208,7 +199,7 @@ export function ProjectLayout({
 
         {/* RIGHT — proportional-scroll photo column, desktop only */}
         {hasPhotos && (
-          <div className="hidden lg:block relative" style={{ minHeight: '100%' }}>
+          <div className="hidden lg:block relative">
             <aside
               ref={sidebarRef}
               className="flex flex-col gap-5 will-change-transform"
@@ -220,8 +211,8 @@ export function ProjectLayout({
 
       </div>
 
-      {/* Prev / Next nav */}
-      <div className="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border">
+      {/* Prev / Next nav — w-full matches the grid above */}
+      <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border">
         <Link href={prev.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
             <span className="text-muted-foreground/70 inline-flex items-center gap-1"><ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" /> Previous</span>

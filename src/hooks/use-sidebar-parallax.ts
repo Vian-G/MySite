@@ -1,25 +1,26 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Drives a sidebar element so that it finishes scrolling at exactly the same
- * moment the user reaches the bottom of the page.
+ * Proportional-scroll sidebar: both the page content and the photo stack
+ * finish scrolling at the same moment, regardless of which is taller.
  *
- * Strategy: the sidebar starts at translateY(0) and is pushed down
- * proportionally to page scroll progress. The maximum translation is
- * `sidebarStackHeight - bodyColumnHeight`, i.e. how much the stack overflows
- * its peer column. When scrollY / maxPageScroll === 1 the sidebar bottom
- * is flush with the body column bottom.
+ * When photos are shorter than the body column  → sidebar scrolls SLOWER.
+ * When photos are taller than the body column   → sidebar scrolls FASTER.
  *
- * Returns a ref to attach to the sidebar <aside> element.
+ * Math:
+ *   bodyTravel    = bodyColH - viewportH   (how far body content "travels")
+ *   sidebarTravel = sidebarH - viewportH   (how far sidebar needs to travel)
+ *   rate          = sidebarTravel / bodyTravel
+ *   translateY    = scrollProgress * bodyTravel * rate
+ *                 = scrollProgress * sidebarTravel
+ *
+ * Clamped to [0, sidebarTravel] so it never over- or under-shoots.
  * No-ops when prefers-reduced-motion is set.
  */
 export function useSidebarParallax<T extends HTMLElement>() {
   const sidebarRef = useRef<T>(null);
 
   useEffect(() => {
-    const sidebar = sidebarRef.current;
-    if (!sidebar) return;
-
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mq.matches) return;
 
@@ -34,44 +35,43 @@ export function useSidebarParallax<T extends HTMLElement>() {
         document.documentElement.scrollHeight - window.innerHeight;
       if (maxPageScroll <= 0) return;
 
-      // The grid container is the sidebar wrapper's parent.
-      // Its first child is the left body column — that is the reference height
-      // we want the sidebar to travel alongside.
+      const vh = window.innerHeight;
+      const sidebarH = el.scrollHeight;
+
+      // Body column is the grid's first child (two levels up from the aside).
       const gridEl = el.parentElement?.parentElement;
       const bodyCol = gridEl?.firstElementChild as HTMLElement | null;
       const bodyColH = bodyCol ? bodyCol.scrollHeight : 0;
 
-      const sidebarH = el.scrollHeight;
-      const maxTravel = Math.max(0, sidebarH - bodyColH);
+      // How far each column needs to travel to be fully seen.
+      const sidebarTravel = Math.max(0, sidebarH - vh);
+      const bodyTravel    = Math.max(1, bodyColH - vh); // avoid div/0
 
-      // If the photo stack is shorter than the body column there is nothing
-      // to scroll — just leave it pinned at the top.
-      if (maxTravel === 0) {
+      if (sidebarTravel === 0) {
+        // Sidebar fits in the viewport entirely — no translation needed.
         el.style.transform = '';
         return;
       }
 
-      const progress = window.scrollY / maxPageScroll; // 0 → 1
-      const translateY = Math.round(progress * maxTravel);
+      const progress   = window.scrollY / maxPageScroll;          // 0 → 1
+      const translateY = Math.round(
+        Math.min(sidebarTravel, progress * sidebarTravel)
+      );
+
       el.style.transform = `translateY(${translateY}px)`;
     };
 
-    const onScroll = () => {
+    const queue = () => {
       if (rafId === null) rafId = requestAnimationFrame(update);
     };
 
-    // Also re-measure on resize (viewport changes alter bodyColH).
-    const onResize = () => {
-      if (rafId === null) rafId = requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize, { passive: true });
-    update(); // sync on mount
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue, { passive: true });
+    update();
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', queue);
+      window.removeEventListener('resize', queue);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
