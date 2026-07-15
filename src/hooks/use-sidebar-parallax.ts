@@ -1,20 +1,21 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Proportional-scroll sidebar: both the page content and the photo stack
- * finish scrolling at the same moment, regardless of which is taller.
+ * Scrolls the sidebar so its bottom edge lands exactly on the body column's
+ * bottom edge at the moment the user reaches the end of the page.
  *
- * When photos are shorter than the body column  → sidebar scrolls SLOWER.
- * When photos are taller than the body column   → sidebar scrolls FASTER.
+ * Geometric model (all values in document-space px):
  *
- * Math:
- *   bodyTravel    = bodyColH - viewportH   (how far body content "travels")
- *   sidebarTravel = sidebarH - viewportH   (how far sidebar needs to travel)
- *   rate          = sidebarTravel / bodyTravel
- *   translateY    = scrollProgress * bodyTravel * rate
- *                 = scrollProgress * sidebarTravel
+ *   bodyBottom   = absolute Y of body column's bottom edge
+ *   sidebarTop   = absolute Y of sidebar's top edge (at translateY = 0)
+ *   restBottom   = sidebarTop + sidebar.scrollHeight   (sidebar bottom at rest)
+ *   maxTravel    = bodyBottom - restBottom
  *
- * Clamped to [0, sidebarTravel] so it never over- or under-shoots.
+ * When sidebar is shorter than body → maxTravel > 0 → push down gradually.
+ * When sidebar is taller  than body → maxTravel ≤ 0 → no transform needed.
+ *
+ *   translateY = clamp(scrollProgress × maxTravel, 0, maxTravel)
+ *
  * No-ops when prefers-reduced-motion is set.
  */
 export function useSidebarParallax<T extends HTMLElement>() {
@@ -35,29 +36,31 @@ export function useSidebarParallax<T extends HTMLElement>() {
         document.documentElement.scrollHeight - window.innerHeight;
       if (maxPageScroll <= 0) return;
 
-      const vh = window.innerHeight;
-      const sidebarH = el.scrollHeight;
-
-      // Body column is the grid's first child (two levels up from the aside).
+      // Body column: grid's first child (sidebar wrapper is second child,
+      // aside is one level inside that).
       const gridEl = el.parentElement?.parentElement;
       const bodyCol = gridEl?.firstElementChild as HTMLElement | null;
-      const bodyColH = bodyCol ? bodyCol.scrollHeight : 0;
+      if (!bodyCol) return;
 
-      // How far each column needs to travel to be fully seen.
-      const sidebarTravel = Math.max(0, sidebarH - vh);
-      const bodyTravel    = Math.max(1, bodyColH - vh); // avoid div/0
+      // Convert to document-space by adding current scroll.
+      const scrollY = window.scrollY;
+      const bodyBottom  = bodyCol.getBoundingClientRect().bottom  + scrollY;
+      const sidebarTop  = el.getBoundingClientRect().top          + scrollY
+                          - parseFloat(el.style.transform.replace(/[^0-9.-]/g, '') || '0');
+      // ↑ Remove any existing translateY so we measure the natural resting position.
 
-      if (sidebarTravel === 0) {
-        // Sidebar fits in the viewport entirely — no translation needed.
+      const sidebarH  = el.scrollHeight;
+      const restBottom = sidebarTop + sidebarH;
+      const maxTravel  = bodyBottom - restBottom;
+
+      if (maxTravel <= 0) {
+        // Sidebar already reaches or exceeds body bottom — no push needed.
         el.style.transform = '';
         return;
       }
 
-      const progress   = window.scrollY / maxPageScroll;          // 0 → 1
-      const translateY = Math.round(
-        Math.min(sidebarTravel, progress * sidebarTravel)
-      );
-
+      const progress   = scrollY / maxPageScroll;
+      const translateY = Math.round(Math.min(maxTravel, progress * maxTravel));
       el.style.transform = `translateY(${translateY}px)`;
     };
 
