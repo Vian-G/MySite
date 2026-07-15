@@ -19,15 +19,15 @@ const SectionHead = ({ index, children }: { index: string; children: React.React
 
 const stats: { label: string; value: string }[] = [
   { label: 'Degree', value: 'B.S. ECE + Robotics Minor' },
-  { label: 'Year', value: 'Sophomore \u201926' },
+  { label: 'Year', value: "Sophomore '26" },
   { label: 'School', value: 'Carnegie Mellon' },
-  { label: 'Based', value: 'Dubai \u2192 Pittsburgh' },
+  { label: 'Based', value: 'Dubai → Pittsburgh' },
 ];
 
 export default function About() {
   useSEO(
     'About | Vian Garg',
-    'Vian Garg \u2014 ECE + Robotics at Carnegie Mellon. Systems engineer working across mechanical-electrical interfaces, autonomous navigation, and industrial robotics.',
+    'Vian Garg — ECE + Robotics at Carnegie Mellon. Systems engineer working across mechanical-electrical interfaces, autonomous navigation, and industrial robotics.',
   );
 
   return (
@@ -35,11 +35,11 @@ export default function About() {
 
       <MetalDataPlate>PROFILE / ECE + ROBOTICS MINOR / CMU</MetalDataPlate>
 
-      {/* \u2500\u2500 Identity header */}
+      {/* Identity header */}
       <div className="flex flex-col gap-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
 
-          {/* Left \u2014 name + stats + lead */}
+          {/* Left — name + stats + lead */}
           <div className="flex flex-col gap-8">
             <div>
               <h1 className="font-serif text-5xl md:text-6xl text-foreground leading-[1.05] tracking-tight">
@@ -58,7 +58,7 @@ export default function About() {
             </div>
 
             <p className="font-sans text-lg text-secondary-foreground leading-relaxed max-w-2xl">
-              I work at the boundary where things have to physically work. Tuning Nav2 costmaps so a tracked rover actually navigates lunar regolith. Writing the URScript layer that bridges human motion to a UR10e end-effector. Redesigning a camera shroud so stereo sensors survive a moon mission. The discipline boundary is where I\u2019m most useful.
+              I work at the boundary where things have to physically work. Tuning Nav2 costmaps so a tracked rover actually navigates lunar regolith. Writing the URScript layer that bridges human motion to a UR10e end-effector. Redesigning a camera shroud so stereo sensors survive a moon mission. The discipline boundary is where I'm most useful.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -75,7 +75,7 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right \u2014 portrait */}
+          {/* Right — portrait */}
           <div className="hidden lg:block">
             <TornPhotoWindow
               src={portraitImg}
@@ -89,7 +89,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* \u2500\u2500 Two-column body */}
+      {/* Two-column body */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
         {/* LEFT COL */}
@@ -100,13 +100,13 @@ export default function About() {
             <PaperSheet className="p-6 md:p-8" variant="clipped">
               <div className="flex flex-col gap-5 font-sans text-foreground leading-relaxed">
                 <p>
-                  Most interesting problems live at an interface \u2014 mechanical meets electrical, sensor data meets a control loop, a human operator meets an industrial robot. I gravitate toward those seams because that\u2019s where the spec sheet ends and the real engineering starts.
+                  Most interesting problems live at an interface — mechanical meets electrical, sensor data meets a control loop, a human operator meets an industrial robot. I gravitate toward those seams because that's where the spec sheet ends and the real engineering starts.
                 </p>
                 <p>
                   I try to understand the full stack before touching any layer of it. On Moon Miners I read the Nav2 docs, benchmarked costmap parameters against our physical track geometry, and only then tuned. On the UR10e project I mapped the motion-capture pipeline end-to-end before writing a line of URScript.
                 </p>
                 <p className="border-l-2 border-primary/60 pl-4 py-1 text-secondary-foreground">
-                  \u201cDesign it so it can\u2019t fail, then test until it does.\u201d
+                  "Design it so it can't fail, then test until it does."
                 </p>
               </div>
             </PaperSheet>
@@ -131,11 +131,11 @@ export default function About() {
         <div className="flex flex-col gap-12">
 
           <section>
-            <SectionHead index="03_AVAILABILITY">What I\u2019m looking for</SectionHead>
+            <SectionHead index="03_AVAILABILITY">What I'm looking for</SectionHead>
             <PaperSheet className="p-6 md:p-8" variant="default">
               <div className="flex flex-col gap-4 font-sans text-foreground leading-relaxed">
                 <p>
-                  Actively seeking summer and co-op internships in <strong>robotics</strong>, <strong>embedded systems</strong>, and <strong>controls</strong> \u2014 particularly at companies building physical AI, field robotics, or industrial automation.
+                  Actively seeking summer and co-op internships in <strong>robotics</strong>, <strong>embedded systems</strong>, and <strong>controls</strong> — particularly at companies building physical AI, field robotics, or industrial automation.
                 </p>
                 <ul className="grid grid-cols-1 gap-2 mt-2">
                   {[
