@@ -12,7 +12,7 @@ import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import { projects } from '@/config/projects';
 import { skills } from '@/config/skills';
 
-const featuredProjects = projects.slice(0, 4);
+const featuredProjects = projects.filter((p) => p.featured);
 
 export default function Home() {
   useSEO('Vian Garg | ECE + Robotics', 'Portfolio of Vian Garg, an ECE student with a Robotics minor working across robotics, automation, controls, autonomous systems, and embedded perception.');
