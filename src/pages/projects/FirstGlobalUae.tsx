@@ -7,58 +7,53 @@ import firstGlobalUaePhoto2 from '@/assets/projects/first-global-uae-2.jpg';
 import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg';
 
 export default function FirstGlobalUae() {
-  useSEO('FIRST Global Team UAE | Vian Garg', 'National Robotics Vice President leading a 22-member team to a 2nd-of-193-countries finish in Athens, Greece.');
+  useSEO('FIRST Global Team UAE 2025 | Vian Garg', "Led the UAE's national team to a 2nd-of-193-countries finish at FIRST Global 2025.");
 
   return (
     <ProjectLayout
       slug="first-global-uae"
-      plateText="PROJECT 06 / COMPETITION LEADERSHIP"
+      plateText="PROJECT 06 / COMPETITION ROBOTICS"
       title="FIRST Global Team UAE 2025"
-      subtitle="National Robotics Vice President leading a 22-member national team to a record-breaking international finish."
-      metadata={{
-        ROLE: "National Robotics Vice President",
-        CONTEXT: "FIRST Global Team UAE",
-        TOOLS: "Mechanical Design, Team Leadership, Cascade Lift Mechanisms, Omni-Wheel Drivetrains",
-        TIMEFRAME: "2025",
-        STATUS: "Complete"
-      }}
-      brief="FIRST Global is an international robotics competition bringing together teams from nearly every country in the world. As National Robotics Vice President, I helped lead the UAE’s 22-member national team through robot design, build, and competition at the 2025 event in Athens, Greece."
-      objective="Lead the mechanical design and construction of a competition robot built around a 6-foot telescoping cascade lift and an omni-wheel drivetrain, while coordinating a 22-member national team through the build season."
+      subtitle="Led the UAE's 22-member national team at FIRST Global 2025 in Athens, Greece."
+      metadata={[
+        { key: 'ROLE', value: 'National Robotics Vice President' },
+        { key: 'CONTEXT', value: 'FIRST Global 2025 — Athens, Greece' },
+        { key: 'TOOLS', value: 'Mechanical Design, Team Leadership, Cascade Lift Mechanisms, Omni-Wheel Drivetrains' },
+        { key: 'TIMEFRAME', value: 'Jun 2025 – Jul 2025' },
+        { key: 'STATUS', value: 'Completed' },
+      ]}
+      brief="Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece."
+      objective="Build a competition robot and lead the UAE national team to a top finish at FIRST Global 2025."
       workedOn={[
-        "Led the UAE’s 22-member national team as Robotics Vice President",
-        "Directed mechanical design and build of a robot featuring a 6-foot telescoping cascade lift",
-        "Built an omni-wheel drivetrain for full omni-directional maneuverability on the competition field",
-        "Coordinated team logistics, build schedule, and technical strategy through international competition"
+        'Led a 22-member national team as Robotics Vice President',
+        'Designed a robot with a 6-foot telescoping cascade lift',
+        'Implemented an omni-wheel drivetrain for omnidirectional mobility',
       ]}
       approach={[
-        "Mechanical Design",
-        "Cascade Lift Mechanisms",
-        "Omni-Wheel Drivetrains",
-        "Team Leadership"
+        'Mechanical Design',
+        'Team Leadership',
+        'Cascade Lift Mechanisms',
+        'Omni-Wheel Drivetrains',
       ]}
       challenges={[
-        "Engineering a 6-foot telescoping lift stable and rigid enough for competition use within tight weight and space budgets.",
-        "Coordinating a 22-member national team through a compressed international build and travel schedule.",
-        "Tuning an omni-wheel drivetrain for reliable control under competition conditions."
+        'Designing a reliable 6-foot cascade lift within competition weight and size limits.',
+        'Coordinating a 22-member team across design, build, and competition phases.',
       ]}
       primaryFigure={{
-        label: "LIFT MECHANISM SCHEMATIC / CONCEPTUAL",
-        svg: <SystemsRibbonSvg activeState="06" />
+        label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
+        svg: <SystemsRibbonSvg activeState="06" />,
       }}
-      reinforced="Led the UAE’s 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece — a record-breaking result built on a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain."
+      reinforced="Achieved a 2nd-of-193-countries finish with a robot featuring a 6-foot telescoping cascade lift and omni-wheel drivetrain. Led a 22-member national team as Robotics Vice President at FIRST Global 2025 in Athens, Greece."
       photos={[
-        { src: firstGlobalUaePhoto, caption: 'Team UAE at FIRST Global 2025', altText: 'FIRST Global Team UAE at the 2025 competition in Athens, Greece' },
-        { src: firstGlobalUaePhoto2, caption: 'Robot with cascade lift', altText: 'Competition robot featuring 6-foot telescoping cascade lift' },
-        { src: firstGlobalUaePhoto3, caption: 'Omni-wheel drivetrain', altText: 'Omni-wheel drivetrain assembly' },
-      ]}
-      links={[
-        { label: 'FIRST Global UAE', href: 'https://first.global/2024-nations/united-arab-emirates-2024/' },
-        { label: 'Khaleej Times coverage', href: 'https://www.khaleejtimes.com/uae/education/dubai-students-passports-stolen-in-athens-team-still-bags-silver-in-robotics-contest' },
+        { src: firstGlobalUaePhoto, caption: 'Team UAE at FIRST Global 2025', altText: 'Team UAE at the FIRST Global 2025 competition in Athens' },
+        { src: firstGlobalUaePhoto2, caption: 'Cascade lift mechanism', altText: '6-foot telescoping cascade lift mechanism on the competition robot' },
+        { src: firstGlobalUaePhoto3, caption: 'Competition robot', altText: 'Full competition robot with omni-wheel drivetrain on the field' },
       ]}
       slots={
         <>
-          <TechnicalFigure caption="Omni-wheel drivetrain" altText="Reserved figure slot for Omni-wheel drivetrain" isSlot />
-          <TechnicalFigure caption="Team with completed robot" altText="Reserved figure slot for Team with completed robot" isSlot />
+          <TechnicalFigure caption="Robot CAD" altText="Reserved figure slot for competition robot CAD" isSlot />
+          <TechnicalFigure caption="Cascade lift detail" altText="Reserved figure slot for cascade lift mechanism detail" isSlot />
+          <TechnicalFigure caption="Competition field" altText="Reserved figure slot for robot on competition field" isSlot />
         </>
       }
     />

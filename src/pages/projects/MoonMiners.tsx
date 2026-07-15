@@ -15,36 +15,36 @@ export default function MoonMiners() {
       plateText="PROJECT 01 / ROVER SYSTEMS"
       title="CMU Moon Miners — NASA Lunabotics"
       subtitle="Mechanical and robotics contributions to a lunar excavation rover."
-      metadata={{
-        ROLE: "Mechanical / Robotics Engineer",
-        CONTEXT: "CMU Moon Miners — NASA Lunabotics",
-        TOOLS: "SolidWorks, CAD, Mechanical Design, Simulation, Robotics, Autonomous Systems",
-        TIMEFRAME: "Jan 2026 – Present",
-        STATUS: "Active"
-      }}
+      metadata={[
+        { key: 'ROLE', value: 'Mechanical / Robotics Engineer' },
+        { key: 'CONTEXT', value: 'CMU Moon Miners — NASA Lunabotics' },
+        { key: 'TOOLS', value: 'SolidWorks, CAD, Mechanical Design, Simulation, Robotics, Autonomous Systems' },
+        { key: 'TIMEFRAME', value: 'Jan 2026 – Present' },
+        { key: 'STATUS', value: 'Active' },
+      ]}
       brief="Mechanical and robotics contributions to a lunar excavation rover for the NASA Lunabotics competition."
       objective="Design and fabricate a high-payload autonomous lunar excavation rover capable of scoring autonomous-navigation points at the NASA Lunabotics competition."
       workedOn={[
-        "Built a high-payload autonomous lunar excavation rover",
-        "Designed and fabricated a metal track system",
-        "Tuned Nav2 voxel-costmap parameters to match the rover's physical mobility constraints and track geometry"
+        'Built a high-payload autonomous lunar excavation rover',
+        'Designed and fabricated a metal track system',
+        'Tuned Nav2 voxel-costmap parameters to match the rover\'s physical mobility constraints and track geometry',
       ]}
       approach={[
-        "SolidWorks",
-        "Mechanical Design",
-        "Simulation",
-        "Nav2",
-        "Autonomous Systems"
+        'SolidWorks',
+        'Mechanical Design',
+        'Simulation',
+        'Nav2',
+        'Autonomous Systems',
       ]}
       challenges={[
-        "Achieving required drawbar-pull ratio on lunar regolith simulant.",
-        "Matching autonomous navigation parameters to physical track geometry constraints."
+        'Achieving required drawbar-pull ratio on lunar regolith simulant.',
+        'Matching autonomous navigation parameters to physical track geometry constraints.',
       ]}
       primaryFigure={{
-        label: "SYSTEM SCHEMATIC / CONCEPTUAL",
-        svg: <SystemsRibbonSvg activeState="01" />
+        label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
+        svg: <SystemsRibbonSvg activeState="01" />,
       }}
-      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar ‘First Steps’ Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
+      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar 'First Steps' Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
       photos={[
         { src: moonMinersPhoto, caption: 'Rover on the competition field', altText: 'CMU Moon Miners rover on the competition field' },
         { src: moonMinersPhoto2, caption: 'Metal track fabrication', altText: 'Metal track system fabrication detail' },

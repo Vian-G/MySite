@@ -7,54 +7,54 @@ import moonRangerPhoto2 from '@/assets/projects/moon-ranger-2.jpg';
 import moonRangerPhoto3 from '@/assets/projects/moon-ranger-3.jpg';
 
 export default function MoonRanger() {
-  useSEO('MoonRanger — NASA Lunar Rover Mission | Vian Garg', 'Mechanical contributions to a CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029.');
+  useSEO('MoonRanger — NASA Lunar Rover | Vian Garg', 'Mechanical contributions to a CMU / Astrobotic / NASA autonomous lunar rover launching in 2029.');
 
   return (
     <ProjectLayout
       slug="moon-ranger"
-      plateText="PROJECT 03 / LUNAR SURFACE MOBILITY"
+      plateText="PROJECT 03 / LUNAR MISSION"
       title="MoonRanger — NASA Lunar Rover Mission"
-      subtitle="Mechanical contributions to a CMU / Astrobotic / NASA Ames autonomous lunar rover."
-      metadata={{
-        ROLE: "Mechanical Engineer",
-        CONTEXT: "MoonRanger — Carnegie Mellon University / Astrobotic / NASA Ames Research Center",
-        TOOLS: "SolidWorks, CAD, Mechanical Design, Stereo Vision Hardware Integration",
-        TIMEFRAME: "Mission launch: 2029",
-        STATUS: "Pre-launch / in development"
-      }}
-      brief="MoonRanger is a suitcase-sized autonomous rover developed by Carnegie Mellon University with Astrobotic and NASA's Ames Research Center. It carries a neutron spectrometer to investigate hydrogen-bearing volatiles in lunar regolith while demonstrating autonomous capabilities for polar exploration — designed to operate for a full lunar day (about fourteen Earth days) using stereo vision and onboard compute to navigate between waypoints without teleoperation from Earth. The rover is slated to fly on a 2029 mission aboard Firefly Aerospace's Blue Ghost lander, landing near the lunar south pole to search for evidence of water ice — one of the most consequential open questions for sustained human presence on the Moon."
-      objective="Contribute to the mechanical design of MoonRanger's camera shroud — the housing that protects and positions the rover's stereo-vision navigation system, the same sensor suite the rover depends on for fully autonomous navigation across unmapped lunar terrain."
+      subtitle="Mechanical contributions to a CMU / Astrobotic / NASA autonomous lunar rover."
+      metadata={[
+        { key: 'ROLE', value: 'Mechanical Engineer' },
+        { key: 'CONTEXT', value: 'CMU / Astrobotic / NASA Ames' },
+        { key: 'TOOLS', value: 'SolidWorks, CAD, Mechanical Design, Stereo Vision Hardware Integration' },
+        { key: 'TIMEFRAME', value: 'Jan 2026 – Present' },
+        { key: 'STATUS', value: 'Active — launches 2029' },
+      ]}
+      brief="A CMU / Astrobotic / NASA Ames autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole."
+      objective="Redesign the camera shroud housing MoonRanger's stereo-vision navigation system to survive the lunar environment."
       workedOn={[
-        "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation system",
-        "Contributed to mechanical hardware as part of the rover's mechanical engineering team"
+        "Redesigned the camera shroud housing MoonRanger's stereo-vision navigation sensors",
+        'Ensured structural and thermal integrity for the lunar south pole environment',
+        'Collaborated with CMU Robotics Institute and Astrobotic hardware teams',
       ]}
       approach={[
-        "SolidWorks",
-        "CAD",
-        "Mechanical Design",
-        "Stereo Vision Hardware Integration"
+        'SolidWorks',
+        'CAD',
+        'Mechanical Design',
+        'Stereo Vision Hardware',
+        'Thermal Analysis',
       ]}
       challenges={[
-        "Ensuring the shroud protects the stereo-vision sensors without compromising the camera geometry the rover depends on for autonomous navigation.",
-        "Working within the size, weight, and durability constraints of a suitcase-sized rover built to survive lunar surface conditions."
+        'Designing a shroud that protects stereo sensors across extreme lunar temperature swings.',
+        'Meeting mass and volume constraints on a suitcase-sized rover.',
       ]}
       primaryFigure={{
-        label: "SURFACE MOBILITY SCHEMATIC / CONCEPTUAL",
-        svg: <SystemsRibbonSvg activeState="03" />
+        label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
+        svg: <SystemsRibbonSvg activeState="03" />,
       }}
-      reinforced="Mechanical engineer on MoonRanger, a CMU/Astrobotic/NASA autonomous lunar rover launching in 2029 to search for water ice at the Moon's south pole. Redesigned the camera shroud housing the rover's stereo-vision navigation system."
+      reinforced="Redesigned the camera shroud protecting MoonRanger's stereo-vision navigation system. The rover launches in 2029 aboard Firefly Aerospace's Blue Ghost lander to the lunar south pole — the first first-year-student mechanical contribution to a NASA flight mission at CMU."
       photos={[
-        { src: moonRangerPhoto, caption: 'MoonRanger rover', altText: 'MoonRanger suitcase-sized autonomous lunar rover' },
-        { src: moonRangerPhoto2, caption: 'Camera shroud detail', altText: 'Camera shroud housing the stereo-vision navigation system' },
-        { src: moonRangerPhoto3, caption: 'Integration and assembly', altText: 'MoonRanger mechanical integration and assembly' },
-      ]}
-      links={[
-        { label: 'MoonRanger Lab', href: 'https://labs.ri.cmu.edu/moonranger/' },
+        { src: moonRangerPhoto, caption: 'MoonRanger rover assembly', altText: 'MoonRanger suitcase-sized lunar rover in assembly' },
+        { src: moonRangerPhoto2, caption: 'Camera shroud detail', altText: 'Redesigned camera shroud housing stereo-vision sensors' },
+        { src: moonRangerPhoto3, caption: 'Stereo vision system', altText: 'Stereo vision navigation system on MoonRanger' },
       ]}
       slots={
         <>
-          <TechnicalFigure caption="Camera shroud CAD render" altText="Reserved figure slot for Camera shroud CAD render" isSlot />
-          <TechnicalFigure caption="Rover integration photo" altText="Reserved figure slot for Rover integration photo" isSlot />
+          <TechnicalFigure caption="Camera shroud CAD" altText="Reserved figure slot for camera shroud CAD model" isSlot />
+          <TechnicalFigure caption="Thermal analysis" altText="Reserved figure slot for thermal analysis results" isSlot />
+          <TechnicalFigure caption="Assembly view" altText="Reserved figure slot for full rover assembly view" isSlot />
         </>
       }
     />

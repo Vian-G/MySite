@@ -20,18 +20,19 @@ export interface ProjectLink {
   href: string;
 }
 
+/** An explicit ordered entry in the metadata table. */
+export interface ProjectMetadataEntry {
+  key: string;
+  value: string;
+}
+
 interface ProjectLayoutProps {
   slug: string;
   plateText: string;
   title: string;
   subtitle: string;
-  metadata: {
-    ROLE?: string;
-    CONTEXT?: string;
-    TOOLS?: string;
-    TIMEFRAME?: string;
-    STATUS?: string;
-  };
+  /** Ordered array of key/value pairs rendered in the metadata table. */
+  metadata: ProjectMetadataEntry[];
   brief: string;
   objective?: string;
   workedOn?: string[];
@@ -137,15 +138,12 @@ export function ProjectLayout({
           </TechnicalFigure>
 
           <div className="flex flex-col gap-3 w-full bg-secondary/30 p-6 border border-border/50">
-            {Object.entries(metadata).map(([key, value]) => {
-              if (!value) return null;
-              return (
-                <div key={key} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-border/40 pb-2 last:border-0 last:pb-0">
-                  <span className="font-mono text-[10px] sm:text-xs text-muted-foreground w-24 shrink-0 uppercase tracking-wider">{key}</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground">{value}</span>
-                </div>
-              );
-            })}
+            {metadata.map(({ key, value }) => (
+              <div key={key} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-border/40 pb-2 last:border-0 last:pb-0">
+                <span className="font-mono text-[10px] sm:text-xs text-muted-foreground w-24 shrink-0 uppercase tracking-wider">{key}</span>
+                <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground">{value}</span>
+              </div>
+            ))}
           </div>
 
           <div className="flex flex-col gap-12">

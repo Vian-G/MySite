@@ -7,58 +7,54 @@ import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg';
 import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg';
 
 export default function SpiritBuggy() {
-  useSEO('SPIRIT Buggy | Vian Garg', 'Assistant Build Lead on CMU Buggy’s first new carbon-fiber buggy design in over fifteen years.');
+  useSEO('SPIRIT Buggy — CMU Buggy | Vian Garg', "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years.");
 
   return (
     <ProjectLayout
       slug="spirit-buggy"
       plateText="PROJECT 05 / VEHICLE FABRICATION"
       title="SPIRIT Buggy — CMU Buggy"
-      subtitle="Assistant Build Lead on CMU Buggy’s first new carbon-fiber vehicle design in over fifteen years."
-      metadata={{
-        ROLE: "Assistant Build Lead",
-        CONTEXT: "CMU Buggy",
-        TOOLS: "SolidWorks, ANSYS, Carbon Fiber Layup, Composite Fabrication",
-        TIMEFRAME: "2025 – 2026",
-        STATUS: "Complete"
-      }}
-      brief="SPIRIT is CMU Buggy’s first entirely new carbon-fiber buggy design in more than fifteen years — a lightweight, aerodynamic vehicle built to compete in Carnegie Mellon’s Sweepstakes race. As Assistant Build Lead, I helped take the vehicle from CAD to a raced, structurally validated composite shell."
-      objective="Design and fabricate a new carbon-fiber buggy monocoque and steering system from the ground up, introducing a male-mold construction method never before used by CMU Buggy, while validating the steering assembly under real racing loads."
+      subtitle="CMU Buggy's first new carbon-fiber vehicle design in over fifteen years."
+      metadata={[
+        { key: 'ROLE', value: 'Assistant Build Lead' },
+        { key: 'CONTEXT', value: 'CMU Sweepstakes / Buggy' },
+        { key: 'TOOLS', value: 'SolidWorks, ANSYS, Carbon Fiber Layup, Composite Fabrication' },
+        { key: 'TIMEFRAME', value: 'Sep 2025 – Present' },
+        { key: 'STATUS', value: 'Active' },
+      ]}
+      brief="CMU Buggy's first new carbon-fiber vehicle design in over fifteen years — introducing a male-mold construction method new to the team."
+      objective="Design and fabricate a new carbon-fiber buggy using a male-mold construction method, and validate the steering assembly in ANSYS before it races."
       workedOn={[
-        "Assistant Build Lead on SPIRIT, the first new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years",
-        "Introduced the first male-mold construction method used in CMU Buggy’s fabrication history",
-        "Built the composite shell as a Nomex honeycomb core sandwiched between carbon-fiber weave layups",
-        "Designed the steering assembly in SolidWorks and validated it under load with ANSYS finite element analysis"
+        'Introduced a male-mold construction method new to the CMU Buggy team',
+        'Designed a steering assembly validated in ANSYS before racing',
+        'Led carbon-fiber layup using Nomex honeycomb core sandwiched between carbon-fiber weave',
       ]}
       approach={[
-        "SolidWorks",
-        "ANSYS",
-        "Carbon Fiber Layup",
-        "Nomex Core Sandwich",
-        "Male-Mold Fabrication"
+        'SolidWorks',
+        'ANSYS',
+        'Carbon Fiber Layup',
+        'Composite Fabrication',
+        'FEA',
       ]}
       challenges={[
-        "Developing a male-mold construction process from scratch with no internal precedent within the team.",
-        "Balancing shell stiffness and weight in the Nomex core / carbon-fiber layup to meet the structural demands of the Sweepstakes race course.",
-        "Validating the steering assembly’s strength and geometry in ANSYS before committing to fabrication."
+        'Introducing a novel male-mold method with no prior team precedent.',
+        'Validating steering geometry under race loads before first physical test.',
       ]}
       primaryFigure={{
-        label: "VEHICLE SCHEMATIC / CONCEPTUAL",
-        svg: <SystemsRibbonSvg activeState="05" />
+        label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
+        svg: <SystemsRibbonSvg activeState="05" />,
       }}
-      reinforced="Helped design and build CMU Buggy’s first new carbon-fiber vehicle in over fifteen years, introducing a male-mold construction method new to the team and validating the steering assembly’s design through SolidWorks modeling and ANSYS simulation before it raced."
+      reinforced="First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years. First male-mold construction method in CMU Buggy's fabrication history. Steering assembly validated in ANSYS before the vehicle raced."
       photos={[
-        { src: spiritBuggyPhoto, caption: 'SPIRIT buggy on the race course', altText: 'SPIRIT carbon-fiber buggy on the CMU Sweepstakes race course' },
-        { src: spiritBuggyPhoto2, caption: 'Composite layup process', altText: 'Carbon-fiber composite layup over Nomex honeycomb core' },
-        { src: spiritBuggyPhoto3, caption: 'Steering assembly', altText: 'Steering assembly validated in ANSYS' },
-      ]}
-      links={[
-        { label: 'Spirit Racing Systems', href: 'https://www.spiritracingsystems.com/' },
+        { src: spiritBuggyPhoto, caption: 'SPIRIT buggy on track', altText: 'SPIRIT carbon-fiber buggy on the CMU Sweepstakes track' },
+        { src: spiritBuggyPhoto2, caption: 'Carbon fiber layup', altText: 'Carbon fiber layup process with Nomex honeycomb core' },
+        { src: spiritBuggyPhoto3, caption: 'ANSYS steering validation', altText: 'ANSYS FEA results for steering assembly validation' },
       ]}
       slots={
         <>
-          <TechnicalFigure caption="Composite layup" altText="Reserved figure slot for Composite layup" isSlot />
-          <TechnicalFigure caption="Steering assembly" altText="Reserved figure slot for Steering assembly" isSlot />
+          <TechnicalFigure caption="Male mold construction" altText="Reserved figure slot for male mold construction process" isSlot />
+          <TechnicalFigure caption="Steering FEA" altText="Reserved figure slot for steering assembly FEA results" isSlot />
+          <TechnicalFigure caption="Final vehicle" altText="Reserved figure slot for final vehicle photo" isSlot />
         </>
       }
     />
