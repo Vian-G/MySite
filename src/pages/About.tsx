@@ -2,145 +2,174 @@ import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
+import { FolderTab } from '@/components/ui/FolderTab';
 import { useSEO } from '@/hooks/use-seo';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
+import { skills } from '@/config/skills';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
 import portraitImg from '@/assets/portrait.svg';
+import { ResumeAction } from '@/components/ui/ResumeAction';
+
+const SectionHead = ({ index, children }: { index: string; children: React.ReactNode }) => (
+  <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full mb-6">
+    {index}
+    <div className="w-full h-px bg-primary/30 flex-1" />
+  </h2>
+);
+
+const stats: { label: string; value: string }[] = [
+  { label: 'Degree', value: 'B.S. ECE + Robotics Minor' },
+  { label: 'Year', value: 'Sophomore ’26' },
+  { label: 'School', value: 'Carnegie Mellon' },
+  { label: 'Based', value: 'Dubai → Pittsburgh' },
+];
 
 export default function About() {
-  useSEO('About | Vian Garg', 'Vian Garg is an ECE student with a Robotics minor, focused on building and integrating systems across robotics, automation, controls, perception, and mechanical-electrical design.');
+  useSEO(
+    'About | Vian Garg',
+    'Vian Garg — ECE + Robotics at Carnegie Mellon. Systems engineer working across mechanical-electrical interfaces, autonomous navigation, and industrial robotics.',
+  );
 
   return (
-    <div className="flex flex-col gap-16 md:gap-24 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out pb-16">
+    <div className="flex flex-col gap-20 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out pb-16">
 
-      {/* Hero — mirrors Home hero structure exactly */}
-      <section className="flex flex-col lg:flex-row gap-6 md:gap-8 relative justify-between">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8D8A821A_1px,transparent_1px),linear-gradient(to_bottom,#8D8A821A_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_left_top,black_20%,transparent_70%)]" />
+      <FolderTab />
 
-        <div className="flex flex-col gap-6 md:gap-8 lg:w-2/3">
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between lg:justify-start lg:gap-8">
-            <MetalDataPlate title="ID" className="w-fit" screwPositions="sides">
-              PROFILE / ECE + ROBOTICS
-            </MetalDataPlate>
-            <div className="font-mono text-xs text-muted-foreground flex gap-4">
-              <span className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#B87D2A]/80 shadow-[0_0_4px_rgba(184,125,42,0.4)]" />
-                ONLINE
-              </span>
+      {/* ── Identity header ─────────────────────────────────────────────── */}
+      <div className="-mt-4 flex flex-col gap-6">
+        <MetalDataPlate>PROFILE / ECE + ROBOTICS MINOR / CMU</MetalDataPlate>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
+
+          {/* Left — name + stats + lead */}
+          <div className="flex flex-col gap-8">
+            <div>
+              <h1 className="font-serif text-5xl md:text-6xl text-foreground leading-[1.05] tracking-tight">
+                Vian Garg
+              </h1>
+              <p className="font-mono text-xs text-muted-foreground mt-3">{LOCATION_STATUS}</p>
+            </div>
+
+            {/* Credential stats */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border border border-border">
+              {stats.map(({ label, value }) => (
+                <div key={label} className="bg-background p-4 flex flex-col gap-1">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{label}</span>
+                  <span className="font-mono text-xs text-foreground">{value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Lead paragraph — specific, first-person */}
+            <p className="font-sans text-lg text-secondary-foreground leading-relaxed max-w-2xl">
+              I work at the boundary where things have to physically work. Tuning Nav2 costmaps so a tracked rover actually navigates lunar regolith. Writing the URScript layer that bridges human motion to a UR10e end-effector. Redesigning a camera shroud so stereo sensors survive a moon mission. The discipline boundary is where I'm most useful.
+            </p>
+
+            {/* Resume + contact inline */}
+            <div className="flex flex-wrap gap-3">
+              <ResumeAction mode="view">
+                {(onClick) => (
+                  <PhysicalButton onClick={onClick} variant="rust" size="md" className="gap-2">
+                    View Resume <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                  </PhysicalButton>
+                )}
+              </ResumeAction>
+              <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+                <PhysicalButton asDiv variant="graphite" size="md">Email me</PhysicalButton>
+              </a>
             </div>
           </div>
 
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground leading-[1.05] tracking-tight max-w-4xl pt-4">
-            Vian Garg
-            <span className="text-muted-foreground italic text-4xl md:text-6xl lg:text-7xl block mt-2">About me</span>
-          </h1>
-
-          <div className="font-mono text-xs text-muted-foreground">{LOCATION_STATUS}</div>
-
-          <div className="max-w-2xl font-sans text-lg text-secondary-foreground leading-relaxed">
-            Sophomore at Carnegie Mellon University studying Electrical and Computer Engineering with a minor in Robotics. I build and integrate systems across robotics, automation, controls, perception, and mechanical-electrical design.
-          </div>
-
-          <div className="flex flex-wrap gap-4 mt-4">
-            <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-              <PhysicalButton asDiv variant="rust" size="lg">View Projects</PhysicalButton>
-            </Link>
-            <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2px]">
-              <PhysicalButton asDiv variant="metal" size="lg">Contact Me</PhysicalButton>
-            </a>
-          </div>
-        </div>
-
-        {/* Portrait — TornPhotoWindow matching Home's layout */}
-        <div className="hidden lg:block lg:w-1/3 relative flex justify-end items-center">
-          <div className="w-full max-w-[380px] aspect-[4/5] pointer-events-none mt-8">
+          {/* Right — portrait */}
+          <div className="hidden lg:block">
             <TornPhotoWindow
               src={portraitImg}
               alt="Technical portrait illustration of Vian Garg"
-              className="w-full h-full"
+              className="w-full aspect-[3/4]"
               imgClassName="object-[50%_38%]"
               variant={1}
               rotate={2}
             />
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* How I work */}
-      <section className="flex flex-col gap-6 items-start">
-        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
-          01_HOW_I_WORK
-          <div className="w-full h-px bg-primary/30 flex-1" />
-        </h2>
-        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
-          <p className="font-sans text-lg text-foreground leading-relaxed">
-            I am most interested in projects where interfaces matter: between mechanical systems and electronics, sensors and software, or robotic hardware and industrial equipment. Whether it’s tuning navigation costmaps to match a rover’s physical track geometry, or writing the software layer that translates human motion into industrial cobot instructions, I enjoy working at the boundary where theory turns into physical action.
-          </p>
-        </PaperSheet>
-      </section>
-
-      {/* Current Focus */}
-      <section className="flex flex-col gap-6">
-        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
-          02_CURRENT_FOCUS
-          <div className="w-full h-px bg-primary/30 flex-1" />
-        </h2>
-        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="clipped">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs text-secondary-foreground">
-            {[
-              'Robotics integration',
-              'Automation and controls',
-              'Autonomous systems',
-              'Embedded systems',
-              'Computer vision',
-              'Industrial robotics',
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </PaperSheet>
-      </section>
-
-      {/* Currently Exploring */}
-      <section className="flex flex-col gap-6 items-start">
-        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
-          03_CURRENTLY_EXPLORING
-          <div className="w-full h-px bg-primary/30 flex-1" />
-        </h2>
-        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
-          <p className="font-sans text-lg text-foreground leading-relaxed">
-            Deeper integration patterns between edge perception nodes and real-time control systems, and optimising physical mechanical systems for complex autonomous navigation tasks.
-          </p>
-        </PaperSheet>
-      </section>
-
-      {/* Interactive Work */}
-      <section className="flex flex-col gap-6">
-        <h2 className="font-mono text-sm uppercase tracking-widest text-primary flex items-center gap-2 w-full">
-          04_INTERACTIVE_WORK
-          <div className="w-full h-px bg-primary/30 flex-1" />
-        </h2>
-        <PaperSheet className="p-6 md:p-8 max-w-3xl" variant="default">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <p className="font-sans text-foreground">
-              I also build interactive projects — including Skyryder, an original playable game published independently on itch.io.
+      {/* ── How I work ──────────────────────────────────────────────────── */}
+      <section>
+        <SectionHead index="01_APPROACH">How I work</SectionHead>
+        <PaperSheet className="p-8 md:p-10 max-w-3xl" variant="clipped">
+          <div className="flex flex-col gap-6 font-sans text-foreground leading-relaxed">
+            <p>
+              Most interesting problems live at an interface — mechanical meets electrical, sensor data meets a control loop, a human operator meets an industrial robot. I gravitate toward those seams because that’s where the spec sheet ends and the real engineering starts.
             </p>
-            <a
-              href="https://vian-g.itch.io/skyryder"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-            >
-              <PhysicalButton asDiv variant="rust" size="sm" className="whitespace-nowrap gap-1.5">
-                Play Skyryder <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
-              </PhysicalButton>
-            </a>
+            <p>
+              I try to understand the full stack before touching any layer of it. On Moon Miners I read the Nav2 docs, benchmarked costmap parameters against our physical track geometry, and only then tuned. On the UR10e project I mapped the motion-capture pipeline end-to-end before writing a line of URScript. Getting the picture right first saves a lot of re-work.
+            </p>
+            <p className="border-l-2 border-primary/60 pl-4 py-1 text-secondary-foreground">
+              “Design it so it can’t fail, then test until it does.”
+            </p>
           </div>
         </PaperSheet>
+      </section>
+
+      {/* ── Skills ──────────────────────────────────────────────────────── */}
+      <section>
+        <SectionHead index="02_CAPABILITIES">Skills</SectionHead>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border border-border max-w-3xl">
+          {skills.map((skill) => (
+            <div key={skill.label} className="bg-background p-6 flex flex-col gap-2">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{skill.label}</span>
+              <span className="font-sans font-semibold text-foreground">{skill.title}</span>
+              <span className="font-sans text-sm text-secondary-foreground leading-relaxed">{skill.description}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Looking for ─────────────────────────────────────────────────── */}
+      <section>
+        <SectionHead index="03_AVAILABILITY">What I’m looking for</SectionHead>
+        <PaperSheet className="p-8 md:p-10 max-w-3xl" variant="default">
+          <div className="flex flex-col gap-4 font-sans text-foreground leading-relaxed">
+            <p>
+              I am actively seeking summer and co-op internships in <strong>robotics</strong>, <strong>embedded systems</strong>, and <strong>controls</strong> — particularly at companies building physical AI, field robotics, or industrial automation.
+            </p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+              {[
+                'Field robotics & autonomous vehicles',
+                'Physical AI & manipulation',
+                'Industrial automation & cobots',
+                'Embedded perception systems',
+                'Aerospace & space robotics',
+                'Hardware-software co-design',
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2 font-mono text-xs text-secondary-foreground">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </PaperSheet>
+      </section>
+
+      {/* ── Contact CTA ─────────────────────────────────────────────────── */}
+      <section className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-border pt-10 max-w-3xl">
+        <div>
+          <p className="font-serif text-2xl text-foreground">Want to work together?</p>
+          <p className="font-mono text-xs text-muted-foreground mt-1">{EMAIL}</p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+            <PhysicalButton asDiv variant="rust" size="lg" className="gap-2">
+              Get in touch <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+            </PhysicalButton>
+          </a>
+          <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+            <PhysicalButton asDiv variant="graphite" size="lg">See my work</PhysicalButton>
+          </Link>
+        </div>
       </section>
 
     </div>
