@@ -16,9 +16,7 @@ export interface ProjectPhoto {
 }
 
 export interface ProjectLink {
-  /** Display label shown in the button */
   label: string;
-  /** Full URL */
   href: string;
 }
 
@@ -47,7 +45,6 @@ interface ProjectLayoutProps {
   reinforced: string;
   slots?: React.ReactNode;
   photos?: ProjectPhoto[];
-  /** Optional external links rendered as buttons in a "Links" section */
   links?: ProjectLink[];
 }
 
@@ -79,6 +76,25 @@ export function ProjectLayout({
       {children}
     </h2>
   );
+
+  const linkButtons = hasLinks ? (
+    <div className="flex flex-wrap gap-2">
+      {links!.map((link, idx) => (
+        <a
+          key={idx}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
+        >
+          <PhysicalButton asDiv variant="rust" size="sm" className="gap-1.5 text-xs">
+            {link.label}
+            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
+          </PhysicalButton>
+        </a>
+      ))}
+    </div>
+  ) : null;
 
   const photoFigures = hasPhotos ? photos!.map((photo, idx) => (
     <TechnicalFigure
@@ -196,33 +212,12 @@ export function ProjectLayout({
               <SectionHead>Results &amp; lessons learned</SectionHead>
               <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
             </section>
-
-            {hasLinks && (
-              <section>
-                <SectionHead>Links</SectionHead>
-                <div className="flex flex-wrap gap-3">
-                  {links!.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
-                    >
-                      <PhysicalButton asDiv variant="metal" size="sm" className="gap-1.5 text-xs">
-                        {link.label}
-                        <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
-                      </PhysicalButton>
-                    </a>
-                  ))}
-                </div>
-              </section>
-            )}
           </div>
 
-          {/* Mobile: photos below body */}
-          {hasPhotos && (
+          {/* Mobile: links + photos below body */}
+          {(hasLinks || hasPhotos) && (
             <div className="lg:hidden flex flex-col gap-5 mt-4">
+              {linkButtons}
               {photoFigures}
             </div>
           )}
@@ -235,8 +230,17 @@ export function ProjectLayout({
               ref={sidebarRef}
               className="flex flex-col gap-5 will-change-transform"
             >
+              {/* Links sit at the very top of the photo column */}
+              {linkButtons}
               {photoFigures}
             </aside>
+          </div>
+        )}
+
+        {/* No photos but has links — show links on desktop below the body */}
+        {!hasPhotos && hasLinks && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {linkButtons}
           </div>
         )}
 

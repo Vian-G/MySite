@@ -51,7 +51,7 @@ export default function MoonMiners() {
         { src: moonMinersPhoto3, caption: 'Autonomous navigation test', altText: 'Rover during autonomous navigation testing' },
       ]}
       links={[
-        { label: 'cmu-moon-miners.com', href: 'https://cmu-moon-miners.com' },
+        { label: 'Moon Miners', href: 'https://cmu-moon-miners.com' },
       ]}
       slots={
         <>

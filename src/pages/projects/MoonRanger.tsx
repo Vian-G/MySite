@@ -50,7 +50,6 @@ export default function MoonRanger() {
       ]}
       links={[
         { label: 'MoonRanger Lab', href: 'https://labs.ri.cmu.edu/moonranger/' },
-        { label: 'EMIT Lab', href: 'https://www.meche.engineering.cmu.edu/faculty/emit-lab.html' },
       ]}
       slots={
         <>
