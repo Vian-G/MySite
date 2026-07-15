@@ -78,18 +78,18 @@ export function ProjectLayout({
   );
 
   const linkButtons = hasLinks ? (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-2">
       {links!.map((link, idx) => (
         <a
           key={idx}
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
+          className="w-full outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
         >
-          <PhysicalButton asDiv variant="rust" size="sm" className="gap-1.5 text-xs">
+          <PhysicalButton asDiv variant="rust" size="sm" className="w-full justify-between gap-1.5 text-xs">
             {link.label}
-            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
+            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" strokeWidth={2} aria-hidden="true" />
           </PhysicalButton>
         </a>
       ))}
@@ -230,16 +230,15 @@ export function ProjectLayout({
               ref={sidebarRef}
               className="flex flex-col gap-5 will-change-transform"
             >
-              {/* Links sit at the very top of the photo column */}
               {linkButtons}
               {photoFigures}
             </aside>
           </div>
         )}
 
-        {/* No photos but has links — show links on desktop below the body */}
+        {/* No photos but has links — show on desktop inline after body */}
         {!hasPhotos && hasLinks && (
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-col gap-2 mt-2">
             {linkButtons}
           </div>
         )}
