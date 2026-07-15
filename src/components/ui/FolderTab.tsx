@@ -2,13 +2,14 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'wouter';
 
+// ── Project sub-navigation tabs (used on individual project pages) ────────
 export const TABS = [
   { label: '01 / MOON MINERS', href: '/projects/moon-miners' },
   { label: '02 / UR10E', href: '/projects/ur10e-welding' },
   { label: '03 / MOONRANGER', href: '/projects/moon-ranger' },
   { label: '04 / SKYRYDER', href: '/projects/skyryder' },
   { label: '05 / SPIRIT BUGGY', href: '/projects/spirit-buggy' },
-  { label: '06 / FIRST GLOBAL UAE', href: '/projects/first-global-uae' }
+  { label: '06 / FIRST GLOBAL UAE', href: '/projects/first-global-uae' },
 ];
 
 export function FolderTab() {
@@ -20,18 +21,59 @@ export function FolderTab() {
         {TABS.map((tab) => {
           const isActive = location === tab.href;
           return (
-            <Link 
+            <Link
               key={tab.href}
-              href={tab.href} 
+              href={tab.href}
               className={cn(
-                "px-3 sm:px-6 py-2.5 font-mono text-xs border border-b-0 rounded-t-[4px] transition-all duration-300 whitespace-nowrap min-w-[120px] text-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                isActive 
-                  ? "bg-primary text-primary-foreground border-primary/80 shadow-[inset_0_2px_0_rgba(255,255,255,0.2)] z-10 -mb-[1px] pt-3 pb-2 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary-foreground" 
-                  : "bg-secondary text-secondary-foreground border-border/60 hover:bg-[#C0BDA3] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] opacity-80 hover:opacity-100 hover:-translate-y-[1px] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                'px-3 sm:px-6 py-2.5 font-mono text-xs border border-b-0 rounded-t-[4px] transition-all duration-300 whitespace-nowrap min-w-[120px] text-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                isActive
+                  ? 'bg-primary text-primary-foreground border-primary/80 shadow-[inset_0_2px_0_rgba(255,255,255,0.2)] z-10 -mb-[1px] pt-3 pb-2 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary-foreground'
+                  : 'bg-secondary text-secondary-foreground border-border/60 hover:bg-[#C0BDA3] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] opacity-80 hover:opacity-100 hover:-translate-y-[1px] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
               )}
               role="tab"
               aria-selected={isActive}
               data-testid={`tab-${tab.label.replace(/\s|\//g, '-').toLowerCase()}`}
+            >
+              {tab.label}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Top-level page tabs (used on About, Resume, etc.) ────────────────────
+const PAGE_TABS = [
+  { label: 'HOME', href: '/' },
+  { label: 'PROJECTS', href: '/projects' },
+  { label: 'ABOUT', href: '/about' },
+  { label: 'RESUME', href: '/resume' },
+];
+
+export function PageFolderTab() {
+  const [location] = useLocation();
+
+  return (
+    <div className="flex overflow-x-auto no-scrollbar w-full border-b border-border" role="tablist">
+      <div className="flex items-end gap-1">
+        {PAGE_TABS.map((tab) => {
+          const isActive =
+            tab.href === '/'
+              ? location === '/'
+              : location === tab.href || location.startsWith(tab.href + '/');
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className={cn(
+                'px-4 sm:px-6 py-2.5 font-mono text-xs border border-b-0 rounded-t-[4px] transition-all duration-300 whitespace-nowrap text-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                isActive
+                  ? 'bg-primary text-primary-foreground border-primary/80 shadow-[inset_0_2px_0_rgba(255,255,255,0.2)] z-10 -mb-[1px] pt-3 pb-2 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary-foreground'
+                  : 'bg-secondary text-secondary-foreground border-border/60 hover:bg-[#C0BDA3] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] opacity-80 hover:opacity-100 hover:-translate-y-[1px] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+              )}
+              role="tab"
+              aria-selected={isActive}
             >
               {tab.label}
             </Link>

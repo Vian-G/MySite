@@ -2,7 +2,7 @@ import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PaperSheet } from '@/components/ui/PaperSheet';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { TornPhotoWindow } from '@/components/ui/TornPhotoWindow';
-import { FolderTab } from '@/components/ui/FolderTab';
+import { PageFolderTab } from '@/components/ui/FolderTab';
 import { useSEO } from '@/hooks/use-seo';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import { skills } from '@/config/skills';
@@ -34,7 +34,8 @@ export default function About() {
   return (
     <div className="flex flex-col gap-20 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out pb-16">
 
-      <FolderTab />
+      {/* Page-level folder tabs */}
+      <PageFolderTab />
 
       {/* ── Identity header ─────────────────────────────────────────────── */}
       <div className="-mt-4 flex flex-col gap-6">
@@ -98,7 +99,6 @@ export default function About() {
         {/* LEFT COL */}
         <div className="flex flex-col gap-12">
 
-          {/* 01 Approach */}
           <section>
             <SectionHead index="01_APPROACH">How I work</SectionHead>
             <PaperSheet className="p-6 md:p-8" variant="clipped">
@@ -116,7 +116,6 @@ export default function About() {
             </PaperSheet>
           </section>
 
-          {/* 02 Skills */}
           <section>
             <SectionHead index="02_CAPABILITIES">Skills</SectionHead>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border border-border">
@@ -135,7 +134,6 @@ export default function About() {
         {/* RIGHT COL */}
         <div className="flex flex-col gap-12">
 
-          {/* 03 Availability */}
           <section>
             <SectionHead index="03_AVAILABILITY">What I’m looking for</SectionHead>
             <PaperSheet className="p-6 md:p-8" variant="default">
@@ -162,7 +160,6 @@ export default function About() {
             </PaperSheet>
           </section>
 
-          {/* Contact CTA */}
           <section className="flex flex-col gap-6 border-t border-border pt-10">
             <div>
               <p className="font-serif text-2xl text-foreground">Want to work together?</p>
