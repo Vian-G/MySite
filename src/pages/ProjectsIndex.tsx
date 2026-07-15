@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { FolderTab } from '@/components/ui/FolderTab';
 import { PaperSheet } from '@/components/ui/PaperSheet';
@@ -6,12 +5,18 @@ import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { SystemsRibbonSvg, type ProjectId } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import { useActiveSection } from '@/hooks/use-active-section';
 import { useSidebarParallax } from '@/hooks/use-sidebar-parallax';
 import { usePageTransition } from '@/components/layout/PageTransitionOverlay';
 import { projects } from '@/config/projects';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
+
+const SIDEBAR_ANIMATIONS: { id: ProjectId; label: string }[] = [
+  { id: '01', label: 'MOBILITY / TRACK SYSTEM' },
+  { id: '02', label: 'TOOLPATH / ROBOT ARM' },
+  { id: '03', label: 'SURFACE MOBILITY / SOLAR' },
+  { id: '05', label: 'VEHICLE FAB / COMPOSITE' },
+];
 
 const SectionHead = ({ children }: { children: React.ReactNode }) => (
   <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
@@ -23,9 +28,6 @@ const SectionHead = ({ children }: { children: React.ReactNode }) => (
 export default function ProjectsIndex() {
   useSEO('Engineering Work | Vian Garg', 'Projects spanning rover systems, industrial automation, perception workflows, and interactive development.');
   const { navigateWithFlash } = usePageTransition();
-
-  const sectionIds = useMemo(() => projects.map((p) => `project-${p.id}`), []);
-  const activeId = useActiveSection(sectionIds, 0.4) as ProjectId;
   const sidebarRef = useSidebarParallax<HTMLElement>();
 
   return (
@@ -36,7 +38,6 @@ export default function ProjectsIndex() {
         <MetalDataPlate>PROJECT ARCHIVE / {String(projects.length).padStart(2, '0')} ENTRIES</MetalDataPlate>
       </div>
 
-      {/* Title block */}
       <PaperSheet className="p-8 md:p-12 w-full" variant="clipped">
         <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4 leading-tight">Engineering work</h1>
         <p className="font-sans text-lg text-muted-foreground">
@@ -44,19 +45,17 @@ export default function ProjectsIndex() {
         </p>
       </PaperSheet>
 
-      {/* 2-column grid — matches ProjectLayout exactly */}
+      {/* 2-column grid */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start mt-4">
 
         {/* LEFT — project entries */}
         <div className="flex flex-col gap-16 min-w-0">
           {projects.map((prj, i) => (
             <div key={prj.id} id={`project-${prj.id}`} className="flex flex-col gap-6">
-
               <SectionHead>
                 {prj.id} / {prj.title.split('—')[0].split('/')[0].trim().toUpperCase()}
               </SectionHead>
 
-              {/* Metadata table */}
               <div className="flex flex-col gap-3 w-full bg-secondary/30 p-6 border border-border/50">
                 {([
                   ['ROLE',  prj.type ?? prj.role],
@@ -69,10 +68,8 @@ export default function ProjectsIndex() {
                 ))}
               </div>
 
-              {/* Summary */}
               <p className="font-sans text-foreground leading-relaxed">{prj.summary}</p>
 
-              {/* Key facts */}
               {prj.facts && prj.facts.length > 0 && (
                 <div className="flex flex-col gap-2">
                   <span className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-2">
@@ -87,7 +84,6 @@ export default function ProjectsIndex() {
                 </div>
               )}
 
-              {/* Stack tags */}
               <div className="flex flex-wrap gap-2">
                 {prj.stack.map((tech) => (
                   <span key={tech} className="font-mono text-[10px] sm:text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-[2px] border border-border shadow-sm uppercase tracking-wider">
@@ -96,7 +92,7 @@ export default function ProjectsIndex() {
                 ))}
               </div>
 
-              {/* Photo figure — shown on mobile only; desktop sees it in the sidebar */}
+              {/* Photo — mobile only */}
               <div className="lg:hidden">
                 <TechnicalFigure
                   src={prj.photo}
@@ -107,7 +103,6 @@ export default function ProjectsIndex() {
                 />
               </div>
 
-              {/* CTA */}
               <div className="pt-2">
                 <button
                   onClick={() => navigateWithFlash(prj.href)}
@@ -119,31 +114,30 @@ export default function ProjectsIndex() {
                 </button>
               </div>
 
-              {i < projects.length - 1 && (
-                <div className="border-t border-border/40 mt-4" />
-              )}
+              {i < projects.length - 1 && <div className="border-t border-border/40 mt-4" />}
             </div>
           ))}
         </div>
 
-        {/* RIGHT — proportional-scroll sidebar, desktop only */}
+        {/* RIGHT — 4 animations, proportional scroll */}
         <div className="hidden lg:block relative">
           <aside ref={sidebarRef} className="flex flex-col gap-5 will-change-transform">
-            {/* Animated schematic — switches to active project's animation */}
-            <div className="w-full aspect-square border border-border/50 bg-[#E8E6D9] p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
-              <SystemsRibbonSvg activeState={activeId} className="w-full h-full" />
-            </div>
-            {/* Label strip below the animation box */}
-            <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider px-1 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
-              SYSTEM SCHEMATIC / FIG. {activeId}
-            </div>
+            {SIDEBAR_ANIMATIONS.map(({ id, label }) => (
+              <div key={id} className="flex flex-col gap-2">
+                <div className="w-full aspect-square border border-border/50 bg-[#E8E6D9] p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
+                  <SystemsRibbonSvg activeState={id} className="w-full h-full" />
+                </div>
+                <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider px-1 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
+                  {label} / FIG. {id}
+                </div>
+              </div>
+            ))}
           </aside>
         </div>
 
       </div>
 
-      {/* Footer nav */}
       <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border mt-8">
         <Link href="/" className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs">
