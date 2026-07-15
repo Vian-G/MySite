@@ -7,6 +7,7 @@ import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
+import { useSidebarParallax } from '@/hooks/use-sidebar-parallax';
 
 export interface ProjectPhoto {
   /** Imported asset URL or any image path. Accepts jpg, png, webp, gif, avif, svg. */
@@ -42,15 +43,10 @@ interface ProjectLayoutProps {
   reinforced: string;
   slots?: React.ReactNode;
   /**
-   * Optional array of photos shown in a sticky right-column figure stack.
-   * The column starts level with the project title / subtitle card.
+   * Optional array of photos shown in a right-column figure stack.
+   * The stack scrolls proportionally so its bottom aligns with the page
+   * bottom at the same moment you reach the end of the page.
    * Accepts jpg, png, webp, gif, avif, svg.
-   *
-   * @example
-   * photos={[
-   *   { src: roverPhoto, caption: 'Rover on the test bed', altText: 'Rover on the test bed' },
-   *   { src: trackPhoto, caption: 'Metal track fabrication' },
-   * ]}
    */
   photos?: ProjectPhoto[];
 }
@@ -73,6 +69,7 @@ export function ProjectLayout({
 }: ProjectLayoutProps) {
   const { prev, next } = getAdjacentProjects(slug);
   const hasPhotos = photos && photos.length > 0;
+  const sidebarRef = useSidebarParallax<HTMLElement>();
 
   const SectionHead = ({ children }: { children: React.ReactNode }) => (
     <h2 className="font-mono text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2 flex items-center gap-2">
@@ -81,7 +78,6 @@ export function ProjectLayout({
     </h2>
   );
 
-  // ── Photo figures (shared between desktop aside and mobile fallback) ────
   const photoFigures = hasPhotos ? photos!.map((photo, idx) => (
     <TechnicalFigure
       key={idx}
@@ -96,28 +92,25 @@ export function ProjectLayout({
   return (
     <div className="animate-in fade-in duration-700 pb-16 flex flex-col gap-8">
 
-      {/* ── Full-width top chrome (FolderTab + plate label) ────────────────
-          These sit above the grid so they span the full width as before.   */}
+      {/* Full-width chrome above the grid */}
       <FolderTab />
       <div className="-mt-4">
         <MetalDataPlate>{plateText}</MetalDataPlate>
       </div>
 
-      {/* ── From the title card downward: two-column on lg, single below ── */}
+      {/* Two-column grid starts at the title card */}
       <div className={hasPhotos
         ? 'w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start'
         : 'w-full max-w-4xl flex flex-col gap-8'
       }>
 
-        {/* LEFT / single column — title card → schematic → metadata → sections */}
+        {/* LEFT — body */}
         <div className="flex flex-col gap-8 min-w-0">
-          {/* Title + subtitle */}
           <PaperSheet className="p-8 md:p-12 w-full" variant="clipped">
             <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4 leading-tight">{title}</h1>
             <p className="font-sans text-lg text-muted-foreground">{subtitle}</p>
           </PaperSheet>
 
-          {/* Primary schematic */}
           <TechnicalFigure
             caption={primaryFigure.caption || title}
             label={primaryFigure.label}
@@ -127,7 +120,6 @@ export function ProjectLayout({
             {primaryFigure.svg}
           </TechnicalFigure>
 
-          {/* Metadata table */}
           <div className="flex flex-col gap-3 w-full bg-secondary/30 p-6 border border-border/50">
             {Object.entries(metadata).map(([key, value]) => {
               if (!value) return null;
@@ -140,7 +132,6 @@ export function ProjectLayout({
             })}
           </div>
 
-          {/* Body sections */}
           <div className="flex flex-col gap-12">
             <section>
               <SectionHead>Overview</SectionHead>
@@ -207,7 +198,7 @@ export function ProjectLayout({
             </section>
           </div>
 
-          {/* Mobile photo stack — below body, hidden on lg */}
+          {/* Mobile: photos flow below body */}
           {hasPhotos && (
             <div className="lg:hidden flex flex-col gap-5 mt-4">
               {photoFigures}
@@ -215,11 +206,18 @@ export function ProjectLayout({
           )}
         </div>
 
-        {/* RIGHT — sticky photo column, desktop only, top-aligns with title card */}
+        {/* RIGHT — proportional-scroll photo column, desktop only.
+            The wrapper fills the grid cell height; the aside sits inside
+            it and is translated by useSidebarParallax. */}
         {hasPhotos && (
-          <aside className="hidden lg:flex flex-col gap-5 sticky top-8 self-start">
-            {photoFigures}
-          </aside>
+          <div className="hidden lg:block relative" style={{ minHeight: '100%' }}>
+            <aside
+              ref={sidebarRef}
+              className="flex flex-col gap-5 will-change-transform"
+            >
+              {photoFigures}
+            </aside>
+          </div>
         )}
 
       </div>
