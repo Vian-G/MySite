@@ -100,7 +100,7 @@ export function ProjectLayout({
 
       {/* Two-column grid starts at the title card */}
       <div className={hasPhotos
-        ? 'w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start'
+        ? 'w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start'
         : 'w-full max-w-4xl flex flex-col gap-8'
       }>
 
@@ -206,9 +206,7 @@ export function ProjectLayout({
           )}
         </div>
 
-        {/* RIGHT — proportional-scroll photo column, desktop only.
-            The wrapper fills the grid cell height; the aside sits inside
-            it and is translated by useSidebarParallax. */}
+        {/* RIGHT — proportional-scroll photo column, desktop only */}
         {hasPhotos && (
           <div className="hidden lg:block relative" style={{ minHeight: '100%' }}>
             <aside
