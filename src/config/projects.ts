@@ -32,6 +32,8 @@ export type Project = {
   tools: string;
   galleryPhotos: string[];
   facts: string[];
+  /** When true, this project is surfaced in featured contexts (e.g. homepage highlights). */
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -54,6 +56,7 @@ export const projects: Project[] = [
       'Won the Caterpillar "First Steps" Award for best first-year team',
       'First first-year team to score autonomous-navigation points at NASA Lunabotics',
     ],
+    featured: true,
   },
   {
     id: '02',
@@ -74,6 +77,7 @@ export const projects: Project[] = [
       'Remote script validation over the CMU VPN via SSH — no in-person lab access required',
       "Active research at CMU's Engineering Materials for Transformative Technologies Lab",
     ],
+    featured: true,
   },
   {
     id: '03',
@@ -94,6 +98,7 @@ export const projects: Project[] = [
       'Redesigned the camera shroud protecting its stereo-vision navigation sensors',
       "Launches 2029 aboard Firefly Aerospace's Blue Ghost lander to the lunar south pole",
     ],
+    featured: true,
   },
   {
     id: '04',
