@@ -48,6 +48,10 @@ export default function MoonRanger() {
         { src: moonRangerPhoto2, caption: 'Camera shroud detail', altText: 'Camera shroud housing the stereo-vision navigation system' },
         { src: moonRangerPhoto3, caption: 'Integration and assembly', altText: 'MoonRanger mechanical integration and assembly' },
       ]}
+      links={[
+        { label: 'MoonRanger Lab', href: 'https://labs.ri.cmu.edu/moonranger/' },
+        { label: 'EMIT Lab', href: 'https://www.meche.engineering.cmu.edu/faculty/emit-lab.html' },
+      ]}
       slots={
         <>
           <TechnicalFigure caption="Camera shroud CAD render" altText="Reserved figure slot for Camera shroud CAD render" isSlot />

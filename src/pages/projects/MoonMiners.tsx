@@ -44,11 +44,14 @@ export default function MoonMiners() {
         label: "SYSTEM SCHEMATIC / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="01" />
       }}
-      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar 'First Steps' Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
+      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar ‘First Steps’ Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
       photos={[
         { src: moonMinersPhoto, caption: 'Rover on the competition field', altText: 'CMU Moon Miners rover on the competition field' },
         { src: moonMinersPhoto2, caption: 'Metal track fabrication', altText: 'Metal track system fabrication detail' },
         { src: moonMinersPhoto3, caption: 'Autonomous navigation test', altText: 'Rover during autonomous navigation testing' },
+      ]}
+      links={[
+        { label: 'cmu-moon-miners.com', href: 'https://cmu-moon-miners.com' },
       ]}
       slots={
         <>

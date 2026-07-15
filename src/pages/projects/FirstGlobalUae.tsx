@@ -22,10 +22,10 @@ export default function FirstGlobalUae() {
         TIMEFRAME: "2025",
         STATUS: "Complete"
       }}
-      brief="FIRST Global is an international robotics competition bringing together teams from nearly every country in the world. As National Robotics Vice President, I helped lead the UAE's 22-member national team through robot design, build, and competition at the 2025 event in Athens, Greece."
+      brief="FIRST Global is an international robotics competition bringing together teams from nearly every country in the world. As National Robotics Vice President, I helped lead the UAE’s 22-member national team through robot design, build, and competition at the 2025 event in Athens, Greece."
       objective="Lead the mechanical design and construction of a competition robot built around a 6-foot telescoping cascade lift and an omni-wheel drivetrain, while coordinating a 22-member national team through the build season."
       workedOn={[
-        "Led the UAE's 22-member national team as Robotics Vice President",
+        "Led the UAE’s 22-member national team as Robotics Vice President",
         "Directed mechanical design and build of a robot featuring a 6-foot telescoping cascade lift",
         "Built an omni-wheel drivetrain for full omni-directional maneuverability on the competition field",
         "Coordinated team logistics, build schedule, and technical strategy through international competition"
@@ -45,11 +45,15 @@ export default function FirstGlobalUae() {
         label: "LIFT MECHANISM SCHEMATIC / CONCEPTUAL",
         svg: <SystemsRibbonSvg activeState="06" />
       }}
-      reinforced="Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece — a record-breaking result built on a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain."
+      reinforced="Led the UAE’s 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece — a record-breaking result built on a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain."
       photos={[
         { src: firstGlobalUaePhoto, caption: 'Team UAE at FIRST Global 2025', altText: 'FIRST Global Team UAE at the 2025 competition in Athens, Greece' },
         { src: firstGlobalUaePhoto2, caption: 'Robot with cascade lift', altText: 'Competition robot featuring 6-foot telescoping cascade lift' },
         { src: firstGlobalUaePhoto3, caption: 'Omni-wheel drivetrain', altText: 'Omni-wheel drivetrain assembly' },
+      ]}
+      links={[
+        { label: 'FIRST Global UAE', href: 'https://first.global/2024-nations/united-arab-emirates-2024/' },
+        { label: 'Khaleej Times coverage', href: 'https://www.khaleejtimes.com/uae/education/dubai-students-passports-stolen-in-athens-team-still-bags-silver-in-robotics-contest' },
       ]}
       slots={
         <>

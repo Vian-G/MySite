@@ -17,12 +17,10 @@ export default function Ur10eWelding() {
         <span className="font-mono text-sm text-foreground">UR10e Cobot</span>
         <span className="font-mono text-sm text-foreground">URScript control</span>
       </PaperSheet>
-      
       <PaperSheet variant="default" className="p-4 border-dashed border-border/60 bg-transparent flex flex-col gap-2 shadow-none">
         <span className="font-mono text-[10px] text-muted-foreground uppercase">System 02</span>
         <span className="font-mono text-sm text-foreground">Welding equipment</span>
       </PaperSheet>
-      
       <div className="md:col-span-2 mt-2">
         <PaperSheet variant="default" className="p-4 border border-primary/30 bg-primary/5 flex flex-col gap-2">
           <span className="font-mono text-[10px] text-primary uppercase">Interface</span>
@@ -66,6 +64,9 @@ export default function Ur10eWelding() {
         { src: ur10ePhoto, caption: 'UR10e cobot arm setup', altText: 'UR10e collaborative robot arm in the lab' },
         { src: ur10ePhoto2, caption: 'Welding integration', altText: 'Cobot and welding equipment integration' },
         { src: ur10ePhoto3, caption: 'Remote validation setup', altText: 'Remote SSH validation infrastructure' },
+      ]}
+      links={[
+        { label: 'EMIT Lab', href: 'https://www.meche.engineering.cmu.edu/faculty/emit-lab.html' },
       ]}
       slots={
         <>

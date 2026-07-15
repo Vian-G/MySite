@@ -4,7 +4,7 @@ import { PaperSheet } from '@/components/ui/PaperSheet';
 import { FolderTab } from '@/components/ui/FolderTab';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
 import { useSidebarParallax } from '@/hooks/use-sidebar-parallax';
@@ -13,6 +13,13 @@ export interface ProjectPhoto {
   src: string;
   caption?: string;
   altText?: string;
+}
+
+export interface ProjectLink {
+  /** Display label shown in the button */
+  label: string;
+  /** Full URL */
+  href: string;
 }
 
 interface ProjectLayoutProps {
@@ -40,6 +47,8 @@ interface ProjectLayoutProps {
   reinforced: string;
   slots?: React.ReactNode;
   photos?: ProjectPhoto[];
+  /** Optional external links rendered as buttons in a "Links" section */
+  links?: ProjectLink[];
 }
 
 export function ProjectLayout({
@@ -57,9 +66,11 @@ export function ProjectLayout({
   reinforced,
   slots,
   photos,
+  links,
 }: ProjectLayoutProps) {
   const { prev, next } = getAdjacentProjects(slug);
   const hasPhotos = photos && photos.length > 0;
+  const hasLinks = links && links.length > 0;
   const sidebarRef = useSidebarParallax<HTMLElement>();
 
   const SectionHead = ({ children }: { children: React.ReactNode }) => (
@@ -83,13 +94,11 @@ export function ProjectLayout({
   return (
     <div className="animate-in fade-in duration-700 pb-16 flex flex-col gap-8">
 
-      {/* Full-width chrome — always spans the shell content area */}
       <FolderTab />
       <div className="-mt-4">
         <MetalDataPlate>{plateText}</MetalDataPlate>
       </div>
 
-      {/* Grid / single column — w-full so it exactly fills the shell, no inner max-w cap */}
       <div className={hasPhotos
         ? 'w-full grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start'
         : 'w-full max-w-3xl flex flex-col gap-8'
@@ -187,9 +196,31 @@ export function ProjectLayout({
               <SectionHead>Results &amp; lessons learned</SectionHead>
               <p className="font-sans text-foreground leading-relaxed border-l-2 border-primary/60 pl-4 py-1">{reinforced}</p>
             </section>
+
+            {hasLinks && (
+              <section>
+                <SectionHead>Links</SectionHead>
+                <div className="flex flex-wrap gap-3">
+                  {links!.map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]"
+                    >
+                      <PhysicalButton asDiv variant="metal" size="sm" className="gap-1.5 text-xs">
+                        {link.label}
+                        <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
+                      </PhysicalButton>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
-          {/* Mobile: photos flow below body */}
+          {/* Mobile: photos below body */}
           {hasPhotos && (
             <div className="lg:hidden flex flex-col gap-5 mt-4">
               {photoFigures}
@@ -211,7 +242,6 @@ export function ProjectLayout({
 
       </div>
 
-      {/* Prev / Next nav — w-full matches the grid above */}
       <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border">
         <Link href={prev.href} className="w-full sm:w-auto outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
           <PhysicalButton asDiv variant="graphite" className="w-full sm:w-auto flex gap-3 text-xs" data-testid="nav-prev">
