@@ -51,7 +51,6 @@ export default function About() {
               <p className="font-mono text-xs text-muted-foreground mt-3">{LOCATION_STATUS}</p>
             </div>
 
-            {/* Credential stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border border border-border">
               {stats.map(({ label, value }) => (
                 <div key={label} className="bg-background p-4 flex flex-col gap-1">
@@ -61,12 +60,10 @@ export default function About() {
               ))}
             </div>
 
-            {/* Lead paragraph — specific, first-person */}
             <p className="font-sans text-lg text-secondary-foreground leading-relaxed max-w-2xl">
-              I work at the boundary where things have to physically work. Tuning Nav2 costmaps so a tracked rover actually navigates lunar regolith. Writing the URScript layer that bridges human motion to a UR10e end-effector. Redesigning a camera shroud so stereo sensors survive a moon mission. The discipline boundary is where I'm most useful.
+              I work at the boundary where things have to physically work. Tuning Nav2 costmaps so a tracked rover actually navigates lunar regolith. Writing the URScript layer that bridges human motion to a UR10e end-effector. Redesigning a camera shroud so stereo sensors survive a moon mission. The discipline boundary is where I’m most useful.
             </p>
 
-            {/* Resume + contact inline */}
             <div className="flex flex-wrap gap-3">
               <ResumeAction mode="view">
                 {(onClick) => (
@@ -95,82 +92,96 @@ export default function About() {
         </div>
       </div>
 
-      {/* ── How I work ──────────────────────────────────────────────────── */}
-      <section>
-        <SectionHead index="01_APPROACH">How I work</SectionHead>
-        <PaperSheet className="p-8 md:p-10 max-w-3xl" variant="clipped">
-          <div className="flex flex-col gap-6 font-sans text-foreground leading-relaxed">
-            <p>
-              Most interesting problems live at an interface — mechanical meets electrical, sensor data meets a control loop, a human operator meets an industrial robot. I gravitate toward those seams because that’s where the spec sheet ends and the real engineering starts.
-            </p>
-            <p>
-              I try to understand the full stack before touching any layer of it. On Moon Miners I read the Nav2 docs, benchmarked costmap parameters against our physical track geometry, and only then tuned. On the UR10e project I mapped the motion-capture pipeline end-to-end before writing a line of URScript. Getting the picture right first saves a lot of re-work.
-            </p>
-            <p className="border-l-2 border-primary/60 pl-4 py-1 text-secondary-foreground">
-              “Design it so it can’t fail, then test until it does.”
-            </p>
-          </div>
-        </PaperSheet>
-      </section>
+      {/* ── Two-column body ─────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-      {/* ── Skills ──────────────────────────────────────────────────────── */}
-      <section>
-        <SectionHead index="02_CAPABILITIES">Skills</SectionHead>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border border-border max-w-3xl">
-          {skills.map((skill) => (
-            <div key={skill.label} className="bg-background p-6 flex flex-col gap-2">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{skill.label}</span>
-              <span className="font-sans font-semibold text-foreground">{skill.title}</span>
-              <span className="font-sans text-sm text-secondary-foreground leading-relaxed">{skill.description}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* LEFT COL */}
+        <div className="flex flex-col gap-12">
 
-      {/* ── Looking for ─────────────────────────────────────────────────── */}
-      <section>
-        <SectionHead index="03_AVAILABILITY">What I’m looking for</SectionHead>
-        <PaperSheet className="p-8 md:p-10 max-w-3xl" variant="default">
-          <div className="flex flex-col gap-4 font-sans text-foreground leading-relaxed">
-            <p>
-              I am actively seeking summer and co-op internships in <strong>robotics</strong>, <strong>embedded systems</strong>, and <strong>controls</strong> — particularly at companies building physical AI, field robotics, or industrial automation.
-            </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-              {[
-                'Field robotics & autonomous vehicles',
-                'Physical AI & manipulation',
-                'Industrial automation & cobots',
-                'Embedded perception systems',
-                'Aerospace & space robotics',
-                'Hardware-software co-design',
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2 font-mono text-xs text-secondary-foreground">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
-                  {item}
-                </li>
+          {/* 01 Approach */}
+          <section>
+            <SectionHead index="01_APPROACH">How I work</SectionHead>
+            <PaperSheet className="p-6 md:p-8" variant="clipped">
+              <div className="flex flex-col gap-5 font-sans text-foreground leading-relaxed">
+                <p>
+                  Most interesting problems live at an interface — mechanical meets electrical, sensor data meets a control loop, a human operator meets an industrial robot. I gravitate toward those seams because that’s where the spec sheet ends and the real engineering starts.
+                </p>
+                <p>
+                  I try to understand the full stack before touching any layer of it. On Moon Miners I read the Nav2 docs, benchmarked costmap parameters against our physical track geometry, and only then tuned. On the UR10e project I mapped the motion-capture pipeline end-to-end before writing a line of URScript.
+                </p>
+                <p className="border-l-2 border-primary/60 pl-4 py-1 text-secondary-foreground">
+                  “Design it so it can’t fail, then test until it does.”
+                </p>
+              </div>
+            </PaperSheet>
+          </section>
+
+          {/* 02 Skills */}
+          <section>
+            <SectionHead index="02_CAPABILITIES">Skills</SectionHead>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border border-border">
+              {skills.map((skill) => (
+                <div key={skill.label} className="bg-background p-5 flex flex-col gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{skill.label}</span>
+                  <span className="font-sans font-semibold text-foreground">{skill.title}</span>
+                  <span className="font-sans text-sm text-secondary-foreground leading-relaxed">{skill.description}</span>
+                </div>
               ))}
-            </ul>
-          </div>
-        </PaperSheet>
-      </section>
+            </div>
+          </section>
 
-      {/* ── Contact CTA ─────────────────────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-border pt-10 max-w-3xl">
-        <div>
-          <p className="font-serif text-2xl text-foreground">Want to work together?</p>
-          <p className="font-mono text-xs text-muted-foreground mt-1">{EMAIL}</p>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-            <PhysicalButton asDiv variant="rust" size="lg" className="gap-2">
-              Get in touch <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-            </PhysicalButton>
-          </a>
-          <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-            <PhysicalButton asDiv variant="graphite" size="lg">See my work</PhysicalButton>
-          </Link>
+
+        {/* RIGHT COL */}
+        <div className="flex flex-col gap-12">
+
+          {/* 03 Availability */}
+          <section>
+            <SectionHead index="03_AVAILABILITY">What I’m looking for</SectionHead>
+            <PaperSheet className="p-6 md:p-8" variant="default">
+              <div className="flex flex-col gap-4 font-sans text-foreground leading-relaxed">
+                <p>
+                  Actively seeking summer and co-op internships in <strong>robotics</strong>, <strong>embedded systems</strong>, and <strong>controls</strong> — particularly at companies building physical AI, field robotics, or industrial automation.
+                </p>
+                <ul className="grid grid-cols-1 gap-2 mt-2">
+                  {[
+                    'Field robotics & autonomous vehicles',
+                    'Physical AI & manipulation',
+                    'Industrial automation & cobots',
+                    'Embedded perception systems',
+                    'Aerospace & space robotics',
+                    'Hardware-software co-design',
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 font-mono text-xs text-secondary-foreground">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-[1px] shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </PaperSheet>
+          </section>
+
+          {/* Contact CTA */}
+          <section className="flex flex-col gap-6 border-t border-border pt-10">
+            <div>
+              <p className="font-serif text-2xl text-foreground">Want to work together?</p>
+              <p className="font-mono text-xs text-muted-foreground mt-1">{EMAIL}</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <a href={`mailto:${EMAIL}`} className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+                <PhysicalButton asDiv variant="rust" size="lg" className="gap-2">
+                  Get in touch <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                </PhysicalButton>
+              </a>
+              <Link href="/projects" className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+                <PhysicalButton asDiv variant="graphite" size="lg">See my work</PhysicalButton>
+              </Link>
+            </div>
+          </section>
+
         </div>
-      </section>
+      </div>
 
     </div>
   );
