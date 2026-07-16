@@ -46,9 +46,12 @@ export default function MoonRanger() {
       }}
       reinforced="Redesigned the camera shroud protecting MoonRanger's stereo-vision navigation system. The rover launches in 2029 aboard Firefly Aerospace's Blue Ghost lander to the lunar south pole — the first first-year-student mechanical contribution to a NASA flight mission at CMU."
       photos={[
-        { src: moonRangerPhoto, caption: 'MoonRanger rover assembly', altText: 'MoonRanger suitcase-sized lunar rover in assembly' },
-        { src: moonRangerPhoto2, caption: 'Camera shroud detail', altText: 'Redesigned camera shroud housing stereo-vision sensors' },
-        { src: moonRangerPhoto3, caption: 'Stereo vision system', altText: 'Stereo vision navigation system on MoonRanger' },
+        { src: moonRangerPhoto, caption: 'MoonRanger lunar render', altText: 'MoonRanger lunar render' },
+        { src: moonRangerPhoto2, caption: 'Exploded CAD view', altText: 'Exploded CAD view' },
+        { src: moonRangerPhoto3, caption: 'Stereo vision camera shroud system FEA', altText: 'Stereo vision camera shroud system FEA' },
+      ]}
+      links={[
+        { label: 'MoonRanger', href: 'https://labs.ri.cmu.edu/moonranger/' },
       ]}
       slots={
         <>
