@@ -46,9 +46,12 @@ export default function SpiritBuggy() {
       }}
       reinforced="First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years. First male-mold construction method in CMU Buggy's fabrication history. Steering assembly validated in ANSYS before the vehicle raced."
       photos={[
-        { src: spiritBuggyPhoto, caption: 'SPIRIT buggy on track', altText: 'SPIRIT carbon-fiber buggy on the CMU Sweepstakes track' },
+        { src: spiritBuggyPhoto, caption: 'SPIRIT buggies at RaceDay 2026', altText: 'SPIRIT buggies at RaceDay 2026' },
         { src: spiritBuggyPhoto2, caption: 'Carbon fiber layup', altText: 'Carbon fiber layup process with Nomex honeycomb core' },
-        { src: spiritBuggyPhoto3, caption: 'ANSYS steering validation', altText: 'ANSYS FEA results for steering assembly validation' },
+        { src: spiritBuggyPhoto3, caption: 'SPIRIT buggy on track, 1985', altText: 'SPIRIT buggy on track, 1985' },
+      ]}
+      links={[
+        { label: 'SPIRIT Racing Systems', href: 'https://www.spiritracingsystems.com/' },
       ]}
       slots={
         <>

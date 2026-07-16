@@ -138,6 +138,7 @@ export const projects: Project[] = [
       "First male-mold construction method used in CMU Buggy's fabrication history",
       'Nomex honeycomb core sandwiched between carbon-fiber weave layups',
     ],
+    featured: true,
   },
   {
     id: '06',

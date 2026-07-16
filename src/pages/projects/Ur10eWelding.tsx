@@ -48,8 +48,12 @@ export default function Ur10eWelding() {
       reinforced="Engineered remote validation infrastructure for uploading and testing URScript programs over the CMU VPN via SSH — no in-person lab access required. Active research at CMU's Engineering Materials for Transformative Technologies Lab."
       photos={[
         { src: ur10ePhoto, caption: 'UR10e robot arm', altText: 'UR10e six-axis cobot arm in the CMU lab' },
-        { src: ur10ePhoto2, caption: 'URScript interface', altText: 'URScript programming interface and terminal output' },
+        { src: ur10ePhoto2, caption: 'ESAB U82 Welder', altText: 'ESAB U82 Welder used in the welding process' },
         { src: ur10ePhoto3, caption: 'Motion capture setup', altText: 'Motion capture system used for human input recording' },
+      ]}
+      links={[
+        { label: 'CMU EMIT Lab', href: 'https://www.meche.engineering.cmu.edu/faculty/emit-lab.html' },
+        { label: 'GitHub - Weld-Recreation', href: 'https://github.com/CMU-EMIT-Lab/Weld-Recreation' }
       ]}
       slots={
         <>

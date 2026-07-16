@@ -5,6 +5,7 @@ import { useSEO } from '@/hooks/use-seo';
 import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
 import moonMinersPhoto2 from '@/assets/projects/moon-miners-2.jpg';
 import moonMinersPhoto3 from '@/assets/projects/moon-miners-3.jpg';
+import moonMinersPhoto4 from '@/assets/projects/moon-miners-4.jpg';
 
 export default function MoonMiners() {
   useSEO('Moon Miners — NASA Lunabotics | Vian Garg', 'Mechanical and robotics contributions to a lunar excavation rover.');
@@ -46,9 +47,10 @@ export default function MoonMiners() {
       }}
       reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. Won the Caterpillar 'First Steps' Award for best first-year team, and was the first first-year team to score autonomous-navigation points at the NASA Lunabotics competition."
       photos={[
-        { src: moonMinersPhoto, caption: 'Rover on the competition field', altText: 'CMU Moon Miners rover on the competition field' },
-        { src: moonMinersPhoto2, caption: 'Metal track fabrication', altText: 'Metal track system fabrication detail' },
-        { src: moonMinersPhoto3, caption: 'Autonomous navigation test', altText: 'Rover during autonomous navigation testing' },
+        { src: moonMinersPhoto, caption: 'Team photo at University of Central Florida', altText: 'Team photo at University of Central Florida' },
+        { src: moonMinersPhoto2, caption: 'Exploded CAD view', altText: 'Exploded CAD view' },
+        { src: moonMinersPhoto3, caption: 'ATLAS Robot in Exolith Lab Arena', altText: 'ATLAS Robot in Exolith Lab Arena' },
+        { src: moonMinersPhoto4, caption: 'Mobility test bed', altText: 'Mobility test bed for evaluating rover performance' },
       ]}
       links={[
         { label: 'Moon Miners', href: 'https://cmu-moon-miners.com' },

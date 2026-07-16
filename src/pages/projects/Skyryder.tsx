@@ -39,11 +39,11 @@ export default function Skyryder() {
       reinforced="Published independently on itch.io. Demonstrates the ability to scope, execute, and ship a self-directed creative project from concept to completion."
       photos={[
         { src: skyryderPhoto, caption: 'Skyryder gameplay', altText: 'Skyryder game screenshot showing gameplay' },
-        { src: skyryderPhoto2, caption: 'Level design', altText: 'Skyryder level design overview' },
-        { src: skyryderPhoto3, caption: 'Game interface', altText: 'Skyryder game UI and interface elements' },
+        { src: skyryderPhoto2, caption: 'Award at TartanHacks 2026', altText: 'Skyryder awarded at TartanHacks 2026' },
+        { src: skyryderPhoto3, caption: 'Multi computer set up for hackathon', altText: 'Setup with multiple computers for hackathon participation' },
       ]}
       links={[
-        { label: 'Play on itch.io', href: 'https://itch.io' },
+        { label: 'Play on itch.io', href: 'https://vian-g.itch.io/skyryder' },
       ]}
       slots={
         <>
