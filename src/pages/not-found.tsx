@@ -4,9 +4,14 @@ import { MetalDataPlate } from '@/components/ui/MetalDataPlate';
 import { PhysicalButton } from '@/components/ui/PhysicalButton';
 import { useSEO } from '@/hooks/use-seo';
 import { ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function NotFound() {
   useSEO('404 | Vian Garg', 'Page not found.');
+
+  useEffect(() => {
+    window.location.replace(import.meta.env.BASE_URL);
+  }, []);
 
   return (
     <div className="min-h-[60vh] w-full flex items-center justify-center animate-in fade-in duration-700">
