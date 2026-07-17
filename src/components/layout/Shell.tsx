@@ -12,7 +12,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
     { label: 'Home', path: '/' },
     { label: 'Projects', path: '/projects' },
     { label: 'About', path: '/about' },
-    { label: 'Resume', path: '/resume' }
+    { label: 'Academics', path: '/academics' },
+    { label: 'Resume', path: '/resume' },
   ];
 
   return (
@@ -26,18 +27,20 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </Link>
             <span className="hidden sm:inline border-l border-border pl-4">ROBOTICS / ECE</span>
           </div>
-          <nav className="flex items-center h-full">
+          <nav className="flex items-center h-full" aria-label="Primary navigation">
             {navItems.map((item) => {
-              const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume');
+              const active = location === item.path || (item.path !== '/' && location.startsWith(item.path) && item.path !== '/about' && item.path !== '/resume' && item.path !== '/academics');
               const isProjects = item.path === '/projects' && location.startsWith('/projects');
               const finalActive = active || isProjects;
               return (
                 <Link key={item.path} href={item.path} className={cn(
                   "relative h-full flex items-center px-2 sm:px-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:bg-foreground/5 capitalize",
                   finalActive ? "text-primary font-medium" : ""
-                )}>
+                )}
+                  aria-current={finalActive ? 'page' : undefined}
+                >
                   {finalActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" />
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" aria-hidden="true" />
                   )}
                   {item.label}
                 </Link>
