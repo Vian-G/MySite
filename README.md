@@ -43,8 +43,9 @@ src/
 ## Local Development
 
 ```bash
+rm -rf node_modules pnpm-lock.yaml
 pnpm install
-pnpm dev
+pnpm build
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
