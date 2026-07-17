@@ -12,6 +12,7 @@ import Home from '@/pages/Home';
 import ProjectsIndex from '@/pages/ProjectsIndex';
 import About from '@/pages/About';
 import Resume from '@/pages/Resume';
+import Academics from '@/pages/Academics';
 import { projects } from '@/config/projects';
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ function Router() {
       ))}
       <Route path="/about" component={About} />
       <Route path="/resume" component={Resume} />
+      <Route path="/academics" component={Academics} />
       <Route component={NotFound} />
     </Switch>
   );
