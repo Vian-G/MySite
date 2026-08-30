@@ -1,106 +1,59 @@
 # MySite
 
-Personal portfolio site for [Vian Garg](https://www.andrew.cmu.edu/user/viang/) — ECE + Robotics at Carnegie Mellon University.
+Personal portfolio for [Vian Garg](https://www.andrew.cmu.edu/user/viang/), an ECE student pursuing a Robotics minor at Carnegie Mellon University.
 
-Built with React, TypeScript, Vite, Wouter, and Tailwind CSS. Hosted on CMU AFS.
+Built with React 19, TypeScript, Vite, Wouter, Tailwind CSS, and Framer Motion. The static site is hosted on CMU AFS at `/user/viang/`.
 
----
+## Local development
 
-## Stack
+Requirements: Node.js 24.16.0 and pnpm 11.12.0. The package manager version is pinned in `package.json`.
 
-| Layer | Technology |
-|---|---|
-| Framework | React 18 + TypeScript |
-| Build | Vite |
-| Routing | Wouter (hash routing for AFS static hosting) |
-| Styling | Tailwind CSS |
-| Animations | Framer Motion |
-| Package manager | pnpm |
-
----
-
-## Project Structure
-
+```bash
+pnpm install --frozen-lockfile
+pnpm dev
 ```
+
+Useful checks:
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm optimize:images
+```
+
+The production bundle is written to `dist/public/`. Preview it with `pnpm serve` and open `http://localhost:4173/user/viang/`.
+
+## Project structure
+
+```text
 src/
-├── config/          # Site-wide data (projects, skills, contact, resume)
-├── components/
-│   ├── layout/      # Shell, ProjectLayout, PageTransitionOverlay
-│   └── ui/          # Custom design-system components (PaperSheet, MetalDataPlate, etc.)
-├── pages/
-│   ├── Home.tsx
-│   ├── About.tsx
-│   ├── ProjectsIndex.tsx
-│   ├── Resume.tsx
-│   └── projects/    # One file per project page
-├── hooks/
-└── assets/
-    └── projects/    # Project photos
+├── assets/              Original image sources
+├── components/          Layout and active design-system components
+├── config/              Projects, skills, contact, and resume data
+├── hooks/               Shared browser and interaction hooks
+├── pages/               Top-level pages
+└── pages/projects/      Lazy-loaded project case studies
 ```
 
----
+## Adding a project
 
-## Local Development
+1. Add the card metadata and thumbnail import to `src/config/projects.ts`.
+2. Create `src/pages/projects/YourProject.tsx` using `ProjectLayout`.
+3. Use a filename whose PascalCase form maps to the configured kebab-case slug.
+4. Add source photos under `src/assets/projects/` and import them with the Image Tools WebP query used by existing projects.
 
-```bash
-rm -rf node_modules pnpm-lock.yaml
-pnpm install
-pnpm build
-```
+Project routes are discovered automatically with `import.meta.glob` and loaded on demand. No central component registry edit is required.
 
-Open [http://localhost:5173](http://localhost:5173).
+## Images
 
-> **Windows note:** `pnpm install` will work. Native binary dependencies (esbuild) are handled automatically.
+Original JPEGs remain tracked as source material. Vite Image Tools emits WebP derivatives during development and production builds; card images provide 640, 960, and 1280-pixel `srcset` variants, while gallery images are emitted from their lazy project chunks. Run `pnpm optimize:images` after changing `portrait.svg` to apply the repository's deterministic SVGO configuration.
 
----
+Do not commit `dist/`. Verify optimized output with `pnpm verify:images`.
 
-## Build
+## Deployment
 
-```bash
-pnpm build
-```
+Pushes to `main` that affect application or build files trigger **Build AFS Portfolio**. The workflow installs exact tools, uses `--frozen-lockfile`, type-checks, builds, verifies the `/user/viang/` asset base, uploads an artifact, and force-publishes `dist/public/` to the orphan `afs-deploy` branch.
 
-Output goes to `dist/public/`. The build is a fully static SPA using hash routing (`/#/projects/...`) so all routes work on AFS without server rewrites.
+The CMU AFS checkout pulls `afs-deploy`. Hash routing keeps application routes compatible with static hosting.
 
-To preview the build locally:
-
-```bash
-python3 -m http.server 5000 --directory dist/public
-```
-
----
-
-## Deployment (CMU AFS)
-
-Pushing to `main` triggers the **Build AFS Portfolio** GitHub Action, which:
-
-1. Builds the site into `dist/public/`
-2. Publishes the built files to the `afs-deploy` branch
-
-The AFS web directory (`~/www`) tracks `origin/afs-deploy` and pulls automatically via a cron job on CMU's Linux hosts.
-
-Manual deploy after any push:
-
-```bash
-ssh YOUR_ANDREW_ID@linux.andrew.cmu.edu
-cd ~/www && git pull
-```
-
-Live at: **[https://www.andrew.cmu.edu/user/viang/](https://www.andrew.cmu.edu/user/viang/)**
-
----
-
-## Adding a Project
-
-1. Add an entry to `src/config/projects.ts`
-2. Create `src/pages/projects/YourProject.tsx` using `<ProjectLayout />`
-3. Register the component in the `projectComponents` map in `src/App.tsx`
-4. Add photos to `src/assets/projects/`
-
-> See [issue #3](https://github.com/Vian-G/MySite/issues/3) — the `projectComponents` registry will eventually be auto-derived via `import.meta.glob`, removing step 3.
-
----
-
-## Open Issues
-
-See the [issue tracker](https://github.com/Vian-G/MySite/issues) for tracked improvements.
+If deployment fails, inspect the GitHub Actions run first. A stale lockfile fails at installation by design; run `pnpm install`, commit `pnpm-lock.yaml`, and rerun the checks locally.

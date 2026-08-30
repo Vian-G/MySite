@@ -2,9 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import spiritBuggyPhoto from '@/assets/projects/spirit-buggy.jpg';
-import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg';
-import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg';
+import spiritBuggyPhoto from '@/assets/projects/spirit-buggy.jpg?format=webp&w=1280&quality=82';
+import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg?format=webp&w=1280&quality=82';
+import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg?format=webp&w=1280&quality=82';
 
 export default function SpiritBuggy() {
   useSEO('SPIRIT Buggy — CMU Buggy | Vian Garg', "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years.");

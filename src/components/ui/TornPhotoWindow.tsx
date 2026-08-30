@@ -1,8 +1,9 @@
 import React, { useId } from 'react';
 import { cn } from '@/lib/utils';
+import { imageAttributes, type ImageSource } from '@/types/images';
 
 interface TornPhotoWindowProps {
-  src: string;
+  src: ImageSource;
   alt: string;
   className?: string;
   /** Extra classes applied to the underlying <img>, e.g. to adjust object-position. */
@@ -44,7 +45,7 @@ export function TornPhotoWindow({ src, alt, className, imgClassName, variant = 0
         className="relative w-full h-full drop-shadow-[0_4px_8px_rgba(27,28,26,0.35)]"
         style={{ clipPath: `url(#${clipId})` }}
       >
-        <img src={src} alt={alt} loading="lazy" className={cn('w-full h-full object-cover', imgClassName)} />
+        <img {...imageAttributes(src)} alt={alt} loading="lazy" className={cn('w-full h-full object-cover', imgClassName)} />
         {/* Fake depth into the torn hole with an inset shadow around the edge */}
         <div className="absolute inset-0 shadow-[inset_0_0_16px_8px_rgba(20,18,14,0.5)] pointer-events-none" />
       </div>

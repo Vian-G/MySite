@@ -2,9 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg';
-import moonRangerPhoto2 from '@/assets/projects/moon-ranger-2.jpg';
-import moonRangerPhoto3 from '@/assets/projects/moon-ranger-3.jpg';
+import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg?format=webp&w=1280&quality=82';
+import moonRangerPhoto2 from '@/assets/projects/moon-ranger-2.jpg?format=webp&w=1280&quality=82';
+import moonRangerPhoto3 from '@/assets/projects/moon-ranger-3.jpg?format=webp&w=1280&quality=82';
 
 export default function MoonRanger() {
   useSEO('MoonRanger — NASA Lunar Rover | Vian Garg', 'Mechanical contributions to a CMU / Astrobotic / NASA autonomous lunar rover launching in 2029.');

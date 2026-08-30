@@ -2,9 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import ur10ePhoto from '@/assets/projects/ur10e.jpg';
-import ur10ePhoto2 from '@/assets/projects/ur10e-2.jpg';
-import ur10ePhoto3 from '@/assets/projects/ur10e-3.jpg';
+import ur10ePhoto from '@/assets/projects/ur10e.jpg?format=webp&w=1280&quality=82';
+import ur10ePhoto2 from '@/assets/projects/ur10e-2.jpg?format=webp&w=1280&quality=82';
+import ur10ePhoto3 from '@/assets/projects/ur10e-3.jpg?format=webp&w=1280&quality=82';
 
 export default function Ur10eWelding() {
   useSEO('UR10e Cobot Welding | Vian Garg', 'Developing a virtual cobot welding system bridging human motion to UR10e execution.');

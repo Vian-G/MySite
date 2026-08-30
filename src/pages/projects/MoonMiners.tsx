@@ -2,10 +2,10 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import moonMinersPhoto from '@/assets/projects/moon-miners.jpg';
-import moonMinersPhoto2 from '@/assets/projects/moon-miners-2.jpg';
-import moonMinersPhoto3 from '@/assets/projects/moon-miners-3.jpg';
-import moonMinersPhoto4 from '@/assets/projects/moon-miners-4.jpg';
+import moonMinersPhoto from '@/assets/projects/moon-miners.jpg?format=webp&w=1280&quality=82';
+import moonMinersPhoto2 from '@/assets/projects/moon-miners-2.jpg?format=webp&w=1280&quality=82';
+import moonMinersPhoto3 from '@/assets/projects/moon-miners-3.jpg?format=webp&w=1280&quality=82';
+import moonMinersPhoto4 from '@/assets/projects/moon-miners-4.jpg?format=webp&w=1280&quality=82';
 
 export default function MoonMiners() {
   useSEO('Moon Miners — NASA Lunabotics | Vian Garg', 'Mechanical and robotics contributions to a lunar excavation rover.');

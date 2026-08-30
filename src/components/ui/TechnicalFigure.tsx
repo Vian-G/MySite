@@ -1,12 +1,13 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { imageAttributes, type ImageSource } from '@/types/images';
 
 interface TechnicalFigureProps {
   caption: string;
   figureNumber?: string;
   altText: string;
   label?: string;
-  src?: string;
+  src?: ImageSource;
   isSlot?: boolean; // dev-only
   children?: React.ReactNode;
 }
@@ -45,7 +46,7 @@ export function TechnicalFigure({
         }} />
         
         {src ? (
-          <img src={src} alt={altText} className="relative z-10 max-w-full h-auto object-contain max-h-[400px] p-4 drop-shadow-sm mix-blend-multiply" />
+          <img {...imageAttributes(src)} alt={altText} loading="lazy" className="relative z-10 max-w-full h-auto object-contain max-h-[400px] p-4 drop-shadow-sm mix-blend-multiply" />
         ) : (
           <div className="relative z-10 w-full max-w-lg p-8 drop-shadow-sm">
             {children}

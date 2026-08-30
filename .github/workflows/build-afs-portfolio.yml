@@ -52,7 +52,10 @@ jobs:
           pnpm --version
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Type-check portfolio
+        run: pnpm typecheck
 
       - name: Build portfolio
         run: pnpm build
@@ -61,7 +64,7 @@ jobs:
         run: |
           test -f dist/public/index.html
           test -d dist/public/assets
-          grep -q 'src="./assets/' dist/public/index.html
+          grep -q 'src="/user/viang/assets/' dist/public/index.html
           ! grep -q 'src="/assets/' dist/public/index.html
           ! grep -q 'src="/src/main.tsx' dist/public/index.html
 

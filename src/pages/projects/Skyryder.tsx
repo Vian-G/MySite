@@ -2,9 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import skyryderPhoto from '@/assets/projects/skyryder.jpg';
-import skyryderPhoto2 from '@/assets/projects/skyryder-2.jpg';
-import skyryderPhoto3 from '@/assets/projects/skyryder-3.jpg';
+import skyryderPhoto from '@/assets/projects/skyryder.jpg?format=webp&w=1280&quality=82';
+import skyryderPhoto2 from '@/assets/projects/skyryder-2.jpg?format=webp&w=1280&quality=82';
+import skyryderPhoto3 from '@/assets/projects/skyryder-3.jpg?format=webp&w=1280&quality=82';
 
 export default function Skyryder() {
   useSEO('Skyryder | Vian Garg', 'An original playable game project published independently on itch.io.');
