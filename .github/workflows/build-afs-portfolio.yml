@@ -14,6 +14,9 @@ on:
       - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
+      - "playwright.config.ts"
+      - "tests/**"
+      - "scripts/verify-build-budgets.mjs"
       - ".github/workflows/build-afs-portfolio.yml"
 
 permissions:

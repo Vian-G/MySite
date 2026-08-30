@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const previewPort = Number(process.env.PORT) || 4173;
+const previewBaseUrl = `http://127.0.0.1:${previewPort}/user/viang/`;
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -8,13 +11,13 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4173/user/viang/',
+    baseURL: previewBaseUrl,
     trace: 'on-first-retry',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'pnpm build && pnpm serve',
-    url: 'http://127.0.0.1:4173/user/viang/',
+    url: previewBaseUrl,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
