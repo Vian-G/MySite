@@ -2,9 +2,9 @@ import { ProjectLayout } from '@/components/layout/ProjectLayout';
 import { TechnicalFigure } from '@/components/ui/TechnicalFigure';
 import { SystemsRibbonSvg } from '@/components/ui/SystemsRibbonSvg';
 import { useSEO } from '@/hooks/use-seo';
-import firstGlobalUaePhoto from '@/assets/projects/first-global-uae.jpg';
-import firstGlobalUaePhoto2 from '@/assets/projects/first-global-uae-2.jpg';
-import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg';
+import firstGlobalUaePhoto from '@/assets/projects/first-global-uae.jpg?format=webp&w=1280&quality=82';
+import firstGlobalUaePhoto2 from '@/assets/projects/first-global-uae-2.jpg?format=webp&w=1280&quality=82';
+import firstGlobalUaePhoto3 from '@/assets/projects/first-global-uae-3.jpg?format=webp&w=1280&quality=82';
 
 export default function FirstGlobalUae() {
   useSEO('FIRST Global Team UAE 2024 | Vian Garg', "Led the UAE's national team to a 2nd-of-193-countries finish at FIRST Global 2024.");

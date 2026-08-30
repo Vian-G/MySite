@@ -8,9 +8,10 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { getAdjacentProjects, projectNavLabel } from '@/config/projects';
 import { useSidebarParallax } from '@/hooks/use-sidebar-parallax';
+import type { ImageSource } from '@/types/images';
 
 export interface ProjectPhoto {
-  src: string;
+  src: ImageSource;
   caption?: string;
   altText?: string;
 }

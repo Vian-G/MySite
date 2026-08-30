@@ -11,6 +11,7 @@ import { ResumeAction } from '@/components/ui/ResumeAction';
 import { EMAIL, LOCATION_STATUS } from '@/config/contact';
 import { projects } from '@/config/projects';
 import { skills } from '@/config/skills';
+import { imageAttributes } from '@/types/images';
 
 const featuredProjects = projects.filter((p) => p.featured);
 
@@ -108,10 +109,10 @@ export default function Home() {
 
                 <div className="relative w-full aspect-[16/10] md:aspect-[2/1] border border-border/50 bg-[#E8E6D9] items-center justify-center p-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] overflow-hidden">
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
-                    <SystemsRibbonSvg activeState={prj.id as any} />
+                    <SystemsRibbonSvg activeState={prj.id} />
                   </div>
                   <img
-                    src={prj.photo}
+                    {...imageAttributes(prj.photo)}
                     alt={`Photo reference for ${prj.title}`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-100"
