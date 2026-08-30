@@ -18,6 +18,8 @@ Useful checks:
 ```bash
 pnpm typecheck
 pnpm build
+pnpm verify:build-budgets
+pnpm test:smoke
 pnpm optimize:images
 ```
 
@@ -57,3 +59,5 @@ Pushes to `main` that affect application or build files trigger **Build AFS Port
 The CMU AFS checkout pulls `afs-deploy`. Hash routing keeps application routes compatible with static hosting.
 
 If deployment fails, inspect the GitHub Actions run first. A stale lockfile fails at installation by design; run `pnpm install`, commit `pnpm-lock.yaml`, and rerun the checks locally.
+
+The deployment workflow also enforces raw bundle budgets and runs Playwright smoke tests against the production preview. The smoke suite covers every public route, project navigation, the not-found fallback, and the resume verification dialog.
