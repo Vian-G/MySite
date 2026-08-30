@@ -60,6 +60,15 @@ jobs:
       - name: Build portfolio
         run: pnpm build
 
+      - name: Enforce build budgets
+        run: pnpm verify:build-budgets
+
+      - name: Install Chromium for smoke tests
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run production smoke tests
+        run: pnpm test:smoke
+
       - name: Verify deploy files
         run: |
           test -f dist/public/index.html
