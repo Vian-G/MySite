@@ -111,12 +111,12 @@ export default function Home() {
                   <div className="w-full h-full transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-0">
                     <SystemsRibbonSvg activeState={prj.id} />
                   </div>
-                  <img
+                  {prj.photo && <img
                     {...imageAttributes(prj.photo)}
-                    alt={`Photo reference for ${prj.title}`}
+                    alt={prj.imageAlt ?? `Photo reference for ${prj.title}`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 motion-reduce:transition-none group-hover:opacity-100"
-                  />
+                  />}
                 </div>
 
                 <div className="flex flex-col gap-4 justify-center">

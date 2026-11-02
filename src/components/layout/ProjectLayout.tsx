@@ -43,6 +43,7 @@ interface ProjectLayoutProps {
     svg: React.ReactNode;
     label: string;
     caption?: string;
+    contentClassName?: string;
   };
   reinforced: string;
   slots?: React.ReactNode;
@@ -134,6 +135,7 @@ export function ProjectLayout({
             label={primaryFigure.label}
             altText={`Conceptual system schematic for ${title}`}
             figureNumber="01"
+            contentClassName={primaryFigure.contentClassName}
           >
             {primaryFigure.svg}
           </TechnicalFigure>
@@ -202,7 +204,7 @@ export function ProjectLayout({
             <section>
               <SectionHead>Process and evidence</SectionHead>
               <div className="flex flex-col gap-6">
-                <p className="font-sans text-sm text-muted-foreground italic">Reference Figure 01 above for system schematic.</p>
+                <p className="font-sans text-sm text-muted-foreground italic">Project illustration above; supporting diagrams and evidence below.</p>
                 {slots}
               </div>
             </section>

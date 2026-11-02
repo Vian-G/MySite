@@ -2,7 +2,7 @@ import { lazy, Suspense, type ComponentType } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { Redirect, Route, Switch, Router as WouterRouter } from 'wouter';
 import { useHashLocation } from 'wouter/use-hash-location';
 import { Shell } from '@/components/layout/Shell';
 import { PageTransitionProvider } from '@/components/layout/PageTransitionOverlay';
@@ -42,6 +42,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/projects" component={ProjectsIndex} />
+      <Route path="/projects/ur10e-welding"><Redirect to="/projects/emit-lab" replace /></Route>
+      <Route path="/projects/yaskawa-welding"><Redirect to="/projects/emit-lab" replace /></Route>
+      <Route path="/projects/srs-heating-control"><Redirect to="/projects/spirit-buggy" replace /></Route>
       {projects.filter((project) => projectComponents[project.slug]).map((project) => (
         <Route
           key={project.slug}

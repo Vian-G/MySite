@@ -16,8 +16,23 @@ const STATE_DESCRIPTIONS: Record<ProjectId, string> = {
   '03': 'Animated schematic of a four-wheeled lunar rover with a solar panel and spinning wheels.',
   '04': 'Animated schematic of a plane shown from a third-person chase view, swaying gently as the background scrolls past to convey forward flight.',
   '05': 'Animated schematic of a CMU Sweepstakes buggy — low torpedo-shaped carbon-fiber shell, prone driver, reverse-trike wheels, driving along a flat track.',
+  '07': 'Animated aerodynamics illustration of a gently pitching airfoil with airflow bending in step with its tilt, representing the HALCON engineering internship.',
   '06': 'Animated schematic of a competition robot with a telescoping cascade lift extending and retracting above an omni-wheel drivetrain.',
 };
+
+// Artistic streamlines with matching path commands for smooth SVG morphing.
+// Pitch changes the nearby curvature and downstream deflection, not the inlet.
+function airfoilStreamline(height: number, pitch: number) {
+  const bend = height < 200 ? -18 : 12;
+  const influence = Math.max(0.25, 1 - Math.abs(height - 205) / 160);
+  const deflection = pitch * influence;
+  return `M 25,${height} C 85,${height} 105,${height + bend - deflection * 0.3} 150,${height + bend - deflection * 0.2} C 210,${height + bend + deflection * 0.75} 265,${height + deflection * 1.5} 305,${height + deflection * 1.2} S 350,${height + deflection} 375,${height + deflection * 0.8}`;
+}
+
+const AIRFOIL_PITCHES = [-12, 0, 12, 0, -12];
+const AIRFOIL_DURATION = '8s';
+const AIRFOIL_KEY_TIMES = '0;0.25;0.5;0.75;1';
+const AIRFOIL_KEY_SPLINES = '0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1';
 
 function usePrefersMotion() {
   const [motionAllowed, setMotionAllowed] = useState(true);
@@ -394,6 +409,31 @@ export function SystemsRibbonSvg({ activeState = '01', className }: SystemsRibbo
         </g>
 
         <circle cx="340" cy="200" r="4" fill="var(--background)" stroke="currentColor" strokeWidth="1.5" />
+      </g>
+
+      {/* 07: HALCON — conceptual airflow, not measured analysis data. */}
+      <g className={cn("transition-opacity duration-1000", activeState === '07' ? "opacity-100" : "opacity-0")} data-illustration="aerodynamics">
+        <text x="20" y="30" fontSize="10" fill="currentColor" opacity="0.6">07 / HALCON</text>
+        <text x="20" y="45" fontSize="10" fill="currentColor" opacity="0.6">AERODYNAMICS / SIMULATION</text>
+        {[100, 135, 170, 240, 275, 310].map((height) => (
+          <path key={height} d={airfoilStreamline(height, 0)} data-airflow="true"
+            fill="none" stroke="currentColor" strokeWidth="1.25" strokeOpacity="0.4" strokeDasharray="9 7">
+            {motionAllowed && <>
+              <animate attributeName="d" values={AIRFOIL_PITCHES.map((pitch) => airfoilStreamline(height, pitch)).join(';')}
+                dur={AIRFOIL_DURATION} keyTimes={AIRFOIL_KEY_TIMES} calcMode="spline" keySplines={AIRFOIL_KEY_SPLINES} repeatCount="indefinite" />
+              <animate attributeName="stroke-dashoffset" from="32" to="0" dur="1.5s" repeatCount="indefinite" />
+            </>}
+          </path>
+        ))}
+        <g data-airfoil="true">
+          {motionAllowed && <animateTransform attributeName="transform" type="rotate"
+            values={AIRFOIL_PITCHES.map((pitch) => `${pitch} 155 197`).join(';')}
+            dur={AIRFOIL_DURATION} keyTimes={AIRFOIL_KEY_TIMES} calcMode="spline" keySplines={AIRFOIL_KEY_SPLINES} repeatCount="indefinite" />}
+          <path d="M 105,205 C 115,170 195,164 300,205 C 224,217 147,222 105,205 Z" fill="hsl(var(--background))" stroke="currentColor" strokeWidth="2" />
+          <path d="M 110,205 H 300" fill="none" stroke="currentColor" strokeOpacity="0.35" strokeDasharray="4 5" />
+          <circle cx="155" cy="197" r="4" fill="hsl(var(--primary))" />
+        </g>
+        <text x="105" y="350" fontSize="9" fill="currentColor" opacity="0.6">CONCEPTUAL AIRFLOW / NOT MEASURED DATA</text>
       </g>
 
       {/* 06: FIRST Global */}

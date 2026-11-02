@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">SRS monitoring and control simulation</title>
+  <desc id="desc">Thermocouple measurements feed a Python dashboard and CSV history. A separate four-zone control simulation handles hysteresis and faults, with no hardware actuation.</desc>
+  <defs><pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#ddd8c9" stroke-width="1"/></pattern><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#b8422d" stroke-width="1.5"/></marker></defs>
+  <path fill="#f1ede4" d="M0 0h800v500H0z"/><path fill="url(#grid)" d="M0 0h800v500H0z"/>
+  <g font-family="Arial, sans-serif" fill="#2b2d2a">
+    <text x="48" y="53" font-size="15" letter-spacing="3" fill="#b8422d">SPIRIT BUGGY / HEATING BOX</text>
+    <text x="48" y="100" font-size="35" font-weight="700">Measure first. Model the control.</text>
+    <g fill="#e8e6d9" stroke="#8d8a82" stroke-width="1.5"><rect x="48" y="154" width="210" height="114" rx="4"/><rect x="300" y="154" width="200" height="114" rx="4"/><rect x="542" y="154" width="210" height="114" rx="4"/><rect x="48" y="318" width="704" height="118" rx="4"/></g>
+    <g stroke="#b8422d" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M258 211h40"/><path d="M500 211h40"/></g>
+    <g font-size="22" font-weight="700"><text x="68" y="195">Thermocouples</text><text x="320" y="195">Python UI</text><text x="562" y="195">CSV history</text><text x="68" y="355">Four-zone simulation</text></g>
+    <g font-size="17" fill="#5b594f"><text x="68" y="229">Phidget acquisition</text><text x="320" y="229">Status + trends</text><text x="562" y="229">Measured data</text><text x="68" y="386">Hysteresis · stale-sensor faults · overtemperature latching</text><text x="68" y="414">Separate simulated requests / no hardware actuation</text></g>
+    <text x="48" y="473" font-size="13" letter-spacing="1.5" fill="#5b594f">CONCEPTUAL ARCHITECTURE / PHYSICAL WIRING UNVERIFIED</text>
+  </g>
+</svg>
