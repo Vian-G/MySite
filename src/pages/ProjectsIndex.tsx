@@ -86,15 +86,15 @@ export default function ProjectsIndex() {
               </div>
 
               {/* Photo — mobile only */}
-              <div className="lg:hidden">
+              {prj.photo && <div className="lg:hidden">
                 <TechnicalFigure
                   src={prj.photo}
                   caption={prj.title}
-                  altText={`Photo for ${prj.title}`}
+                  altText={prj.imageAlt ?? `Photo for ${prj.title}`}
                   figureNumber={prj.id}
                   label={`PHOTO / FIG. ${prj.id}`}
                 />
-              </div>
+              </div>}
 
               <div className="pt-2">
                 <button
@@ -112,7 +112,7 @@ export default function ProjectsIndex() {
           ))}
         </div>
 
-        {/* RIGHT — all 6 animations, proportional scroll */}
+        {/* RIGHT — all project animations, proportional scroll */}
         <div className="hidden lg:block relative">
           <aside ref={sidebarRef} className="flex flex-col gap-5 will-change-transform">
             {projects.map((prj) => (

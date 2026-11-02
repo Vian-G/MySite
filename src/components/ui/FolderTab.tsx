@@ -5,11 +5,12 @@ import { Link, useLocation } from 'wouter';
 // ── Project sub-navigation tabs (used on individual project pages) ────────
 export const TABS = [
   { label: '01 / MOON MINERS', href: '/projects/moon-miners' },
-  { label: '02 / UR10E', href: '/projects/ur10e-welding' },
+  { label: '02 / EMIT LAB', href: '/projects/emit-lab' },
   { label: '03 / MOONRANGER', href: '/projects/moon-ranger' },
   { label: '04 / SKYRYDER', href: '/projects/skyryder' },
   { label: '05 / SPIRIT BUGGY', href: '/projects/spirit-buggy' },
   { label: '06 / FIRST GLOBAL UAE', href: '/projects/first-global-uae' },
+  { label: '07 / HALCON', href: '/projects/halcon' },
 ];
 
 export function FolderTab() {

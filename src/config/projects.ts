@@ -1,6 +1,6 @@
 import type { ResponsiveImage } from '@/types/images';
-import moonMinersPhoto from '@/assets/projects/moon-miners.jpg?format=webp&w=1280&quality=82';
-import moonMinersSrcSet from '@/assets/projects/moon-miners.jpg?format=webp&w=640;960;1280&quality=82&as=srcset';
+import moonMinersPhoto from '@/assets/projects/moon-miners-field-test.jpg?format=webp&w=1280&quality=82';
+import moonMinersSrcSet from '@/assets/projects/moon-miners-field-test.jpg?format=webp&w=640;960;1280&quality=82&as=srcset';
 import ur10ePhoto from '@/assets/projects/ur10e.jpg?format=webp&w=1280&quality=82';
 import ur10eSrcSet from '@/assets/projects/ur10e.jpg?format=webp&w=640;960;1280&quality=82&as=srcset';
 import moonRangerPhoto from '@/assets/projects/moon-ranger.jpg?format=webp&w=1280&quality=82';
@@ -27,7 +27,8 @@ export type Project = {
   stack: string[];
   result: string;
   href: string;
-  photo: ResponsiveImage;
+  photo?: ResponsiveImage;
+  imageAlt?: string;
   type?: string;
   summary: string;
   tools: string;
@@ -43,37 +44,39 @@ export const projects: Project[] = [
     title: 'CMU Moon Miners — NASA Lunabotics',
     role: 'Mechanical / Robotics Engineer',
     problem: 'Developing a high-payload autonomous lunar excavation rover for competition.',
-    stack: ['SolidWorks', 'CAD', 'Simulation', 'Robotics'],
+    stack: ['SolidWorks', 'Nav2', 'ESP32', 'Python / Pygame'],
     result: 'Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 simulant.',
     href: '/projects/moon-miners',
     photo: cardImage(moonMinersPhoto, moonMinersSrcSet),
+    imageAlt: 'CMU Moon Miners tracked excavation rover in an outdoor sand test area.',
     summary:
-      'Developing a high-payload autonomous lunar excavation rover. Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant.',
-    tools: 'SolidWorks, CAD, Mechanical Design, Simulation, Robotics, Autonomous Systems',
+      'From rover mobility to wireless control: a metal track system achieving a 1.55 drawbar-pull ratio, Nav2 tuning, and Python-to-ESP32 teleoperation for a Lunabotics test bot.',
+    tools: 'SolidWorks, Nav2, ESP32, Python, Pygame, UDP, Embedded Firmware',
     facts: [
       'Drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant',
       'Won the Caterpillar "First Steps" Award for best first-year team',
       'First first-year team to score autonomous-navigation points at NASA Lunabotics',
+      'Wireless teleoperation with explicit arming, deadman controls, and disconnect handling; 71 software tests reported October 19, 2026',
     ],
     featured: true,
   },
   {
     id: '02',
-    slug: 'ur10e-welding',
-    title: 'UR10e Cobot Welding',
+    slug: 'emit-lab',
+    title: 'EMIT Lab — Robotic Welding',
     role: 'Robotics Researcher',
-    problem: 'Developing a virtual cobot welding system bridging human motion to execution.',
-    stack: ['UR10e', 'URScript', 'EtherNet/IP'],
-    result: 'Engineered remote validation infrastructure for uploading/testing scripts over VPN via SSH.',
-    href: '/projects/ur10e-welding',
+    problem: 'Connecting human motion and experiment preparation to inspectable industrial robot workflows.',
+    stack: ['UR10e', 'MATLAB / C++', 'YMConnect', 'ESAB'],
+    result: 'Remote URScript validation and Yaskawa experiment software; 215 offline tests reported October 28, 2026.',
+    href: '/projects/emit-lab',
     photo: cardImage(ur10ePhoto, ur10eSrcSet),
-    summary:
-      'Developing a virtual cobot welding system that bridges human motion input to UR10e execution via URScript. Engineered remote validation infrastructure for script testing.',
-    tools: 'UR10e, URScript, Python, Industrial Robotics, SSH, Automation',
+    imageAlt: 'UR10e cobot used in the EMIT Lab human-motion recreation workstream.',
+    summary: 'Robotic welding research across UR10e human-motion recreation and Yaskawa experiment software, with ESAB integration, simulation, and session logging.',
+    tools: 'UR10e, URScript, Python, MATLAB, C++, YMConnect, INFORM, ESAB, SSH',
     facts: [
-      'Bridges human motion input to UR10e execution via URScript',
-      'Remote script validation over the CMU VPN via SSH — no in-person lab access required',
-      "Active research at CMU's Engineering Materials for Transformative Technologies Lab",
+      'Connected human motion to UR10e execution through URScript and remote script validation',
+      'Developed a MATLAB/C++ interface for Yaskawa robot jobs, welding workflows, and recorded experiments',
+      '215 passing Yaskawa offline tests reported October 28, 2026; live workflow acceptance remains pending',
     ],
     featured: true,
   },
@@ -95,7 +98,7 @@ export const projects: Project[] = [
       'Redesigned the camera shroud protecting its stereo-vision navigation sensors',
       "Launches 2029 aboard Firefly Aerospace's Blue Ghost lander to the lunar south pole",
     ],
-    featured: true,
+    featured: false,
   },
   {
     id: '04',
@@ -121,37 +124,58 @@ export const projects: Project[] = [
     title: 'SPIRIT Buggy — CMU Buggy',
     role: 'Assistant Build Lead',
     problem: "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years.",
-    stack: ['SolidWorks', 'ANSYS', 'Carbon Fiber Layup', 'Composite Fabrication'],
+    stack: ['SolidWorks', 'Composites', 'Python', 'Instrumentation'],
     result: 'Introduced a male-mold construction method new to the team and designed a steering assembly validated in ANSYS before it raced.',
     href: '/projects/spirit-buggy',
     photo: cardImage(spiritBuggyPhoto, spiritBuggySrcSet),
     summary:
-      "CMU Buggy's first new carbon-fiber vehicle design in over fifteen years. Introduced a male-mold construction method new to the team and designed a steering assembly validated in ANSYS before it raced.",
-    tools: 'SolidWorks, ANSYS, Carbon Fiber Layup, Composite Fabrication',
+      "Composite buggy fabrication and steering analysis, alongside Python temperature monitoring and four-zone control simulation for the SPIRIT Racing Systems heating box.",
+    tools: 'SolidWorks, ANSYS, Carbon Fiber Layup, Python, Streamlit, Phidget22, Control Simulation',
     facts: [
       'First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years',
       "First male-mold construction method used in CMU Buggy's fabrication history",
       'Nomex honeycomb core sandwiched between carbon-fiber weave layups',
+      'Heating-box monitoring, CSV logging, and four-zone control simulation; 43 tests documented October 16, 2026',
+      'Physical heater actuation remains unimplemented and wiring validation is pending',
     ],
     featured: true,
   },
   {
     id: '06',
     slug: 'first-global-uae',
-    title: 'FIRST Global Team UAE 2025',
+    title: 'FIRST Global Team UAE 2024',
     role: 'National Robotics Vice President',
-    problem: "Led the UAE's 22-member national team at FIRST Global 2025 in Athens, Greece.",
+    problem: "Led the UAE's 22-member national team at FIRST Global 2024 in Athens, Greece.",
     stack: ['Mechanical Design', 'Team Leadership', 'Cascade Lift Mechanisms', 'Omni-Wheel Drivetrains'],
     result: 'Achieved a 2nd-of-193-countries finish with a robot featuring a 6-foot telescoping cascade lift and omni-wheel drivetrain.',
     href: '/projects/first-global-uae',
     photo: cardImage(firstGlobalUaePhoto, firstGlobalUaeSrcSet),
     summary:
-      "Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece, building a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain.",
+      "Led the UAE's 22-member national team to a 2nd-of-193-countries finish at FIRST Global 2024 in Athens, Greece, building a robot with a 6-foot telescoping cascade lift and an omni-wheel drivetrain.",
     tools: 'Mechanical Design, Team Leadership, Cascade Lift Mechanisms, Omni-Wheel Drivetrains',
     facts: [
       'Led a 22-member national team as Robotics Vice President',
       'Robot featured a 6-foot telescoping cascade lift and omni-wheel drivetrain',
-      '2nd-of-193-countries finish at FIRST Global 2025 in Athens, Greece',
+      '2nd-of-193-countries finish at FIRST Global 2024 in Athens, Greece',
+    ],
+  },
+
+  {
+    id: '07',
+    slug: 'halcon',
+    title: 'HALCON — Aerodynamics Internship',
+    role: 'Aerodynamics Engineering Intern',
+    problem: 'Exploring aerodynamic behavior and stability through engineering analysis and simulation.',
+    stack: ['ANSYS Fluent', 'XFLR5', 'Python', 'Simulation'],
+    result: 'Developed simulation and analysis tools alongside CFD and stability studies during a summer engineering internship.',
+    href: '/projects/halcon',
+    type: 'Internship / HALCON, EDGE Group',
+    summary: 'A summer aerodynamics engineering internship at HALCON, EDGE Group in Abu Dhabi, spanning CFD, stability analysis, state-space tools, and simulation programming.',
+    tools: 'ANSYS Fluent, XFLR5, Python, Pygame, Object-Oriented Programming, State-Space Modeling',
+    facts: [
+      'Aerodynamics Engineering Intern, June–August 2024, Abu Dhabi, UAE',
+      'Performed CFD and stability analysis using ANSYS Fluent and XFLR5',
+      'Built state-space utilities, a matrix calculator, and a Pygame simulation environment',
     ],
   },
 ];
