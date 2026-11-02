@@ -10,6 +10,8 @@ import fieldTest from '@/assets/projects/moon-miners-field-test.jpg?format=webp&
 import digging from '@/assets/projects/moon-miners-digging.jpg?format=webp&w=1280&quality=82';
 import pitWork from '@/assets/projects/moon-miners-pit.jpg?format=webp&w=1280&quality=82';
 import award from '@/assets/projects/moon-miners-award.jpg?format=webp&w=960&quality=78';
+import trackingSetup from '@/assets/projects/moon-miners-tracking-setup.jpg?format=webp&w=960&quality=78';
+import trackingResults from '@/assets/projects/moon-miners-tracking-results.jpg?format=webp&w=1280&quality=82';
 
 export default function MoonMiners() {
   useSEO('Moon Miners — NASA Lunabotics | Vian Garg', 'Rover mobility, Nav2 tuning, and Python-to-ESP32 wireless teleoperation for CMU Moon Miners.');
@@ -56,7 +58,7 @@ export default function MoonMiners() {
         label: 'SYSTEM SCHEMATIC / CONCEPTUAL',
         svg: <SystemsRibbonSvg activeState="01" />,
       }}
-      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. The team won the Caterpillar 'First Steps' Award for best first-year team and became the first first-year team to score autonomous-navigation points at NASA Lunabotics. For the separate TacoBell teleoperation system, the October 19, 2026 progress report records 71 passing software tests. Those tests do not establish powered driving performance: real controller layouts, motor direction, loaded behavior, stopping distance, and RF range still require hardware commissioning. No ground-driving validation is claimed."
+      reinforced="Designed and fabricated a metal track system achieving a drawbar-pull ratio of 1.55 on BP-1 lunar regolith simulant. The team won the Caterpillar 'First Steps' Award for best first-year team and became the first first-year team to score autonomous-navigation points at NASA Lunabotics. For the separate TacoBell teleoperation system, the October 19, 2026 progress report records 71 passing software tests. That software milestone did not establish powered driving performance. The later October 31 tracking summary below documents separately supplied mobility-test evidence, with coordinate-unit and turning-radius qualifications retained in the chart."
       photos={[
         { src: moonMinersPhoto, caption: 'Team photo at University of Central Florida', altText: 'Team photo at University of Central Florida' },
         { src: moonMinersPhoto2, caption: 'Exploded CAD view', altText: 'Exploded CAD view' },
@@ -74,7 +76,11 @@ export default function MoonMiners() {
             <TechnicalFigure src={digging} label="EXCAVATION" caption="The excavation conveyor working in the test arena." altText="Moon Miners rover digging into simulant with its excavation conveyor inside an enclosed arena." />
             <TechnicalFigure src={pitWork} label="PIT WORK" caption="Electronics and integration work at the pit table." altText="Team members working with rover electronics, wiring, batteries, and laptops on a pit table." />
             <TechnicalFigure src={award} label="TEAM / COMPETITION" caption="Moon Miners team members with a NASA Lunabotics award." altText="Four Moon Miners team members holding an award in front of the NASA globe sign." />
+            <TechnicalFigure src={trackingSetup} label="MOBILITY / TRACKING SETUP" caption="Weighted tracked test platform with a tracking prism mounted above the chassis." altText="Tracked rover test platform carrying weight plates and a raised survey prism, with a tether held beside the test area." />
           </div>
+          <a href={trackingResults} target="_blank" rel="noopener noreferrer" className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <TechnicalFigure src={trackingResults} label="OCTOBER 31 / TRACKING ANALYSIS" caption="Supplied Leica tracking summary for 11 runs. Distances use exported coordinate units; radii describe the prism path, not necessarily the rover centerline. Open image for a larger view." altText="October 31 Leica tracking chart showing 11 rover trajectories, per-run speeds, fitted turning radii, and notes qualifying coordinate units and short-arc fits." />
+          </a>
         </section>
       }
     />
