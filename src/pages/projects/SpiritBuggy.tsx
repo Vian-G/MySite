@@ -7,6 +7,8 @@ import heatingSimulation from '@/assets/projects/srs-simulation.png?format=webp&
 import spiritBuggyPhoto from '@/assets/projects/spirit-buggy.jpg?format=webp&w=1280&quality=82';
 import spiritBuggyPhoto2 from '@/assets/projects/spirit-buggy-2.jpg?format=webp&w=1280&quality=82';
 import spiritBuggyPhoto3 from '@/assets/projects/spirit-buggy-3.jpg?format=webp&w=1280&quality=82';
+import carbonShell from '@/assets/projects/spirit-carbon-shell.jpg?format=webp&w=960&quality=78';
+import heatingRun from '@/assets/projects/spirit-heating-run.jpg?format=webp&w=1280&quality=82';
 
 export default function SpiritBuggy() {
   useSEO('SPIRIT Buggy — CMU Buggy | Vian Garg', 'Composite vehicle fabrication, steering analysis, and SRS heating-box monitoring and control simulation for SPIRIT Buggy.');
@@ -54,7 +56,7 @@ export default function SpiritBuggy() {
         svg: <SystemsRibbonSvg activeState="05" />,
         caption: 'Animated buggy illustration. Heating-box monitoring and simulation are documented separately below.',
       }}
-      reinforced="First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years, using a male-mold method new to the team and a steering assembly validated in ANSYS before racing. For SRS heating software, the October 16, 2026 Phase 2 verification documents 43 passing tests. Physical heater actuation remains unimplemented, and wiring and physical output behavior remain unverified."
+      reinforced="First new carbon-fiber buggy design fielded by CMU Buggy in over fifteen years, using a male-mold method new to the team and a steering assembly validated in ANSYS before racing. For SRS heating software, the October 16, 2026 Phase 2 verification documents 43 passing tests. That verification covered simulation rather than physical heater control. The later workshop and heating-run photos below are separate documentation."
       photos={[
         { src: spiritBuggyPhoto, caption: 'SPIRIT buggies at RaceDay 2026', altText: 'SPIRIT buggies at RaceDay 2026' },
         { src: spiritBuggyPhoto2, caption: 'Carbon fiber layup', altText: 'Carbon fiber layup process with Nomex honeycomb core' },
@@ -78,7 +80,12 @@ export default function SpiritBuggy() {
             <div className="max-w-sm">
               <TechnicalFigure src={heatingSimulation} label="SRS DASHBOARD / SOFTWARE SIMULATION" caption="Saved October 16, 2026 verification screenshot: a synthetic 23°C input produces a simulated heating request. No hardware actuation." altText="SRS heating dashboard showing Zone 0 at a synthetic 23 degrees Celsius, a simulated heating request, and the label No hardware actuation." />
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">The October 16 verification records 43 passing tests covering device inventory, mappings, simulation states, hysteresis boundaries, faults, reset, and logging failures. Temperature acquisition had been verified earlier; disconnected thermocouples were not revalidated in Phase 2. Relay wiring, polarity, heater assignments, and physical output states remain unverified.</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">The October 16 verification records 43 passing tests covering device inventory, mappings, simulation states, hysteresis boundaries, faults, reset, and logging failures. Temperature acquisition had been verified earlier; disconnected thermocouples were not revalidated in Phase 2. Relay wiring, polarity, heater assignments, and physical output states were unverified in that report.</p>
+          </section>
+          <section aria-labelledby="spirit-workshop" className="flex flex-col gap-5">
+            <h3 id="spirit-workshop" className="font-serif text-2xl">Workshop &amp; heating-run documentation</h3>
+            <TechnicalFigure src={carbonShell} label="COMPOSITES / WORKSHOP" caption="Carbon-fiber shell during workshop fabrication." altText="Close view of a carbon-fiber buggy shell on a workshop fixture with team members working behind it." />
+            <TechnicalFigure src={heatingRun} label="OCTOBER 31 / TEMPERATURE LOGGING" caption="Photographed heating-run display showing four temperature channels, a rising temperature history, and a heater-ON software indicator. The display alone does not verify physical output behavior." altText="Laptop displaying a four-channel temperature log and rising temperature curves during an October 31 heating run." />
           </section>
         </>
       }
