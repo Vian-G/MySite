@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Serve real files and directories normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirect unknown paths (not /user/viang/ itself) to home
+RewriteCond %{REQUEST_URI} !^/user/viang/$
+RewriteRule ^ /user/viang/ [R=301,L]
